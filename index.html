@@ -11,524 +11,109 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --navy:       #0B1623;
-    --navy2:      #111F2E;
-    --navy3:      #162534;
-    --border:     rgba(255,255,255,0.08);
-    --border2:    rgba(255,255,255,0.14);
-    --cream:      #F0EAD6;
-    --white:      #FFFFFF;
-    --muted:      rgba(255,255,255,0.45);
-    --muted2:     rgba(255,255,255,0.24);
-    --accent:     #C8A96E;
-    --accent2:    #E8C98A;
-    --accent-dim: rgba(200,169,110,0.10);
-    --accent-dim2:rgba(200,169,110,0.18);
-    --max:        1080px;
-    --pad:        clamp(20px, 5vw, 56px);
+    --navy: #0B1623; --navy2: #111F2E; --navy3: #162534;
+    --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.14);
+    --cream: #F0EAD6; --white: #FFFFFF;
+    --muted: rgba(255,255,255,0.45); --muted2: rgba(255,255,255,0.24);
+    --accent: #C8A96E; --accent2: #E8C98A;
+    --accent-dim: rgba(200,169,110,0.10); --accent-dim2: rgba(200,169,110,0.18);
+    --max: 1080px; --pad: clamp(20px,5vw,56px);
   }
-
   html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.65;
-    overflow-x: hidden;
-  }
-
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-    background-size: 72px 72px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  /* NAV */
-  .nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    background: rgba(11,22,35,0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 var(--pad);
-  }
-
-  .nav-logo {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-  }
-
-  /* Inline R mark */
-  .nav-mark {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-  }
-
-  .nav-wordmark {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px;
-    color: var(--cream);
-    letter-spacing: -0.01em;
-  }
+  body { background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-weight: 300; line-height: 1.65; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px); background-size: 72px 72px; pointer-events: none; z-index: 0; }
+  .nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(11,22,35,0.92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 var(--pad); }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-wordmark { font-family: 'DM Serif Display',serif; font-size: 20px; color: var(--cream); letter-spacing: -0.01em; }
   .nav-wordmark .v { color: var(--accent); font-style: italic; }
-
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 28px;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 24px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
+  .nav-right { display: flex; align-items: center; gap: 28px; }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover { color: var(--accent); }
-
-  .nav-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--accent);
-    color: var(--navy);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 9px 20px;
-    border-radius: 3px;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-  }
+  .nav-cta { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: var(--navy); font-size: 12px; font-weight: 500; letter-spacing: 0.04em; padding: 9px 20px; border-radius: 3px; text-decoration: none; transition: background 0.2s,transform 0.15s; }
   .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
-
-  /* WRAP */
-  .wrap {
-    position: relative;
-    z-index: 1;
-    max-width: var(--max);
-    margin: 0 auto;
-    padding: 0 var(--pad);
-  }
-
+  .wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
   section { padding: 96px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: none; }
-
-  .eyebrow {
-    font-size: 11px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 16px;
-    display: block;
-  }
-
-  .section-rule {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 48px;
-  }
-  .section-rule h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(22px, 3vw, 32px);
-    font-weight: 400;
-    color: var(--white);
-    white-space: nowrap;
-  }
+  .eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: block; }
+  .section-rule { display: flex; align-items: center; gap: 16px; margin-bottom: 48px; }
+  .section-rule h2 { font-family: 'DM Serif Display',serif; font-size: clamp(22px,3vw,32px); font-weight: 400; color: var(--white); white-space: nowrap; }
   .section-rule .rule { flex: 1; height: 1px; background: var(--border); }
-  .section-rule .tag {
-    font-size: 11px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted2);
-    white-space: nowrap;
-  }
-
-  /* HERO */
-  #hero {
-    padding-top: 148px;
-    padding-bottom: 96px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .hero-inner {
-    display: grid;
-    grid-template-columns: 1fr 360px;
-    gap: 64px;
-    align-items: center;
-  }
-
-  .hero-logo-large {
-    margin-bottom: 36px;
-  }
-
-  .hero-headline {
-    font-family: 'DM Serif Display', serif;
-    font-size: clamp(36px, 5.5vw, 66px);
-    font-weight: 400;
-    line-height: 1.08;
-    color: var(--white);
-    margin-bottom: 24px;
-  }
-  .hero-headline em { font-style: italic; color: var(--cream); }
-
-  .hero-sub {
-    font-size: clamp(15px, 1.8vw, 17px);
-    color: var(--muted);
-    line-height: 1.75;
-    max-width: 520px;
-    margin-bottom: 40px;
-  }
-  .hero-sub strong { color: rgba(255,255,255,0.8); font-weight: 500; }
-
-  .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--accent);
-    color: var(--navy);
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.03em;
-    padding: 14px 28px;
-    border-radius: 3px;
-    text-decoration: none;
-    transition: background 0.2s, transform 0.15s;
-  }
+  .section-rule .tag { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); white-space: nowrap; }
+  .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--accent); color: var(--navy); font-size: 14px; font-weight: 500; letter-spacing: 0.03em; padding: 14px 28px; border-radius: 3px; text-decoration: none; transition: background 0.2s,transform 0.15s; }
   .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-
-  .btn-ghost {
-    font-size: 13px;
-    color: var(--muted);
-    text-decoration: none;
-    border-bottom: 1px solid var(--border2);
-    padding-bottom: 2px;
-    transition: color 0.2s, border-color 0.2s;
-  }
+  .btn-ghost { font-size: 13px; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border2); padding-bottom: 2px; transition: color 0.2s,border-color 0.2s; }
   .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
-
-  /* Hero right card */
-  .hero-card {
-    background: var(--navy2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .hero-card-header {
-    padding: 20px 22px 16px;
-    border-bottom: 1px solid var(--border);
-  }
-  .hero-card-label {
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 6px;
-  }
-  .hero-card-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 16px;
-    color: var(--cream);
-    line-height: 1.3;
-  }
-  .hero-stat {
-    padding: 16px 22px;
-    border-bottom: 1px solid var(--border);
-  }
+  #hero { padding-top: 148px; padding-bottom: 96px; border-bottom: 1px solid var(--border); }
+  .hero-inner { display: grid; grid-template-columns: 1fr 360px; gap: 64px; align-items: center; }
+  .hero-headline { font-family: 'DM Serif Display',serif; font-size: clamp(36px,5.5vw,66px); font-weight: 400; line-height: 1.08; color: var(--white); margin-bottom: 24px; }
+  .hero-headline em { font-style: italic; color: var(--cream); }
+  .hero-sub { font-size: clamp(15px,1.8vw,17px); color: var(--muted); line-height: 1.75; max-width: 520px; margin-bottom: 40px; }
+  .hero-sub strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+  .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .hero-card { background: var(--navy2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .hero-card-header { padding: 20px 22px 16px; border-bottom: 1px solid var(--border); }
+  .hero-card-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .hero-card-title { font-family: 'DM Serif Display',serif; font-size: 16px; color: var(--cream); line-height: 1.3; }
+  .hero-stat { padding: 16px 22px; border-bottom: 1px solid var(--border); }
   .hero-stat:last-child { border-bottom: none; }
-  .hero-stat-num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 26px;
-    color: var(--accent2);
-    line-height: 1;
-    margin-bottom: 3px;
-  }
+  .hero-stat-num { font-family: 'DM Serif Display',serif; font-size: 26px; color: var(--accent2); line-height: 1; margin-bottom: 3px; }
   .hero-stat-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
-
-  /* TAGLINE BAR */
-  .tagline-bar {
-    background: var(--accent-dim);
-    border: 1px solid rgba(200,169,110,0.15);
-    border-radius: 4px;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-top: 48px;
-  }
+  .tagline-bar { background: var(--accent-dim); border: 1px solid rgba(200,169,110,0.15); border-radius: 4px; padding: 16px 24px; display: flex; align-items: center; gap: 20px; margin-top: 48px; }
   .tagline-bar-rule { width: 1px; height: 32px; background: rgba(200,169,110,0.3); flex-shrink: 0; }
   .tagline-bar-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
   .tagline-bar-text strong { color: var(--cream); font-weight: 500; }
-  .tagline-bar-label {
-    font-size: 10px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  /* PROBLEM */
-  .tensions-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 48px;
-  }
-  .tension {
-    background: var(--navy2);
-    padding: 28px 24px;
-    cursor: default;
-    position: relative;
-    transition: background 0.2s;
-  }
+  .tagline-bar-label { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .tensions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 48px; }
+  .tension { background: var(--navy2); padding: 28px 24px; cursor: default; position: relative; transition: background 0.2s; }
   .tension:hover { background: var(--navy3); }
-  .tension::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: transparent;
-    transition: background 0.25s;
-  }
+  .tension::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: transparent; transition: background 0.25s; }
   .tension:hover::before { background: var(--accent); }
-  .tension-num {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
+  .tension-num { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
   .tension-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 8px; line-height: 1.35; }
   .tension-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
-  .tension-expand-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 12px;
-    font-size: 11px;
-    color: var(--accent);
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    letter-spacing: 0.06em;
-    transition: opacity 0.2s;
-  }
-  .tension-expand-btn:hover { opacity: 0.75; }
-  .tension-expand-btn .chevron {
-    width: 10px; height: 10px;
-    border-right: 1.5px solid var(--accent);
-    border-bottom: 1.5px solid var(--accent);
-    transform: rotate(45deg);
-    transition: transform 0.25s;
-    flex-shrink: 0;
-    margin-top: -3px;
-  }
+  .tension-expand-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 11px; color: var(--accent); background: none; border: none; cursor: pointer; padding: 0; letter-spacing: 0.06em; }
+  .tension-expand-btn .chevron { width: 10px; height: 10px; border-right: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent); transform: rotate(45deg); transition: transform 0.25s; flex-shrink: 0; margin-top: -3px; }
   .tension-expand-btn.open .chevron { transform: rotate(-135deg); margin-top: 3px; }
-  .tension-detail {
-    display: none;
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 1px solid var(--border);
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
+  .tension-detail { display: none; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; color: var(--muted); line-height: 1.7; }
   .tension-detail.open { display: block; }
-  .tension-quote {
-    margin-top: 12px;
-    padding: 12px 14px;
-    background: var(--accent-dim);
-    border-left: 2px solid var(--accent);
-    border-radius: 0 2px 2px 0;
-  }
+  .tension-quote { margin-top: 12px; padding: 12px 14px; background: var(--accent-dim); border-left: 2px solid var(--accent); border-radius: 0 2px 2px 0; }
   .tension-quote-text { font-size: 12px; color: var(--cream); font-style: italic; line-height: 1.6; margin-bottom: 5px; }
   .tension-quote-source { font-size: 10px; color: var(--muted2); letter-spacing: 0.06em; text-transform: uppercase; }
-
-  .ceo-qs {
-    background: var(--navy2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-  }
-  .ceo-q {
-    padding: 18px 24px;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    transition: background 0.2s;
-  }
+  .ceo-qs { background: var(--navy2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .ceo-q { padding: 18px 24px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.2s; }
   .ceo-q:last-child { border-bottom: none; }
   .ceo-q:hover { background: var(--navy3); }
   .ceo-q-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .ceo-q-text { font-size: 14px; color: var(--cream); font-family: 'DM Serif Display', serif; font-style: italic; line-height: 1.4; }
-  .ceo-q-icon {
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    border: 1px solid var(--border2);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    color: var(--accent);
-    font-size: 14px;
-    transition: transform 0.25s, border-color 0.2s;
-  }
+  .ceo-q-text { font-size: 14px; color: var(--cream); font-family: 'DM Serif Display',serif; font-style: italic; line-height: 1.4; }
+  .ceo-q-icon { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--accent); font-size: 14px; transition: transform 0.25s,border-color 0.2s; }
   .ceo-q.open .ceo-q-icon { transform: rotate(45deg); border-color: var(--accent); }
-  .ceo-q-answer {
-    display: none;
-    margin-top: 12px;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.65;
-  }
+  .ceo-q-answer { display: none; margin-top: 12px; font-size: 13px; color: var(--muted); line-height: 1.65; }
   .ceo-q-answer.open { display: block; }
-
-  /* FOUNDER */
-  .founder-wrap {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 48px;
-  }
-  .founder-left {
-    background: var(--navy2);
-    padding: 36px 32px;
-  }
-  .founder-eyebrow {
-    font-size: 10px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
-  }
-  .founder-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    color: var(--cream);
-    margin-bottom: 4px;
-  }
-  .founder-title {
-    font-size: 13px;
-    color: var(--accent);
-    letter-spacing: 0.04em;
-    margin-bottom: 20px;
-  }
-  .founder-bio {
-    font-size: 14px;
-    color: var(--muted);
-    line-height: 1.75;
-  }
+  .founder-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 48px; }
+  .founder-left { background: var(--navy2); padding: 36px 32px; }
+  .founder-eyebrow { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .founder-name { font-family: 'DM Serif Display',serif; font-size: 28px; color: var(--cream); margin-bottom: 4px; }
+  .founder-title { font-size: 13px; color: var(--accent); letter-spacing: 0.04em; margin-bottom: 20px; }
+  .founder-bio { font-size: 14px; color: var(--muted); line-height: 1.75; }
   .founder-bio strong { color: rgba(255,255,255,0.75); font-weight: 500; }
-  .founder-right {
-    background: var(--navy2);
-    padding: 36px 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 1px;
-  }
-  .founder-stat {
-    padding: 16px 0;
-    border-bottom: 1px solid var(--border);
-  }
+  .founder-right { background: var(--navy2); padding: 36px 32px; display: flex; flex-direction: column; }
+  .founder-stat { padding: 16px 0; border-bottom: 1px solid var(--border); }
   .founder-stat:first-child { padding-top: 0; }
   .founder-stat:last-child { border-bottom: none; padding-bottom: 0; }
-  .founder-stat-num {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    color: var(--accent2);
-    line-height: 1;
-    margin-bottom: 3px;
-  }
+  .founder-stat-num { font-family: 'DM Serif Display',serif; font-size: 28px; color: var(--accent2); line-height: 1; margin-bottom: 3px; }
   .founder-stat-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
   .founder-stat-sub { font-size: 11px; color: var(--muted2); margin-top: 2px; }
-
-  /* EXPERIENCE */
-  .stats-row {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 48px;
-  }
-  .stat-cell { background: var(--navy2); padding: 24px 20px; }
-  .stat-cell .n { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--accent2); line-height: 1; margin-bottom: 5px; }
-  .stat-cell .l { font-size: 12px; color: var(--muted); line-height: 1.45; }
-  .stat-cell .s { font-size: 11px; color: var(--muted2); margin-top: 3px; }
-
   .cases-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 48px; }
-  .case {
-    background: var(--navy2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    transition: border-color 0.2s;
-  }
+  .case { background: var(--navy2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.2s; }
   .case:hover { border-color: var(--border2); }
-  .case-trigger {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 22px 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-  }
+  .case-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 24px; background: none; border: none; cursor: pointer; text-align: left; }
   .case-co { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
-  .case-title { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--white); line-height: 1.3; }
+  .case-title { font-family: 'DM Serif Display',serif; font-size: 17px; color: var(--white); line-height: 1.3; }
   .case-trigger-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
   .case-tag { font-size: 11px; color: var(--muted2); white-space: nowrap; }
-  .case-icon {
-    width: 28px; height: 28px;
-    border-radius: 50%;
-    border: 1px solid var(--border2);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--accent);
-    font-size: 16px;
-    flex-shrink: 0;
-    transition: transform 0.25s, border-color 0.2s;
-  }
+  .case-icon { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 16px; flex-shrink: 0; transition: transform 0.25s,border-color 0.2s; }
   .case.open .case-icon { transform: rotate(45deg); border-color: var(--accent); }
   .case-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border); }
   .case-body.open { display: block; }
@@ -536,77 +121,29 @@
   .case-block-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
   .case-block-text { font-size: 13px; color: var(--muted); line-height: 1.65; }
   .case-block-text strong { color: var(--white); font-weight: 500; }
-  .case-outcome {
-    background: var(--accent-dim);
-    border: 1px solid rgba(200,169,110,0.15);
-    border-radius: 3px;
-    padding: 14px 16px;
-    display: flex;
-    gap: 14px;
-  }
+  .case-outcome { background: var(--accent-dim); border: 1px solid rgba(200,169,110,0.15); border-radius: 3px; padding: 14px 16px; display: flex; gap: 14px; }
   .case-outcome-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); white-space: nowrap; padding-top: 1px; flex-shrink: 0; }
   .case-outcome-text { font-size: 13px; color: var(--cream); line-height: 1.6; }
-
-  .both-sides {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 48px;
-  }
-  .both-col { background: var(--navy2); padding: 28px 24px; }
-  .both-col-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
-  .both-col-title { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--cream); margin-bottom: 14px; line-height: 1.3; }
-  .both-list { list-style: none; padding: 0; }
-  .both-list li { font-size: 13px; color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; line-height: 1.5; }
-  .both-list li:last-child { border-bottom: none; }
-  .both-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
-
-  /* Network */
   .network-wrap { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 48px; }
   .network-header { background: var(--navy2); padding: 20px 24px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--muted); line-height: 1.65; }
   .network-header strong { color: rgba(255,255,255,0.75); font-weight: 500; }
-  .network-nodes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+  .network-nodes { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); }
   .network-node { background: var(--navy2); padding: 20px 18px; transition: background 0.2s; }
   .network-node:hover { background: var(--navy3); }
   .network-node-name { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
   .network-node-role { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
   .network-node-reach { font-size: 12px; color: var(--muted); line-height: 1.5; }
-
-  /* Clients */
   .clients-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-  .client-pill {
-    background: var(--navy2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 12px;
-    color: rgba(255,255,255,0.55);
-    transition: color 0.2s, border-color 0.2s;
-    white-space: nowrap;
-  }
+  .client-pill { background: var(--navy2); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 12px; color: rgba(255,255,255,0.55); transition: color 0.2s,border-color 0.2s; white-space: nowrap; }
   .client-pill:hover { color: var(--accent2); border-color: rgba(200,169,110,0.3); }
   .client-pill span { font-size: 9px; color: var(--muted2); letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 1px; }
-
-  /* ENGINE */
   .engine-wrap { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 48px; }
-  .engine-header {
-    background: var(--navy3);
-    padding: 28px 28px 24px;
-    border-bottom: 1px solid var(--border);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    align-items: center;
-  }
+  .engine-header { background: var(--navy3); padding: 28px 28px 24px; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; }
   .engine-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-  .engine-headline { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--cream); line-height: 1.3; }
+  .engine-headline { font-family: 'DM Serif Display',serif; font-size: 22px; color: var(--cream); line-height: 1.3; }
   .engine-header-right { font-size: 13px; color: var(--muted); line-height: 1.7; }
   .engine-header-right strong { color: rgba(255,255,255,0.75); font-weight: 500; }
-  .engine-components { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .engine-components { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); }
   .engine-component { background: var(--navy2); padding: 28px 24px 24px; position: relative; }
   .engine-component::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
   .engine-component:first-child::before { background: var(--accent); }
@@ -619,38 +156,18 @@
   .ec-items { list-style: none; padding: 0; border-top: 1px solid var(--border); padding-top: 14px; }
   .ec-items li { font-size: 12px; color: var(--muted2); padding: 4px 0; display: flex; gap: 8px; line-height: 1.5; }
   .ec-items li::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
-  .engine-footer {
-    background: var(--accent-dim);
-    border-top: 1px solid rgba(200,169,110,0.15);
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
+  .engine-footer { background: var(--accent-dim); border-top: 1px solid rgba(200,169,110,0.15); padding: 16px 24px; display: flex; align-items: center; gap: 16px; }
   .engine-footer-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
   .engine-footer-text { font-size: 13px; color: var(--cream); line-height: 1.55; }
-
-  /* HOW IT WORKS */
   .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 4px 4px 0 0; overflow: hidden; }
   .path-card { background: var(--navy2); padding: 32px 28px; position: relative; }
   .path-card.featured { background: var(--navy3); }
-  .path-card.featured::after {
-    content: 'Start here';
-    position: absolute;
-    top: 0; right: 0;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--navy);
-    background: var(--accent);
-    padding: 4px 12px;
-    border-radius: 0 0 0 4px;
-  }
+  .path-card.featured::after { content: 'Start here'; position: absolute; top: 0; right: 0; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); background: var(--accent); padding: 4px 12px; border-radius: 0 0 0 4px; }
   .path-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
-  .path-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--white); margin-bottom: 4px; line-height: 1.15; }
+  .path-title { font-family: 'DM Serif Display',serif; font-size: 24px; color: var(--white); margin-bottom: 4px; line-height: 1.15; }
   .path-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.55; }
   .path-price { margin-bottom: 20px; }
-  .path-price .amount { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--accent2); line-height: 1; }
+  .path-price .amount { font-family: 'DM Serif Display',serif; font-size: 36px; color: var(--accent2); line-height: 1; }
   .path-price .cadence { font-size: 12px; color: var(--muted); margin-top: 3px; }
   .path-hr { height: 1px; background: var(--border); margin-bottom: 18px; }
   .path-list { list-style: none; padding: 0; }
@@ -658,45 +175,13 @@
   .path-list li:last-child { border-bottom: none; }
   .path-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
   .path-note { margin-top: 16px; font-size: 11px; color: var(--muted2); font-style: italic; line-height: 1.6; }
-
-  .path-bridge {
-    background: var(--accent-dim2);
-    border: 1px solid rgba(200,169,110,0.2);
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-    padding: 14px 28px;
-    text-align: center;
-    font-size: 13px;
-    color: var(--accent);
-    margin-bottom: 48px;
-  }
+  .path-bridge { background: var(--accent-dim2); border: 1px solid rgba(200,169,110,0.2); border-top: none; border-radius: 0 0 4px 4px; padding: 14px 28px; text-align: center; font-size: 13px; color: var(--accent); margin-bottom: 48px; }
   .path-bridge strong { color: var(--cream); font-weight: 500; }
-
-  /* Phases */
   .phases { display: flex; flex-direction: column; gap: 2px; margin-bottom: 48px; }
   .phase { background: var(--navy2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-  .phase-trigger {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 18px 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    transition: background 0.2s;
-  }
+  .phase-trigger { width: 100%; display: flex; align-items: center; gap: 20px; padding: 18px 24px; background: none; border: none; cursor: pointer; text-align: left; transition: background 0.2s; }
   .phase-trigger:hover { background: rgba(255,255,255,0.02); }
-  .phase-num-badge {
-    width: 32px; height: 32px;
-    border-radius: 50%;
-    border: 1px solid var(--border2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px;
-    color: var(--accent);
-    flex-shrink: 0;
-  }
+  .phase-num-badge { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--accent); flex-shrink: 0; }
   .phase-trigger-text { flex: 1; }
   .phase-week { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); margin-bottom: 2px; }
   .phase-name { font-size: 15px; font-weight: 500; color: var(--white); }
@@ -714,8 +199,6 @@
   .phase-deliverable { background: var(--navy3); border-radius: 3px; padding: 12px 16px; display: flex; gap: 12px; align-items: flex-start; }
   .pd-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); white-space: nowrap; flex-shrink: 0; padding-top: 1px; }
   .pd-text { font-size: 13px; color: var(--cream); line-height: 1.55; }
-
-  /* ROI */
   .roi-calc { background: var(--navy2); border: 1px solid var(--border); border-radius: 4px; padding: 28px 24px; }
   .roi-calc-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
   .roi-calc-intro { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
@@ -723,169 +206,81 @@
   .slider-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
   .slider-label { font-size: 12px; color: var(--muted2); white-space: nowrap; }
   .slider-row input[type=range] { flex: 1; min-width: 160px; accent-color: var(--accent); cursor: pointer; }
-  .slider-val { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--accent2); white-space: nowrap; min-width: 100px; text-align: right; }
-  .roi-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .slider-val { font-family: 'DM Serif Display',serif; font-size: 20px; color: var(--accent2); white-space: nowrap; min-width: 100px; text-align: right; }
+  .roi-results { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden; }
   .roi-cell { background: var(--navy3); padding: 16px 18px; }
   .roi-cell .rl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 5px; }
-  .roi-cell .rv { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--white); line-height: 1; margin-bottom: 3px; }
+  .roi-cell .rv { font-family: 'DM Serif Display',serif; font-size: 22px; color: var(--white); line-height: 1; margin-bottom: 3px; }
   .roi-cell.positive .rv { color: var(--accent2); }
   .roi-cell .rn { font-size: 11px; color: var(--muted2); line-height: 1.4; }
-
-  /* TERMS */
-  .payment-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px 4px 0 0; overflow: hidden; }
+  .payment-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px 4px 0 0; overflow: hidden; }
   .pay-step { background: var(--navy2); padding: 24px 20px; position: relative; }
   .pay-step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
   .pay-step.s1::before { background: var(--accent); }
   .pay-step.s2::before { background: rgba(200,169,110,0.5); }
   .pay-step.s3::before { background: rgba(200,169,110,0.25); }
   .pay-when { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-  .pay-amount { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--white); line-height: 1; margin-bottom: 3px; }
+  .pay-amount { font-family: 'DM Serif Display',serif; font-size: 28px; color: var(--white); line-height: 1; margin-bottom: 3px; }
   .pay-pct { font-size: 11px; color: var(--muted2); margin-bottom: 12px; }
   .pay-hr { height: 1px; background: var(--border); margin-bottom: 10px; }
   .pay-trigger-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 5px; }
   .pay-trigger-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
   .pay-trigger-text strong { color: rgba(255,255,255,0.7); font-weight: 500; }
-  .pay-retainer {
-    background: var(--navy3);
-    border: 1px solid var(--border);
-    border-top: none;
-    border-radius: 0 0 4px 4px;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    margin-bottom: 32px;
-  }
+  .pay-retainer { background: var(--navy3); border: 1px solid var(--border); border-top: none; border-radius: 0 0 4px 4px; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
   .pr-badge { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
   .pr-note { font-size: 13px; color: var(--muted); line-height: 1.5; }
   .pr-note strong { color: rgba(255,255,255,0.7); font-weight: 500; }
-  .pr-amount { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--accent2); text-align: right; white-space: nowrap; flex-shrink: 0; }
-  .pr-amount span { display: block; font-family: 'DM Sans', sans-serif; font-size: 10px; color: var(--muted2); font-weight: 300; }
-
+  .pr-amount { font-family: 'DM Serif Display',serif; font-size: 20px; color: var(--accent2); text-align: right; white-space: nowrap; flex-shrink: 0; }
+  .pr-amount span { display: block; font-family: 'DM Sans',sans-serif; font-size: 10px; color: var(--muted2); font-weight: 300; }
   .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 32px; }
-  .trust-item { background: var(--navy2); padding: 22px 22px; }
-  .trust-n { font-family: 'DM Serif Display', serif; font-size: 28px; color: rgba(255,255,255,0.07); line-height: 1; margin-bottom: 8px; }
+  .trust-item { background: var(--navy2); padding: 22px; }
+  .trust-n { font-family: 'DM Serif Display',serif; font-size: 28px; color: rgba(255,255,255,0.07); line-height: 1; margin-bottom: 8px; }
   .trust-title { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 5px; }
   .trust-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
   .exit-wrap { background: var(--navy2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
-  .exit-trigger {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 18px 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    transition: background 0.2s;
-  }
+  .exit-trigger { width: 100%; display: flex; align-items: center; justify-content: space-between; padding: 18px 24px; background: none; border: none; cursor: pointer; text-align: left; transition: background 0.2s; }
   .exit-trigger:hover { background: rgba(255,255,255,0.02); }
-  .exit-trigger-text { font-size: 14px; color: var(--cream); font-family: 'DM Serif Display', serif; font-style: italic; }
+  .exit-trigger-text { font-size: 14px; color: var(--cream); font-family: 'DM Serif Display',serif; font-style: italic; }
   .exit-trigger-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
   .exit-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 14px; flex-shrink: 0; transition: transform 0.25s; }
   .exit-wrap.open .exit-icon { transform: rotate(45deg); }
   .exit-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border); }
   .exit-body.open { display: block; }
   .exit-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 20px; }
-  .exit-cell { background: var(--navy2); padding: 18px 18px; }
+  .exit-cell { background: var(--navy2); padding: 18px; }
   .exit-cell-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
   .exit-cell-title { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 6px; line-height: 1.35; }
   .exit-cell-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
-
-  /* CTA */
   #cta { padding: 96px 0; }
-  .cta-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    gap: 48px;
-    background: var(--accent-dim2);
-    border: 1px solid rgba(200,169,110,0.2);
-    border-radius: 4px;
-    padding: 40px;
-    margin-bottom: 48px;
-  }
+  .cta-inner { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 48px; background: var(--accent-dim2); border: 1px solid rgba(200,169,110,0.2); border-radius: 4px; padding: 40px; margin-bottom: 48px; }
   .cta-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
-  .cta-headline { font-family: 'DM Serif Display', serif; font-size: clamp(22px, 3vw, 32px); color: var(--cream); line-height: 1.25; margin-bottom: 10px; }
+  .cta-headline { font-family: 'DM Serif Display',serif; font-size: clamp(22px,3vw,32px); color: var(--cream); line-height: 1.25; margin-bottom: 10px; }
   .cta-body { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 520px; }
   .cta-body strong { color: rgba(255,255,255,0.75); font-weight: 500; }
   .cta-btn-wrap { flex-shrink: 0; text-align: center; }
   .cta-sub { font-size: 11px; color: var(--muted2); margin-top: 8px; }
-
-  .closing-split {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: end;
-    padding-top: 40px;
-    border-top: 1px solid var(--border);
-  }
-  .closing-quote { font-family: 'DM Serif Display', serif; font-size: clamp(18px, 2.5vw, 24px); color: var(--cream); line-height: 1.5; font-style: italic; }
+  .closing-split { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; padding-top: 40px; border-top: 1px solid var(--border); }
+  .closing-quote { font-family: 'DM Serif Display',serif; font-size: clamp(18px,2.5vw,24px); color: var(--cream); line-height: 1.5; font-style: italic; }
   .closing-contact { font-size: 13px; color: var(--muted); line-height: 2; }
   .closing-contact strong { display: block; font-size: 15px; color: var(--white); font-weight: 500; margin-bottom: 4px; }
   .closing-contact a { color: var(--accent); text-decoration: none; }
   .closing-contact a:hover { color: var(--accent2); }
-
-  /* FOOTER */
-  .site-footer {
-    border-top: 1px solid var(--border);
-    padding: 32px var(--pad);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    max-width: 100%;
-  }
+  .site-footer { border-top: 1px solid var(--border); padding: 32px var(--pad); display: flex; align-items: center; justify-content: space-between; gap: 24px; }
   .site-footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
   .site-footer-tagline { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); }
   .site-footer-links { display: flex; gap: 20px; }
   .site-footer-links a { font-size: 12px; color: var(--muted2); text-decoration: none; transition: color 0.2s; }
   .site-footer-links a:hover { color: var(--accent); }
-
-  /* MOBILE CTA */
-  .mobile-cta {
-    display: none;
-    position: fixed;
-    bottom: 0; left: 0; right: 0;
-    z-index: 90;
-    padding: 12px 20px;
-    background: rgba(11,22,35,0.96);
-    border-top: 1px solid var(--border);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-  }
-  .mobile-cta a {
-    display: block;
-    text-align: center;
-    background: var(--accent);
-    color: var(--navy);
-    font-size: 14px;
-    font-weight: 500;
-    padding: 14px;
-    border-radius: 3px;
-    text-decoration: none;
-  }
-
-  /* REVEAL */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
-  }
+  .mobile-cta { display: none; position: fixed; bottom: 0; left: 0; right: 0; z-index: 90; padding: 12px 20px; background: rgba(11,22,35,0.96); border-top: 1px solid var(--border); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  .mobile-cta a { display: block; text-align: center; background: var(--accent); color: var(--navy); font-size: 14px; font-weight: 500; padding: 14px; border-radius: 3px; text-decoration: none; }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s ease,transform 0.55s ease; }
   .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  /* RESPONSIVE */
   @media (max-width: 768px) {
     section { padding: 64px 0; }
     #hero { padding-top: 96px; padding-bottom: 64px; }
     .hero-inner { grid-template-columns: 1fr; gap: 36px; }
     .nav-links { display: none; }
     .tensions-grid { grid-template-columns: 1fr; }
-    .stats-row { grid-template-columns: 1fr 1fr; }
-    .both-sides { grid-template-columns: 1fr; }
     .founder-wrap { grid-template-columns: 1fr; }
     .network-nodes { grid-template-columns: 1fr 1fr; }
     .paths { grid-template-columns: 1fr; }
@@ -906,10 +301,10 @@
     .case-grid { grid-template-columns: 1fr; }
     .case-trigger-right .case-tag { display: none; }
     .site-footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .tagline-bar { flex-direction: column; gap: 12px; align-items: flex-start; }
+    .tagline-bar-rule { display: none; }
   }
-
   @media (max-width: 480px) {
-    .stats-row { grid-template-columns: 1fr; }
     .network-nodes { grid-template-columns: 1fr; }
   }
 </style>
@@ -919,7 +314,7 @@
 <!-- NAV -->
 <nav class="nav">
   <a class="nav-logo" href="#">
-    <svg class="nav-mark" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+    <svg class="nav-mark" width="28" height="28" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
       <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
       <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
@@ -946,7 +341,7 @@
   <div class="wrap">
     <div class="hero-inner">
       <div>
-        <span class="eyebrow reveal">Fractional CRO · MENA · Seed to Series B</span>
+        <span class="eyebrow reveal">Fractional CRO &middot; MENA &middot; Seed to Series B</span>
         <h1 class="hero-headline reveal">We build the sales engine.<br><em>You keep it forever.</em></h1>
         <p class="hero-sub reveal">Reveneering delivers fractional CRO leadership for MENA founders at Seed to Series B. In one commercial quarter, we build a permanent sales engine: automated lead generation, outbound at scale, and AI-driven pitch improvement. <strong>When the engagement ends, the engine keeps running.</strong></p>
         <div class="hero-actions reveal">
@@ -962,7 +357,7 @@
       <div class="hero-card reveal">
         <div class="hero-card-header">
           <div class="hero-card-label">Founder track record</div>
-          <div class="hero-card-title">The experience behind every engagement</div>
+          <div class="hero-card-title">The experience behind every Reveneering engagement</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num">$60M+</div>
@@ -970,15 +365,15 @@
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num">$3M</div>
-          <div class="hero-stat-label">Net revenue, Greener Crop · 3 years · 6 countries</div>
+          <div class="hero-stat-label">Net revenue, Greener Crop &middot; 3 years &middot; 6 countries</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num">7,000+</div>
-          <div class="hero-stat-label">Users, Greener Herd · 6 months · $0 paid acquisition</div>
+          <div class="hero-stat-label">Users, Greener Herd &middot; 6 months &middot; $0 paid acquisition</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-num">$160M</div>
-          <div class="hero-stat-label">First-year revenue, Groupon travel vertical · from zero</div>
+          <div class="hero-stat-label">First-year revenue, Groupon travel vertical &middot; from zero</div>
         </div>
       </div>
     </div>
@@ -995,25 +390,23 @@
     </div>
     <div class="tensions-grid reveal">
       <div class="tension">
-        <div class="tension-num">01 · The ceiling</div>
+        <div class="tension-num">01 &middot; The ceiling</div>
         <div class="tension-title">You are the pipeline, and that is the problem</div>
         <div class="tension-body">Founder-led sales works until it doesn't. When you are the only person who can close, growth is capped at your personal capacity. The answer is not just hiring: it is building a machine that works without you.</div>
         <button class="tension-expand-btn" onclick="toggleExpand(this)"><span>Read more</span><div class="chevron"></div></button>
-        <div class="tension-detail">
-          There is no process to hand over. No automated outbound running while you sleep. No system that gets smarter with every conversation. The transition from founder-led to founder-informed sales requires a sales engine: lead generation, automated outreach, and continuous pitch improvement, not just a playbook. That engine is what Reveneering builds and leaves with you.
+        <div class="tension-detail">There is no process to hand over. No automated outbound running while you sleep. No system that gets smarter with every conversation. The transition from founder-led to founder-informed sales requires a sales engine: lead generation, automated outreach, and continuous pitch improvement, not just a playbook. That engine is what Reveneering builds and leaves with you.
           <div class="tension-quote">
             <div class="tension-quote-text">"The issue isn't with founding activity. Early-stage participation is strong. But sustaining momentum is where the region falls short."</div>
-            <div class="tension-quote-source">Farah El Nahlawi, Research Manager, MAGNiTT · AGBI, 2025</div>
+            <div class="tension-quote-source">Farah El Nahlawi, Research Manager, MAGNiTT &middot; AGBI, 2025</div>
           </div>
         </div>
       </div>
       <div class="tension">
-        <div class="tension-num">02 · The market</div>
+        <div class="tension-num">02 &middot; The market</div>
         <div class="tension-title">This market rewards trust over process, and punishes ambiguity</div>
         <div class="tension-body">Enterprise buyers in the Gulf move deliberately. They respond to credibility and relationships, not cold sequences or SaaS-style demos.</div>
         <button class="tension-expand-btn" onclick="toggleExpand(this)"><span>Read more</span><div class="chevron"></div></button>
-        <div class="tension-detail">
-          A sales approach that works in the US or Europe will stall here at the first procurement meeting. Reveneering's engagement model is built specifically for how MENA enterprise buyers actually buy: government entities, family conglomerates, and regional corporates, each with their own procurement logic.
+        <div class="tension-detail">A sales approach that works in the US or Europe will stall here at the first procurement meeting. Reveneering's engagement model is built specifically for how MENA enterprise buyers actually buy: government entities, family conglomerates, and regional corporates, each with their own procurement logic.
           <div class="tension-quote">
             <div class="tension-quote-text">"Enterprise buyers in GCC markets move deliberately and rely heavily on trust. In such an environment, ambiguity is not neutral. It becomes a structural weakness."</div>
             <div class="tension-quote-source">Wamda, March 2026</div>
@@ -1021,25 +414,23 @@
         </div>
       </div>
       <div class="tension">
-        <div class="tension-num">03 · The funnel</div>
+        <div class="tension-num">03 &middot; The funnel</div>
         <div class="tension-title">Only 7% of early-stage MENA startups reach Series A</div>
         <div class="tension-body">The drop-off is not product failure. It is commercial stall: the gap between a company that can win a PoC and one that can close a repeatable enterprise contract.</div>
         <button class="tension-expand-btn" onclick="toggleExpand(this)"><span>Read more</span><div class="chevron"></div></button>
-        <div class="tension-detail">
-          The region's commercial execution layer remains underdeveloped. Accelerators, capital, and networks have never been stronger. What is missing is the embedded operator who helps founders convert traction into revenue. That is the gap Reveneering exists to close.
+        <div class="tension-detail">The region's commercial execution layer remains underdeveloped. Accelerators, capital, and networks have never been stronger. What is missing is the embedded operator who helps founders convert traction into revenue. That is the gap Reveneering exists to close.
           <div class="tension-quote">
             <div class="tension-quote-text">"Funding has expanded at 49% CAGR over the past decade, yet the structural foundations needed to support scale remain underdeveloped."</div>
-            <div class="tension-quote-source">MAGNiTT · AGBI Analysis, October 2025</div>
+            <div class="tension-quote-source">MAGNiTT &middot; AGBI Analysis, October 2025</div>
           </div>
         </div>
       </div>
       <div class="tension">
-        <div class="tension-num">04 · The clock</div>
+        <div class="tension-num">04 &middot; The clock</div>
         <div class="tension-title">Your investors are waiting for revenue visibility that doesn't exist yet</div>
         <div class="tension-body">The board question has changed. It is no longer "are you growing?" It is "show me the pipeline."</div>
         <button class="tension-expand-btn" onclick="toggleExpand(this)"><span>Read more</span><div class="chevron"></div></button>
-        <div class="tension-detail">
-          A pipeline that lives inside the founder's head is not a commercial model. It is a risk. Every quarter without a documented sales system makes the next fundraise harder to close on your terms. Reveneering's 90-day sprint ends with a board-ready pipeline, a revenue forecast, and a running engine your investors can see.
+        <div class="tension-detail">A pipeline that lives inside the founder's head is not a commercial model. It is a risk. Every quarter without a documented sales system makes the next fundraise harder to close on your terms. Reveneering's 90-day sprint ends with a board-ready pipeline, a revenue forecast, and a running engine your investors can see.
           <div class="tension-quote">
             <div class="tension-quote-text">"30% of current Series A startups in MENA risk write-off by 2026. The middle of the funnel appears stuck across all markets."</div>
             <div class="tension-quote-source">Clearworld 2025 MENA Early Stage Data Handbook</div>
@@ -1047,6 +438,7 @@
         </div>
       </div>
     </div>
+
     <div class="reveal">
       <div class="section-rule" style="margin-bottom:24px;">
         <h2>Questions founders ask</h2>
@@ -1072,7 +464,7 @@
             <div class="ceo-q-text">"I've hired consultants before. Why is this different?"</div>
             <div class="ceo-q-icon">+</div>
           </div>
-          <div class="ceo-q-answer">The difference is permanence. Everything produced belongs to your company from the moment it is delivered. And crucially, the engagement ends with a running sales engine: automated lead generation, active outbound sequences, and a pitch improvement framework your team can operate. Not a deck. Not advice. A machine.</div>
+          <div class="ceo-q-answer">The difference is permanence. Everything produced belongs to your company from the moment it is delivered. The engagement ends with a running sales engine: automated lead generation, active outbound sequences, and a pitch improvement framework your team can operate. Not a deck. Not advice. A machine.</div>
         </div>
         <div class="ceo-q" onclick="toggleQ(this)">
           <div class="ceo-q-row">
@@ -1094,12 +486,11 @@
       <div class="rule"></div>
       <div class="tag">The expertise behind Reveneering</div>
     </div>
-
     <div class="founder-wrap reveal">
       <div class="founder-left">
         <div class="founder-eyebrow">Founder &amp; Chief Revenue Officer</div>
         <div class="founder-name">Alexander Kappes</div>
-        <div class="founder-title">Reveneering · Dubai, UAE</div>
+        <div class="founder-title">Reveneering &middot; Dubai, UAE</div>
         <div class="founder-bio">
           Reveneering was founded on a simple observation: MENA founders consistently build strong products and raise real capital, then stall at the commercial execution stage. Not because the product is wrong, but because <strong>the sales infrastructure was never built.</strong>
           <br><br>
@@ -1112,22 +503,22 @@
         <div class="founder-stat">
           <div class="founder-stat-num">$60M+</div>
           <div class="founder-stat-label">Annual regional revenue as CEO, Groupon Middle East</div>
-          <div class="founder-stat-sub">220% growth · 24-person sales team · highest-performing global entity</div>
+          <div class="founder-stat-sub">220% growth &middot; 24-person sales team &middot; highest-performing global entity</div>
         </div>
         <div class="founder-stat">
           <div class="founder-stat-num">$3M</div>
-          <div class="founder-stat-label">Net revenue, Greener Crop · 3 years from founding</div>
-          <div class="founder-stat-sub">6 countries · 13 enterprise deployments · USAID and NASDAQ-listed clients</div>
+          <div class="founder-stat-label">Net revenue, Greener Crop &middot; 3 years from founding</div>
+          <div class="founder-stat-sub">6 countries &middot; 13 enterprise deployments &middot; USAID and NASDAQ-listed clients</div>
         </div>
         <div class="founder-stat">
           <div class="founder-stat-num">7,000+</div>
-          <div class="founder-stat-label">Active users, Greener Herd · within 6 months of launch</div>
-          <div class="founder-stat-sub">11 countries · $0 paid acquisition · WFP and Techstars-backed</div>
+          <div class="founder-stat-label">Active users, Greener Herd &middot; within 6 months of launch</div>
+          <div class="founder-stat-sub">11 countries &middot; $0 paid acquisition &middot; WFP and Techstars-backed</div>
         </div>
         <div class="founder-stat">
           <div class="founder-stat-num">$160M</div>
-          <div class="founder-stat-label">First-year revenue, Groupon travel vertical · launched from zero</div>
-          <div class="founder-stat-sub">15-person team · 15+ country rollout · methodology adopted globally</div>
+          <div class="founder-stat-label">First-year revenue, Groupon travel vertical &middot; from zero</div>
+          <div class="founder-stat-sub">15-person team &middot; 15+ country rollout &middot; methodology adopted globally</div>
         </div>
       </div>
     </div>
@@ -1141,84 +532,84 @@
         <div class="case" id="case1">
           <button class="case-trigger" onclick="toggleCase('case1')">
             <div class="case-trigger-left">
-              <div class="case-co">Groupon Middle East</div>
-              <div class="case-title">Burj Al Arab: redefining a platform's commercial identity</div>
+              <div class="case-co">Lighthouse partnerships</div>
+              <div class="case-title">Signing anchor clients before you have brand recognition</div>
             </div>
             <div class="case-trigger-right">
-              <div class="case-tag">Positioning play</div>
+              <div class="case-tag">Early-stage credibility</div>
               <div class="case-icon">+</div>
             </div>
           </button>
           <div class="case-body" id="case1-body">
             <div class="case-grid">
               <div>
-                <div class="case-block-label">The real problem</div>
-                <div class="case-block-text">The Burj Al Arab didn't need customer acquisition help. The commercial challenge was a <strong>positioning problem disguised as a sales problem</strong>: we had to change what Groupon meant to an ultra-luxury buyer before any deal conversation could begin.</div>
+                <div class="case-block-label">The challenge</div>
+                <div class="case-block-text">A world-recognised brand had no commercial reason to engage an early-stage platform. Approaching them as a distribution channel was a non-starter. The real obstacle was not the product: it was that the platform had not yet earned the right to be in the room. <strong>This is the positioning problem most early-stage founders face before their first lighthouse client.</strong></div>
               </div>
               <div>
                 <div class="case-block-label">How it was solved</div>
-                <div class="case-block-text">Reframed the value proposition entirely: not "reach more customers" but <strong>"reach a specific audience you currently cannot access without compromising brand."</strong> Built a deal architecture that felt like a partnership, not a listing.</div>
+                <div class="case-block-text">Reframed the value proposition entirely: not "reach more customers" but <strong>"reach a specific audience you currently cannot access without compromising your brand."</strong> Built a deal architecture that gave the partner control over how they were presented, removing the risk perception entirely.</div>
               </div>
             </div>
             <div class="case-outcome">
-              <div class="case-outcome-label">System built</div>
-              <div class="case-outcome-text">Became the template for Groupon's entire luxury segment, unlocking Jumeirah Group, Atlantis, and a portfolio of five-star properties. One deal became a category.</div>
+              <div class="case-outcome-label">Outcome</div>
+              <div class="case-outcome-text">One lighthouse deal unlocked an entire category. The commercial framework became the template for signing a full portfolio of premium brands that had previously refused to engage. One credibility anchor changed every subsequent conversation.</div>
             </div>
           </div>
         </div>
         <div class="case" id="case2">
           <button class="case-trigger" onclick="toggleCase('case2')">
             <div class="case-trigger-left">
-              <div class="case-co">Greener Crop</div>
-              <div class="case-title">Government greenhouse contract: first-of-its-kind capex deal</div>
+              <div class="case-co">Deep tech and infrastructure sales</div>
+              <div class="case-title">Selling million-dollar high-tech infrastructure to government entities</div>
             </div>
             <div class="case-trigger-right">
-              <div class="case-tag">Government sale</div>
+              <div class="case-tag">Enterprise and government</div>
               <div class="case-icon">+</div>
             </div>
           </button>
           <div class="case-body" id="case2-body">
             <div class="case-grid">
               <div>
-                <div class="case-block-label">The real problem</div>
-                <div class="case-block-text">A capital-intensive, multi-year commitment to an unproven technology category, with a procurement team that had no evaluation framework and no internal champion who had seen it work.</div>
+                <div class="case-block-label">The challenge</div>
+                <div class="case-block-text">A capital-intensive, multi-year infrastructure commitment to a government entity that had never purchased this technology category before. No internal procurement framework existed. No champion had seen it work. <strong>This is the commercial reality for deep-tech founders selling to government buyers in MENA.</strong> The product works. The buyer does not yet know how to say yes.</div>
               </div>
               <div>
                 <div class="case-block-label">How it was solved</div>
-                <div class="case-block-text">Designed a <strong>phased commercial structure</strong> that moved the buyer from risk-off to conviction in stages. Built a custom ROI narrative tailored to government KPIs: food security, employment, import substitution.</div>
+                <div class="case-block-text">Designed a <strong>phased commitment structure</strong> that moved the buyer from risk-off to conviction in stages: technical feasibility review, pilot economics, then full deployment contract. Built a custom ROI narrative around government KPIs rather than commercial metrics: food security, employment, import substitution.</div>
               </div>
             </div>
             <div class="case-outcome">
-              <div class="case-outcome-label">System built</div>
-              <div class="case-outcome-text">The framework became the foundation for all 13 of Greener Crop's subsequent enterprise deployments across 6 countries. Documented, not tribal: it survived team changes and market shifts.</div>
+              <div class="case-outcome-label">Outcome</div>
+              <div class="case-outcome-text">The deal framework became the foundation for 13 subsequent enterprise deployments across 6 countries. Documented, not tribal: it survived team changes and market shifts because the sales process was built as a system, not carried in someone's head.</div>
             </div>
           </div>
         </div>
         <div class="case" id="case3">
           <button class="case-trigger" onclick="toggleCase('case3')">
             <div class="case-trigger-left">
-              <div class="case-co">Greener Herd</div>
-              <div class="case-title">7,000 users in 6 months: zero paid acquisition</div>
+              <div class="case-co">Niche audience acquisition</div>
+              <div class="case-title">Building a lead and conversion engine for hard-to-reach audiences</div>
             </div>
             <div class="case-trigger-right">
-              <div class="case-tag">$0 CAC GTM</div>
+              <div class="case-tag">$0 CAC growth</div>
               <div class="case-icon">+</div>
             </div>
           </button>
           <div class="case-body" id="case3-body">
             <div class="case-grid">
               <div>
-                <div class="case-block-label">The real problem</div>
-                <div class="case-block-text">Livestock producers in MENA are among the hardest audiences to reach commercially. No digital footprint. No industry press. The channel didn't exist: it had to be built from scratch, without budget.</div>
+                <div class="case-block-label">The challenge</div>
+                <div class="case-block-text">The target audience had no digital footprint, did not attend trade shows, and could not be reached through conventional outbound. Standard lead generation returned nothing useful. <strong>This is the situation many founders face when their ICP exists outside the channels everyone else is using.</strong> The product is strong. The audience simply cannot be found through normal means.</div>
               </div>
               <div>
                 <div class="case-block-label">How it was solved</div>
-                <div class="case-block-text">Built a <strong>$0 CAC organic content strategy</strong> generating millions of views per month. Designed onboarding around community trust signals rather than feature demonstrations. Distribution strategy was the go-to-market strategy.</div>
+                <div class="case-block-text">Built a <strong>channel from scratch using organic content</strong> targeted precisely at the audience's actual behaviour and information habits. Designed onboarding around community trust signals rather than feature demonstrations. The content engine became the lead generation engine: prospects self-qualified before any human contact was made.</div>
               </div>
             </div>
             <div class="case-outcome">
-              <div class="case-outcome-label">Engine logic</div>
-              <div class="case-outcome-text">This is the engine principle in its earliest form: a system that generates demand continuously, without the founder in the room. Built once, it kept working. The same logic powers every Reveneering sales engine today. Now 11 countries, WFP and Techstars-backed.</div>
+              <div class="case-outcome-label">Outcome</div>
+              <div class="case-outcome-text">7,000 active users across 11 countries within 6 months, at zero paid acquisition cost. A system that generates and qualifies demand continuously, without the founder in the room. The same logic powers every Reveneering sales engine built today.</div>
             </div>
           </div>
         </div>
@@ -1226,9 +617,7 @@
     </div>
 
     <div class="network-wrap reveal" style="margin-bottom:40px;">
-      <div class="network-header">
-        These are accelerators and company builders that trust Reveneering's expertise enough to put us in front of their founders. <strong>Being selected to mentor and judge at this level is a signal of credibility, not just affiliation.</strong>
-      </div>
+      <div class="network-header">These are accelerators and company builders that trust Reveneering's expertise enough to put us in front of their founders. <strong>Being selected to mentor and judge at this level is a signal of credibility, not just affiliation.</strong></div>
       <div class="network-nodes">
         <div class="network-node">
           <div class="network-node-name">Brinc</div>
@@ -1284,7 +673,6 @@
       <div class="rule"></div>
       <div class="tag">How we work</div>
     </div>
-
     <div class="paths reveal">
       <div class="path-card featured">
         <div class="path-label">Phase 01</div>
@@ -1292,7 +680,7 @@
         <div class="path-sub">90-day sprint. Fixed scope. Fixed fee. We build your sales engine from the ground up.</div>
         <div class="path-price">
           <div class="amount">$25,000</div>
-          <div class="cadence">Flat fee · 90 days · All-inclusive within UAE</div>
+          <div class="cadence">Flat fee &middot; 90 days &middot; All-inclusive within UAE</div>
         </div>
         <div class="path-hr"></div>
         <div class="path-label" style="margin-bottom:10px;">What you own at the end</div>
@@ -1313,7 +701,7 @@
         <div class="path-sub">Ongoing fractional CRO. Runs the engine built in Phase 01. Available to Phase 01 clients only.</div>
         <div class="path-price">
           <div class="amount">$10,000</div>
-          <div class="cadence">Per month · Minimum 3 months · In advance</div>
+          <div class="cadence">Per month &middot; Minimum 3 months &middot; In advance</div>
         </div>
         <div class="path-hr"></div>
         <div class="path-label" style="margin-bottom:10px;">What this covers</div>
@@ -1328,26 +716,20 @@
         <div class="path-note">Performance component tied to revenue milestones defined jointly at engagement start.</div>
       </div>
     </div>
-    <div class="path-bridge reveal">
-      Phase 01 builds the engine. <strong>Phase 02 runs it.</strong> The decision to continue is yours at day 90, with full pipeline visibility before you commit.
-    </div>
+    <div class="path-bridge reveal">Phase 01 builds the engine. <strong>Phase 02 runs it.</strong> The decision to continue is yours at day 90, with full pipeline visibility before you commit.</div>
 
-    <!-- ENGINE -->
     <div class="section-rule reveal" style="margin-bottom:20px;">
       <h2>The sales engine</h2>
       <div class="rule"></div>
       <div class="tag">The product that stays with you</div>
     </div>
-
     <div class="engine-wrap reveal">
       <div class="engine-header">
         <div>
           <div class="engine-eyebrow">What makes Reveneering different</div>
           <div class="engine-headline">Most engagements end with a document. Ours ends with a running machine.</div>
         </div>
-        <div class="engine-header-right">
-          Built during the 90-day commercial quarter. Owned by your company permanently. <strong>Lead generation finding your next customer, outbound sequences working around the clock, and a pitch framework that gets smarter with every reply</strong>: the engine operates the day after handover without any external support.
-        </div>
+        <div class="engine-header-right">Built during the 90-day commercial quarter. Owned by your company permanently. <strong>Lead generation finding your next customer, outbound sequences working around the clock, and a pitch framework that gets smarter with every reply</strong>: the engine operates the day after handover without any external support.</div>
       </div>
       <div class="engine-components">
         <div class="engine-component">
@@ -1390,7 +772,6 @@
       </div>
     </div>
 
-    <!-- PHASES -->
     <div class="section-rule reveal" style="margin-bottom:20px;">
       <h2>Inside the 90-day sprint</h2>
       <div class="rule"></div>
@@ -1496,7 +877,7 @@
 
     <div class="roi-calc reveal">
       <div class="roi-calc-label">The investment case</div>
-      <div class="roi-calc-intro">One closed enterprise deal pays for the entire engagement, and the engine keeps generating more after we're gone. A VP of Sales costs $13K/month before they close anything. A wrong hire costs 9-12 months of runway. <strong>Enter your typical deal value to see the math.</strong></div>
+      <div class="roi-calc-intro">One closed enterprise deal pays for the entire engagement, and the engine keeps generating more after we are gone. A VP of Sales costs $13K/month before they close anything. A wrong hire costs 9-12 months of runway. <strong>Enter your typical deal value to see the math.</strong></div>
       <div class="slider-row">
         <div class="slider-label">Average deal value</div>
         <input type="range" id="dealSlider" min="50000" max="1000000" step="25000" value="200000" oninput="updateCalc()">
@@ -1522,25 +903,25 @@
     <div class="reveal" style="margin-bottom:16px;">
       <div class="payment-steps">
         <div class="pay-step s1">
-          <div class="pay-when">Payment 01 · Before day one</div>
+          <div class="pay-when">Payment 01 &middot; Before day one</div>
           <div class="pay-amount">$12,500</div>
-          <div class="pay-pct">50% · Due before engagement begins</div>
+          <div class="pay-pct">50% &middot; Due before engagement begins</div>
           <div class="pay-hr"></div>
           <div class="pay-trigger-label">Trigger</div>
           <div class="pay-trigger-text">NDA signed, scope confirmed, start date agreed. <strong>No work commences until cleared.</strong></div>
         </div>
         <div class="pay-step s2">
-          <div class="pay-when">Payment 02 · End of week 5</div>
+          <div class="pay-when">Payment 02 &middot; End of week 5</div>
           <div class="pay-amount">$6,250</div>
-          <div class="pay-pct">25% · Due on Phase 02 delivery</div>
+          <div class="pay-pct">25% &middot; Due on Phase 02 delivery</div>
           <div class="pay-hr"></div>
           <div class="pay-trigger-label">Trigger</div>
           <div class="pay-trigger-text">Due on delivery of the playbook and MENA buyer framework. <strong>Phase 03 begins on receipt.</strong></div>
         </div>
         <div class="pay-step s3">
-          <div class="pay-when">Payment 03 · Day 90</div>
+          <div class="pay-when">Payment 03 &middot; Day 90</div>
           <div class="pay-amount">$6,250</div>
-          <div class="pay-pct">25% · Due on final handover</div>
+          <div class="pay-pct">25% &middot; Due on final handover</div>
           <div class="pay-hr"></div>
           <div class="pay-trigger-label">Trigger</div>
           <div class="pay-trigger-text">Due on delivery of the running engine, pipeline, and board report. <strong>Final deliverables released on receipt.</strong></div>
@@ -1549,7 +930,7 @@
       <div class="pay-retainer">
         <div class="pr-badge">Phase 02 retainer</div>
         <div class="pr-note">Monthly, <strong>due in advance</strong> on the first of each month. Minimum 3 months. Performance component agreed in writing before the retainer begins.</div>
-        <div class="pr-amount">$10,000<span>per month · in advance</span></div>
+        <div class="pr-amount">$10,000<span>per month &middot; in advance</span></div>
       </div>
     </div>
     <div class="trust-grid reveal">
@@ -1616,14 +997,14 @@
       </div>
       <div class="cta-btn-wrap">
         <a class="btn-primary" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book the call &rarr;</a>
-        <div class="cta-sub">30 minutes · No obligation</div>
+        <div class="cta-sub">30 minutes &middot; No obligation</div>
       </div>
     </div>
     <div class="closing-split reveal">
       <div class="closing-quote">The founders who move fastest in this market are not the ones with the best product. They are the ones who build a sales engine before their runway forces them to.</div>
       <div class="closing-contact">
         <strong>Reveneering</strong>
-        Dubai, UAE · Revenue Engineered<br>
+        Dubai, UAE &middot; Revenue Engineered<br>
         Alexander Kappes, Chief Revenue Officer<br>
         <a href="mailto:hello@reveneering.com">hello@reveneering.com</a><br>
         <a href="https://calendly.com/a-m-kappes/30min" target="_blank">calendly.com/a-m-kappes/30min</a>
@@ -1632,10 +1013,10 @@
   </div>
 </section>
 
-<!-- SITE FOOTER -->
+<!-- FOOTER -->
 <footer class="site-footer">
   <a class="site-footer-logo" href="#">
-    <svg width="24" height="24" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+    <svg width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
       <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
       <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
       <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
@@ -1644,7 +1025,7 @@
     </svg>
     <span class="nav-wordmark" style="font-size:15px;">Re<span class="v">v</span>eneering</span>
   </a>
-  <div class="site-footer-tagline">Revenue · Engineered</div>
+  <div class="site-footer-tagline">Revenue &middot; Engineered</div>
   <div class="site-footer-links">
     <a href="#problem">The Challenge</a>
     <a href="#proof">Our Work</a>
