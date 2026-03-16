@@ -1,0 +1,1714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reveneering — Fractional CRO for MENA Founders</title>
+<meta name="description" content="Reveneering builds permanent sales engines for Seed-to-Series-B founders in MENA. Fractional CRO leadership, 90-day commercial quarter, lead generation and automated outbound that stays with you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:       #0B1623;
+    --navy2:      #111F2E;
+    --navy3:      #162534;
+    --border:     rgba(255,255,255,0.08);
+    --border2:    rgba(255,255,255,0.14);
+    --cream:      #F0EAD6;
+    --white:      #FFFFFF;
+    --muted:      rgba(255,255,255,0.45);
+    --muted2:     rgba(255,255,255,0.24);
+    --accent:     #C8A96E;
+    --accent2:    #E8C98A;
+    --accent-dim: rgba(200,169,110,0.10);
+    --accent-dim2:rgba(200,169,110,0.18);
+    --max:        1080px;
+    --pad:        clamp(20px, 5vw, 56px);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.65;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 72px 72px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  .nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(11,22,35,0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--pad);
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  /* Inline R mark */
+  .nav-mark {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .nav-wordmark {
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px;
+    color: var(--cream);
+    letter-spacing: -0.01em;
+  }
+  .nav-wordmark .v { color: var(--accent); font-style: italic; }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--accent);
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 9px 20px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  /* WRAP */
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 var(--pad);
+  }
+
+  section { padding: 96px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .section-rule {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .section-rule h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(22px, 3vw, 32px);
+    font-weight: 400;
+    color: var(--white);
+    white-space: nowrap;
+  }
+  .section-rule .rule { flex: 1; height: 1px; background: var(--border); }
+  .section-rule .tag {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted2);
+    white-space: nowrap;
+  }
+
+  /* HERO */
+  #hero {
+    padding-top: 148px;
+    padding-bottom: 96px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .hero-logo-large {
+    margin-bottom: 36px;
+  }
+
+  .hero-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 5.5vw, 66px);
+    font-weight: 400;
+    line-height: 1.08;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .hero-headline em { font-style: italic; color: var(--cream); }
+
+  .hero-sub {
+    font-size: clamp(15px, 1.8vw, 17px);
+    color: var(--muted);
+    line-height: 1.75;
+    max-width: 520px;
+    margin-bottom: 40px;
+  }
+  .hero-sub strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+
+  .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    padding: 14px 28px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  .btn-ghost {
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border2);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-ghost:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* Hero right card */
+  .hero-card {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .hero-card-header {
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-card-label {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .hero-card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: var(--cream);
+    line-height: 1.3;
+  }
+  .hero-stat {
+    padding: 16px 22px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-stat:last-child { border-bottom: none; }
+  .hero-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--accent2);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .hero-stat-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+  /* TAGLINE BAR */
+  .tagline-bar {
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,169,110,0.15);
+    border-radius: 4px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .tagline-bar-rule { width: 1px; height: 32px; background: rgba(200,169,110,0.3); flex-shrink: 0; }
+  .tagline-bar-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .tagline-bar-text strong { color: var(--cream); font-weight: 500; }
+  .tagline-bar-label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* PROBLEM */
+  .tensions-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .tension {
+    background: var(--navy2);
+    padding: 28px 24px;
+    cursor: default;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .tension:hover { background: var(--navy3); }
+  .tension::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background 0.25s;
+  }
+  .tension:hover::before { background: var(--accent); }
+  .tension-num {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .tension-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 8px; line-height: 1.35; }
+  .tension-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .tension-expand-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    letter-spacing: 0.06em;
+    transition: opacity 0.2s;
+  }
+  .tension-expand-btn:hover { opacity: 0.75; }
+  .tension-expand-btn .chevron {
+    width: 10px; height: 10px;
+    border-right: 1.5px solid var(--accent);
+    border-bottom: 1.5px solid var(--accent);
+    transform: rotate(45deg);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+    margin-top: -3px;
+  }
+  .tension-expand-btn.open .chevron { transform: rotate(-135deg); margin-top: 3px; }
+  .tension-detail {
+    display: none;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .tension-detail.open { display: block; }
+  .tension-quote {
+    margin-top: 12px;
+    padding: 12px 14px;
+    background: var(--accent-dim);
+    border-left: 2px solid var(--accent);
+    border-radius: 0 2px 2px 0;
+  }
+  .tension-quote-text { font-size: 12px; color: var(--cream); font-style: italic; line-height: 1.6; margin-bottom: 5px; }
+  .tension-quote-source { font-size: 10px; color: var(--muted2); letter-spacing: 0.06em; text-transform: uppercase; }
+
+  .ceo-qs {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .ceo-q {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .ceo-q:last-child { border-bottom: none; }
+  .ceo-q:hover { background: var(--navy3); }
+  .ceo-q-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .ceo-q-text { font-size: 14px; color: var(--cream); font-family: 'DM Serif Display', serif; font-style: italic; line-height: 1.4; }
+  .ceo-q-icon {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: var(--accent);
+    font-size: 14px;
+    transition: transform 0.25s, border-color 0.2s;
+  }
+  .ceo-q.open .ceo-q-icon { transform: rotate(45deg); border-color: var(--accent); }
+  .ceo-q-answer {
+    display: none;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+  .ceo-q-answer.open { display: block; }
+
+  /* FOUNDER */
+  .founder-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .founder-left {
+    background: var(--navy2);
+    padding: 36px 32px;
+  }
+  .founder-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .founder-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--cream);
+    margin-bottom: 4px;
+  }
+  .founder-title {
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    margin-bottom: 20px;
+  }
+  .founder-bio {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.75;
+  }
+  .founder-bio strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+  .founder-right {
+    background: var(--navy2);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+  .founder-stat {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .founder-stat:first-child { padding-top: 0; }
+  .founder-stat:last-child { border-bottom: none; padding-bottom: 0; }
+  .founder-stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--accent2);
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .founder-stat-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
+  .founder-stat-sub { font-size: 11px; color: var(--muted2); margin-top: 2px; }
+
+  /* EXPERIENCE */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .stat-cell { background: var(--navy2); padding: 24px 20px; }
+  .stat-cell .n { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--accent2); line-height: 1; margin-bottom: 5px; }
+  .stat-cell .l { font-size: 12px; color: var(--muted); line-height: 1.45; }
+  .stat-cell .s { font-size: 11px; color: var(--muted2); margin-top: 3px; }
+
+  .cases-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 48px; }
+  .case {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .case:hover { border-color: var(--border2); }
+  .case-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+  }
+  .case-co { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 4px; }
+  .case-title { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--white); line-height: 1.3; }
+  .case-trigger-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+  .case-tag { font-size: 11px; color: var(--muted2); white-space: nowrap; }
+  .case-icon {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent);
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: transform 0.25s, border-color 0.2s;
+  }
+  .case.open .case-icon { transform: rotate(45deg); border-color: var(--accent); }
+  .case-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border); }
+  .case-body.open { display: block; }
+  .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-top: 20px; margin-bottom: 16px; }
+  .case-block-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
+  .case-block-text { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .case-block-text strong { color: var(--white); font-weight: 500; }
+  .case-outcome {
+    background: var(--accent-dim);
+    border: 1px solid rgba(200,169,110,0.15);
+    border-radius: 3px;
+    padding: 14px 16px;
+    display: flex;
+    gap: 14px;
+  }
+  .case-outcome-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); white-space: nowrap; padding-top: 1px; flex-shrink: 0; }
+  .case-outcome-text { font-size: 13px; color: var(--cream); line-height: 1.6; }
+
+  .both-sides {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 48px;
+  }
+  .both-col { background: var(--navy2); padding: 28px 24px; }
+  .both-col-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
+  .both-col-title { font-family: 'DM Serif Display', serif; font-size: 17px; color: var(--cream); margin-bottom: 14px; line-height: 1.3; }
+  .both-list { list-style: none; padding: 0; }
+  .both-list li { font-size: 13px; color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; line-height: 1.5; }
+  .both-list li:last-child { border-bottom: none; }
+  .both-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+
+  /* Network */
+  .network-wrap { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 48px; }
+  .network-header { background: var(--navy2); padding: 20px 24px; border-bottom: 1px solid var(--border); font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .network-header strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+  .network-nodes { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border); }
+  .network-node { background: var(--navy2); padding: 20px 18px; transition: background 0.2s; }
+  .network-node:hover { background: var(--navy3); }
+  .network-node-name { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
+  .network-node-role { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .network-node-reach { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* Clients */
+  .clients-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .client-pill {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .client-pill:hover { color: var(--accent2); border-color: rgba(200,169,110,0.3); }
+  .client-pill span { font-size: 9px; color: var(--muted2); letter-spacing: 0.08em; text-transform: uppercase; display: block; margin-bottom: 1px; }
+
+  /* ENGINE */
+  .engine-wrap { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 48px; }
+  .engine-header {
+    background: var(--navy3);
+    padding: 28px 28px 24px;
+    border-bottom: 1px solid var(--border);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .engine-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .engine-headline { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--cream); line-height: 1.3; }
+  .engine-header-right { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .engine-header-right strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+  .engine-components { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); }
+  .engine-component { background: var(--navy2); padding: 28px 24px 24px; position: relative; }
+  .engine-component::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .engine-component:first-child::before { background: var(--accent); }
+  .engine-component:nth-child(2)::before { background: rgba(200,169,110,0.5); }
+  .engine-component:nth-child(3)::before { background: rgba(200,169,110,0.25); }
+  .ec-num { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .ec-title { font-size: 16px; font-weight: 500; color: var(--white); margin-bottom: 10px; line-height: 1.3; }
+  .ec-body { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+  .ec-body strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+  .ec-items { list-style: none; padding: 0; border-top: 1px solid var(--border); padding-top: 14px; }
+  .ec-items li { font-size: 12px; color: var(--muted2); padding: 4px 0; display: flex; gap: 8px; line-height: 1.5; }
+  .ec-items li::before { content: ''; width: 3px; height: 3px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
+  .engine-footer {
+    background: var(--accent-dim);
+    border-top: 1px solid rgba(200,169,110,0.15);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .engine-footer-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  .engine-footer-text { font-size: 13px; color: var(--cream); line-height: 1.55; }
+
+  /* HOW IT WORKS */
+  .paths { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 4px 4px 0 0; overflow: hidden; }
+  .path-card { background: var(--navy2); padding: 32px 28px; position: relative; }
+  .path-card.featured { background: var(--navy3); }
+  .path-card.featured::after {
+    content: 'Start here';
+    position: absolute;
+    top: 0; right: 0;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--accent);
+    padding: 4px 12px;
+    border-radius: 0 0 0 4px;
+  }
+  .path-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .path-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--white); margin-bottom: 4px; line-height: 1.15; }
+  .path-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; line-height: 1.55; }
+  .path-price { margin-bottom: 20px; }
+  .path-price .amount { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--accent2); line-height: 1; }
+  .path-price .cadence { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .path-hr { height: 1px; background: var(--border); margin-bottom: 18px; }
+  .path-list { list-style: none; padding: 0; }
+  .path-list li { font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; line-height: 1.5; }
+  .path-list li:last-child { border-bottom: none; }
+  .path-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 7px; }
+  .path-note { margin-top: 16px; font-size: 11px; color: var(--muted2); font-style: italic; line-height: 1.6; }
+
+  .path-bridge {
+    background: var(--accent-dim2);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 14px 28px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 48px;
+  }
+  .path-bridge strong { color: var(--cream); font-weight: 500; }
+
+  /* Phases */
+  .phases { display: flex; flex-direction: column; gap: 2px; margin-bottom: 48px; }
+  .phase { background: var(--navy2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .phase-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .phase-trigger:hover { background: rgba(255,255,255,0.02); }
+  .phase-num-badge {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .phase-trigger-text { flex: 1; }
+  .phase-week { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); margin-bottom: 2px; }
+  .phase-name { font-size: 15px; font-weight: 500; color: var(--white); }
+  .phase-output-preview { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .phase-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 14px; flex-shrink: 0; transition: transform 0.25s; }
+  .phase.open .phase-icon { transform: rotate(45deg); }
+  .phase-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border); }
+  .phase-body.open { display: block; }
+  .phase-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin: 20px 0 14px; border-radius: 3px; overflow: hidden; }
+  .phase-col { background: var(--navy2); padding: 16px 18px; }
+  .phase-col-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 10px; }
+  .phase-col ul { list-style: none; padding: 0; }
+  .phase-col ul li { font-size: 13px; color: var(--muted); padding: 4px 0; border-bottom: 1px solid var(--border); line-height: 1.5; }
+  .phase-col ul li:last-child { border-bottom: none; }
+  .phase-deliverable { background: var(--navy3); border-radius: 3px; padding: 12px 16px; display: flex; gap: 12px; align-items: flex-start; }
+  .pd-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); white-space: nowrap; flex-shrink: 0; padding-top: 1px; }
+  .pd-text { font-size: 13px; color: var(--cream); line-height: 1.55; }
+
+  /* ROI */
+  .roi-calc { background: var(--navy2); border: 1px solid var(--border); border-radius: 4px; padding: 28px 24px; }
+  .roi-calc-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .roi-calc-intro { font-size: 14px; color: var(--muted); line-height: 1.65; margin-bottom: 24px; }
+  .roi-calc-intro strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+  .slider-row { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+  .slider-label { font-size: 12px; color: var(--muted2); white-space: nowrap; }
+  .slider-row input[type=range] { flex: 1; min-width: 160px; accent-color: var(--accent); cursor: pointer; }
+  .slider-val { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--accent2); white-space: nowrap; min-width: 100px; text-align: right; }
+  .roi-results { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .roi-cell { background: var(--navy3); padding: 16px 18px; }
+  .roi-cell .rl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 5px; }
+  .roi-cell .rv { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--white); line-height: 1; margin-bottom: 3px; }
+  .roi-cell.positive .rv { color: var(--accent2); }
+  .roi-cell .rn { font-size: 11px; color: var(--muted2); line-height: 1.4; }
+
+  /* TERMS */
+  .payment-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 4px 4px 0 0; overflow: hidden; }
+  .pay-step { background: var(--navy2); padding: 24px 20px; position: relative; }
+  .pay-step::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .pay-step.s1::before { background: var(--accent); }
+  .pay-step.s2::before { background: rgba(200,169,110,0.5); }
+  .pay-step.s3::before { background: rgba(200,169,110,0.25); }
+  .pay-when { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .pay-amount { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--white); line-height: 1; margin-bottom: 3px; }
+  .pay-pct { font-size: 11px; color: var(--muted2); margin-bottom: 12px; }
+  .pay-hr { height: 1px; background: var(--border); margin-bottom: 10px; }
+  .pay-trigger-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 5px; }
+  .pay-trigger-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .pay-trigger-text strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+  .pay-retainer {
+    background: var(--navy3);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  .pr-badge { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); white-space: nowrap; }
+  .pr-note { font-size: 13px; color: var(--muted); line-height: 1.5; }
+  .pr-note strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+  .pr-amount { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--accent2); text-align: right; white-space: nowrap; flex-shrink: 0; }
+  .pr-amount span { display: block; font-family: 'DM Sans', sans-serif; font-size: 10px; color: var(--muted2); font-weight: 300; }
+
+  .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 32px; }
+  .trust-item { background: var(--navy2); padding: 22px 22px; }
+  .trust-n { font-family: 'DM Serif Display', serif; font-size: 28px; color: rgba(255,255,255,0.07); line-height: 1; margin-bottom: 8px; }
+  .trust-title { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 5px; }
+  .trust-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  .exit-wrap { background: var(--navy2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+  .exit-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.2s;
+  }
+  .exit-trigger:hover { background: rgba(255,255,255,0.02); }
+  .exit-trigger-text { font-size: 14px; color: var(--cream); font-family: 'DM Serif Display', serif; font-style: italic; }
+  .exit-trigger-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .exit-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 14px; flex-shrink: 0; transition: transform 0.25s; }
+  .exit-wrap.open .exit-icon { transform: rotate(45deg); }
+  .exit-body { display: none; padding: 0 24px 24px; border-top: 1px solid var(--border); }
+  .exit-body.open { display: block; }
+  .exit-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1px; background: var(--border); border-radius: 3px; overflow: hidden; margin-top: 20px; }
+  .exit-cell { background: var(--navy2); padding: 18px 18px; }
+  .exit-cell-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); margin-bottom: 6px; }
+  .exit-cell-title { font-size: 13px; font-weight: 500; color: var(--white); margin-bottom: 6px; line-height: 1.35; }
+  .exit-cell-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+  /* CTA */
+  #cta { padding: 96px 0; }
+  .cta-inner {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 48px;
+    background: var(--accent-dim2);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 4px;
+    padding: 40px;
+    margin-bottom: 48px;
+  }
+  .cta-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .cta-headline { font-family: 'DM Serif Display', serif; font-size: clamp(22px, 3vw, 32px); color: var(--cream); line-height: 1.25; margin-bottom: 10px; }
+  .cta-body { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 520px; }
+  .cta-body strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+  .cta-btn-wrap { flex-shrink: 0; text-align: center; }
+  .cta-sub { font-size: 11px; color: var(--muted2); margin-top: 8px; }
+
+  .closing-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: end;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .closing-quote { font-family: 'DM Serif Display', serif; font-size: clamp(18px, 2.5vw, 24px); color: var(--cream); line-height: 1.5; font-style: italic; }
+  .closing-contact { font-size: 13px; color: var(--muted); line-height: 2; }
+  .closing-contact strong { display: block; font-size: 15px; color: var(--white); font-weight: 500; margin-bottom: 4px; }
+  .closing-contact a { color: var(--accent); text-decoration: none; }
+  .closing-contact a:hover { color: var(--accent2); }
+
+  /* FOOTER */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 32px var(--pad);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    max-width: 100%;
+  }
+  .site-footer-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .site-footer-tagline { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2); }
+  .site-footer-links { display: flex; gap: 20px; }
+  .site-footer-links a { font-size: 12px; color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+  .site-footer-links a:hover { color: var(--accent); }
+
+  /* MOBILE CTA */
+  .mobile-cta {
+    display: none;
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    z-index: 90;
+    padding: 12px 20px;
+    background: rgba(11,22,35,0.96);
+    border-top: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .mobile-cta a {
+    display: block;
+    text-align: center;
+    background: var(--accent);
+    color: var(--navy);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 14px;
+    border-radius: 3px;
+    text-decoration: none;
+  }
+
+  /* REVEAL */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    section { padding: 64px 0; }
+    #hero { padding-top: 96px; padding-bottom: 64px; }
+    .hero-inner { grid-template-columns: 1fr; gap: 36px; }
+    .nav-links { display: none; }
+    .tensions-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .both-sides { grid-template-columns: 1fr; }
+    .founder-wrap { grid-template-columns: 1fr; }
+    .network-nodes { grid-template-columns: 1fr 1fr; }
+    .paths { grid-template-columns: 1fr; }
+    .engine-header { grid-template-columns: 1fr; gap: 16px; }
+    .engine-components { grid-template-columns: 1fr; }
+    .engine-footer { flex-direction: column; gap: 8px; align-items: flex-start; }
+    .phase-cols { grid-template-columns: 1fr; }
+    .payment-steps { grid-template-columns: 1fr; }
+    .pay-retainer { flex-direction: column; gap: 8px; }
+    .trust-grid { grid-template-columns: 1fr; }
+    .exit-grid { grid-template-columns: 1fr; }
+    .roi-results { grid-template-columns: 1fr; }
+    .cta-inner { grid-template-columns: 1fr; gap: 24px; }
+    .closing-split { grid-template-columns: 1fr; gap: 32px; }
+    .mobile-cta { display: block; }
+    body { padding-bottom: 72px; }
+    .section-rule .tag { display: none; }
+    .case-grid { grid-template-columns: 1fr; }
+    .case-trigger-right .case-tag { display: none; }
+    .site-footer { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+
+  @media (max-width: 480px) {
+    .stats-row { grid-template-columns: 1fr; }
+    .network-nodes { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="#">
+    <svg class="nav-mark" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
+      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="14" cy="10" r="2" fill="#C8A96E" opacity="0.6"/>
+      <circle cx="14" cy="34" r="2" fill="#C8A96E" opacity="0.4"/>
+    </svg>
+    <span class="nav-wordmark">Re<span class="v">v</span>eneering</span>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#problem">The Challenge</a></li>
+      <li><a href="#proof">Our Work</a></li>
+      <li><a href="#how-it-works">The Engine</a></li>
+      <li><a href="#terms">Terms</a></li>
+    </ul>
+    <a class="nav-cta" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a call &rarr;</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow reveal">Fractional CRO · MENA · Seed to Series B</span>
+        <h1 class="hero-headline reveal">We build the sales engine.<br><em>You keep it forever.</em></h1>
+        <p class="hero-sub reveal">Reveneering delivers fractional CRO leadership for MENA founders at Seed to Series B. In one commercial quarter, we build a permanent sales engine: automated lead generation, outbound at scale, and AI-driven pitch improvement. <strong>When the engagement ends, the engine keeps running.</strong></p>
+        <div class="hero-actions reveal">
+          <a class="btn-primary" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a 30-min call &rarr;</a>
+          <a class="btn-ghost" href="#how-it-works">See how it works</a>
+        </div>
+        <div class="tagline-bar reveal">
+          <div class="tagline-bar-label">Founded by</div>
+          <div class="tagline-bar-rule"></div>
+          <div class="tagline-bar-text">Alexander Kappes, Chief Revenue Officer. Former CEO of Groupon Middle East ($60M revenue). Founder of Greener Crop and Greener Herd. <strong>15+ years closing enterprise deals in this market.</strong></div>
+        </div>
+      </div>
+      <div class="hero-card reveal">
+        <div class="hero-card-header">
+          <div class="hero-card-label">Founder track record</div>
+          <div class="hero-card-title">The experience behind every engagement</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">$60M+</div>
+          <div class="hero-stat-label">Annual regional revenue as CEO, Groupon Middle East</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">$3M</div>
+          <div class="hero-stat-label">Net revenue, Greener Crop · 3 years · 6 countries</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">7,000+</div>
+          <div class="hero-stat-label">Users, Greener Herd · 6 months · $0 paid acquisition</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">$160M</div>
+          <div class="hero-stat-label">First-year revenue, Groupon travel vertical · from zero</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="wrap">
+    <div class="section-rule reveal">
+      <h2>The challenge</h2>
+      <div class="rule"></div>
+      <div class="tag">For the MENA founder at Seed to Series B</div>
+    </div>
+    <div class="tensions-grid reveal">
+      <div class="tension">
+        <div class="tension-num">01 · The ceiling</div>
+        <div class="tension-title">You are the pipeline, and that is the problem</div>
+        <div class="tension-body">Founder-led sales works until it doesn't. When you are the only person who can close, growth is capped at your personal capacity. The answer is not just hiring: it is building a machine that works without you.</div>
+        <button class="tension-expand-btn" onclick="toggleExpand(this)"><span>Read more</span><div class="chevron"></div></button>
+        <div class="tension-detail">
+          There is no process to hand over. No automated outbound running while you sleep. No system that gets smarter with every conversation. The transition from founder-led to founder-informed sales requires a sales engine: lead generation, automated outreach, and continuous pitch improvement, not just a playbook. That engine is what Reveneering builds and leaves with you.
+          <div class="tension-quote">
+            <div class="tension-quote-text">"The issue isn't with founding activity. Early-stage participation is strong. But sustaining momentum is where the region falls short."</div>
+            <div class="tension-quote-source">Farah El Nahlawi, Research Manager, MAGNiTT · AGBI, 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="tension">
+        <div class="tension-num">02 · The market</div>
+        <div class="tension-title">This market rewards trust over process, and punishes ambiguity</div>
+        <div class="tension-body">Enterprise buyers in the Gulf move deliberately. They respond to credibility and relationships, not cold sequences or SaaS-style demos.</div>
+        <button class="tension-expand-btn" onclick="toggleExpand(this)"><span>Read more</span><div class="chevron"></div></button>
+        <div class="tension-detail">
+          A sales approach that works in the US or Europe will stall here at the first procurement meeting. Reveneering's engagement model is built specifically for how MENA enterprise buyers actually buy: government entities, family conglomerates, and regional corporates, each with their own procurement logic.
+          <div class="tension-quote">
+            <div class="tension-quote-text">"Enterprise buyers in GCC markets move deliberately and rely heavily on trust. In such an environment, ambiguity is not neutral. It becomes a structural weakness."</div>
+            <div class="tension-quote-source">Wamda, March 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="tension">
+        <div class="tension-num">03 · The funnel</div>
+        <div class="tension-title">Only 7% of early-stage MENA startups reach Series A</div>
+        <div class="tension-body">The drop-off is not product failure. It is commercial stall: the gap between a company that can win a PoC and one that can close a repeatable enterprise contract.</div>
+        <button class="tension-expand-btn" onclick="toggleExpand(this)"><span>Read more</span><div class="chevron"></div></button>
+        <div class="tension-detail">
+          The region's commercial execution layer remains underdeveloped. Accelerators, capital, and networks have never been stronger. What is missing is the embedded operator who helps founders convert traction into revenue. That is the gap Reveneering exists to close.
+          <div class="tension-quote">
+            <div class="tension-quote-text">"Funding has expanded at 49% CAGR over the past decade, yet the structural foundations needed to support scale remain underdeveloped."</div>
+            <div class="tension-quote-source">MAGNiTT · AGBI Analysis, October 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="tension">
+        <div class="tension-num">04 · The clock</div>
+        <div class="tension-title">Your investors are waiting for revenue visibility that doesn't exist yet</div>
+        <div class="tension-body">The board question has changed. It is no longer "are you growing?" It is "show me the pipeline."</div>
+        <button class="tension-expand-btn" onclick="toggleExpand(this)"><span>Read more</span><div class="chevron"></div></button>
+        <div class="tension-detail">
+          A pipeline that lives inside the founder's head is not a commercial model. It is a risk. Every quarter without a documented sales system makes the next fundraise harder to close on your terms. Reveneering's 90-day sprint ends with a board-ready pipeline, a revenue forecast, and a running engine your investors can see.
+          <div class="tension-quote">
+            <div class="tension-quote-text">"30% of current Series A startups in MENA risk write-off by 2026. The middle of the funnel appears stuck across all markets."</div>
+            <div class="tension-quote-source">Clearworld 2025 MENA Early Stage Data Handbook</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-rule" style="margin-bottom:24px;">
+        <h2>Questions founders ask</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="ceo-qs">
+        <div class="ceo-q" onclick="toggleQ(this)">
+          <div class="ceo-q-row">
+            <div class="ceo-q-text">"If I bring in outside sales help, does that mean I failed at founder-led sales?"</div>
+            <div class="ceo-q-icon">+</div>
+          </div>
+          <div class="ceo-q-answer">No. Every serious founder eventually makes this transition. The question is whether you make it before or after a stalled pipeline forces your hand. Engaging Reveneering is what founders who are serious about scaling do: it is an act of ambition, not admission of failure.</div>
+        </div>
+        <div class="ceo-q" onclick="toggleQ(this)">
+          <div class="ceo-q-row">
+            <div class="ceo-q-text">"How do I justify this spend to my board?"</div>
+            <div class="ceo-q-icon">+</div>
+          </div>
+          <div class="ceo-q-answer">The engagement is designed to produce board-ready outputs from day one: a pipeline tracker, a revenue forecast, and a 90-day retrospective. You will have more to show your investors at the end of this quarter than you would have without it.</div>
+        </div>
+        <div class="ceo-q" onclick="toggleQ(this)">
+          <div class="ceo-q-row">
+            <div class="ceo-q-text">"I've hired consultants before. Why is this different?"</div>
+            <div class="ceo-q-icon">+</div>
+          </div>
+          <div class="ceo-q-answer">The difference is permanence. Everything produced belongs to your company from the moment it is delivered. And crucially, the engagement ends with a running sales engine: automated lead generation, active outbound sequences, and a pitch improvement framework your team can operate. Not a deck. Not advice. A machine.</div>
+        </div>
+        <div class="ceo-q" onclick="toggleQ(this)">
+          <div class="ceo-q-row">
+            <div class="ceo-q-text">"Can't I just use AI and a junior rep to do this myself?"</div>
+            <div class="ceo-q-icon">+</div>
+          </div>
+          <div class="ceo-q-answer">AI can build sequences and draft proposals. It cannot read the room in a majlis, know which family office in Riyadh is connected to which ministry, or design a deal structure a MENA enterprise buyer will actually sign. That is judgment built from 15+ years of real conversations with these buyers, embedded directly into every Reveneering engagement.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section id="proof">
+  <div class="wrap">
+    <div class="section-rule reveal">
+      <h2>Who we are</h2>
+      <div class="rule"></div>
+      <div class="tag">The expertise behind Reveneering</div>
+    </div>
+
+    <div class="founder-wrap reveal">
+      <div class="founder-left">
+        <div class="founder-eyebrow">Founder &amp; Chief Revenue Officer</div>
+        <div class="founder-name">Alexander Kappes</div>
+        <div class="founder-title">Reveneering · Dubai, UAE</div>
+        <div class="founder-bio">
+          Reveneering was founded on a simple observation: MENA founders consistently build strong products and raise real capital, then stall at the commercial execution stage. Not because the product is wrong, but because <strong>the sales infrastructure was never built.</strong>
+          <br><br>
+          Alexander Kappes spent 15+ years building and running commercial operations in this market: as CEO of Groupon Middle East (growing the business to $60M in annual revenue), as a VP at Delivery Hero (highest GMV-per-order globally in year one), and as a founder closing multi-million dollar enterprise contracts with government entities, family conglomerates, and regional corporates across 6 countries.
+          <br><br>
+          Every Reveneering engagement is built on that accumulated pattern recognition. <strong>The methodology is not generic best practice adapted for MENA. It was developed here, from the ground up, with the buyers who matter in this market.</strong>
+        </div>
+      </div>
+      <div class="founder-right">
+        <div class="founder-stat">
+          <div class="founder-stat-num">$60M+</div>
+          <div class="founder-stat-label">Annual regional revenue as CEO, Groupon Middle East</div>
+          <div class="founder-stat-sub">220% growth · 24-person sales team · highest-performing global entity</div>
+        </div>
+        <div class="founder-stat">
+          <div class="founder-stat-num">$3M</div>
+          <div class="founder-stat-label">Net revenue, Greener Crop · 3 years from founding</div>
+          <div class="founder-stat-sub">6 countries · 13 enterprise deployments · USAID and NASDAQ-listed clients</div>
+        </div>
+        <div class="founder-stat">
+          <div class="founder-stat-num">7,000+</div>
+          <div class="founder-stat-label">Active users, Greener Herd · within 6 months of launch</div>
+          <div class="founder-stat-sub">11 countries · $0 paid acquisition · WFP and Techstars-backed</div>
+        </div>
+        <div class="founder-stat">
+          <div class="founder-stat-num">$160M</div>
+          <div class="founder-stat-label">First-year revenue, Groupon travel vertical · launched from zero</div>
+          <div class="founder-stat-sub">15-person team · 15+ country rollout · methodology adopted globally</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal" style="margin-bottom:40px;">
+      <div class="section-rule" style="margin-bottom:20px;">
+        <h2>Experience directly relevant to your stage</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="cases-list">
+        <div class="case" id="case1">
+          <button class="case-trigger" onclick="toggleCase('case1')">
+            <div class="case-trigger-left">
+              <div class="case-co">Groupon Middle East</div>
+              <div class="case-title">Burj Al Arab: redefining a platform's commercial identity</div>
+            </div>
+            <div class="case-trigger-right">
+              <div class="case-tag">Positioning play</div>
+              <div class="case-icon">+</div>
+            </div>
+          </button>
+          <div class="case-body" id="case1-body">
+            <div class="case-grid">
+              <div>
+                <div class="case-block-label">The real problem</div>
+                <div class="case-block-text">The Burj Al Arab didn't need customer acquisition help. The commercial challenge was a <strong>positioning problem disguised as a sales problem</strong>: we had to change what Groupon meant to an ultra-luxury buyer before any deal conversation could begin.</div>
+              </div>
+              <div>
+                <div class="case-block-label">How it was solved</div>
+                <div class="case-block-text">Reframed the value proposition entirely: not "reach more customers" but <strong>"reach a specific audience you currently cannot access without compromising brand."</strong> Built a deal architecture that felt like a partnership, not a listing.</div>
+              </div>
+            </div>
+            <div class="case-outcome">
+              <div class="case-outcome-label">System built</div>
+              <div class="case-outcome-text">Became the template for Groupon's entire luxury segment, unlocking Jumeirah Group, Atlantis, and a portfolio of five-star properties. One deal became a category.</div>
+            </div>
+          </div>
+        </div>
+        <div class="case" id="case2">
+          <button class="case-trigger" onclick="toggleCase('case2')">
+            <div class="case-trigger-left">
+              <div class="case-co">Greener Crop</div>
+              <div class="case-title">Government greenhouse contract: first-of-its-kind capex deal</div>
+            </div>
+            <div class="case-trigger-right">
+              <div class="case-tag">Government sale</div>
+              <div class="case-icon">+</div>
+            </div>
+          </button>
+          <div class="case-body" id="case2-body">
+            <div class="case-grid">
+              <div>
+                <div class="case-block-label">The real problem</div>
+                <div class="case-block-text">A capital-intensive, multi-year commitment to an unproven technology category, with a procurement team that had no evaluation framework and no internal champion who had seen it work.</div>
+              </div>
+              <div>
+                <div class="case-block-label">How it was solved</div>
+                <div class="case-block-text">Designed a <strong>phased commercial structure</strong> that moved the buyer from risk-off to conviction in stages. Built a custom ROI narrative tailored to government KPIs: food security, employment, import substitution.</div>
+              </div>
+            </div>
+            <div class="case-outcome">
+              <div class="case-outcome-label">System built</div>
+              <div class="case-outcome-text">The framework became the foundation for all 13 of Greener Crop's subsequent enterprise deployments across 6 countries. Documented, not tribal: it survived team changes and market shifts.</div>
+            </div>
+          </div>
+        </div>
+        <div class="case" id="case3">
+          <button class="case-trigger" onclick="toggleCase('case3')">
+            <div class="case-trigger-left">
+              <div class="case-co">Greener Herd</div>
+              <div class="case-title">7,000 users in 6 months: zero paid acquisition</div>
+            </div>
+            <div class="case-trigger-right">
+              <div class="case-tag">$0 CAC GTM</div>
+              <div class="case-icon">+</div>
+            </div>
+          </button>
+          <div class="case-body" id="case3-body">
+            <div class="case-grid">
+              <div>
+                <div class="case-block-label">The real problem</div>
+                <div class="case-block-text">Livestock producers in MENA are among the hardest audiences to reach commercially. No digital footprint. No industry press. The channel didn't exist: it had to be built from scratch, without budget.</div>
+              </div>
+              <div>
+                <div class="case-block-label">How it was solved</div>
+                <div class="case-block-text">Built a <strong>$0 CAC organic content strategy</strong> generating millions of views per month. Designed onboarding around community trust signals rather than feature demonstrations. Distribution strategy was the go-to-market strategy.</div>
+              </div>
+            </div>
+            <div class="case-outcome">
+              <div class="case-outcome-label">Engine logic</div>
+              <div class="case-outcome-text">This is the engine principle in its earliest form: a system that generates demand continuously, without the founder in the room. Built once, it kept working. The same logic powers every Reveneering sales engine today. Now 11 countries, WFP and Techstars-backed.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="network-wrap reveal" style="margin-bottom:40px;">
+      <div class="network-header">
+        These are accelerators and company builders that trust Reveneering's expertise enough to put us in front of their founders. <strong>Being selected to mentor and judge at this level is a signal of credibility, not just affiliation.</strong>
+      </div>
+      <div class="network-nodes">
+        <div class="network-node">
+          <div class="network-node-name">Brinc</div>
+          <div class="network-node-role">GTM Mentor &amp; Judge</div>
+          <div class="network-node-reach">Global tech accelerator. Selected to mentor and evaluate founders on go-to-market strategy and commercial execution.</div>
+        </div>
+        <div class="network-node">
+          <div class="network-node-name">Gener8tor</div>
+          <div class="network-node-role">Pitch Mentor &amp; Judge</div>
+          <div class="network-node-reach">U.S. tech accelerator. Invited to evaluate and coach early-stage startups on pitch quality and investor readiness.</div>
+        </div>
+        <div class="network-node">
+          <div class="network-node-name">Techstars</div>
+          <div class="network-node-role">GTM &amp; Sales Mentor</div>
+          <div class="network-node-reach">Worldwide leading accelerator. Embedded as a mentor on go-to-market strategy and enterprise sales for portfolio founders.</div>
+        </div>
+        <div class="network-node">
+          <div class="network-node-name">Rocket Internet</div>
+          <div class="network-node-role">Executive Alumnus</div>
+          <div class="network-node-reach">Global company builder. Operated as a senior executive across multiple ventures in MENA and emerging markets.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="section-rule" style="margin-bottom:16px;">
+        <h2>Selected clients and partners</h2>
+        <div class="rule"></div>
+      </div>
+      <div class="clients-grid">
+        <div class="client-pill"><span>Luxury</span>Jumeirah Group</div>
+        <div class="client-pill"><span>Mobility</span>Careem</div>
+        <div class="client-pill"><span>Government</span>Sharjah Asset Management</div>
+        <div class="client-pill"><span>Conglomerate</span>Khaled Juffali Holding</div>
+        <div class="client-pill"><span>Regional</span>Regency Group</div>
+        <div class="client-pill"><span>Development</span>World Food Programme</div>
+        <div class="client-pill"><span>Development</span>USAID</div>
+        <div class="client-pill"><span>Conglomerate</span>MARA Holdings</div>
+        <div class="client-pill"><span>Advisory</span>Coral.li</div>
+        <div class="client-pill"><span>Advisory</span>Slate Safety</div>
+        <div class="client-pill"><span>Advisory</span>Below Farms</div>
+        <div class="client-pill"><span>Advisory</span>Graze-It</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="wrap">
+    <div class="section-rule reveal">
+      <h2>The Reveneering engagement</h2>
+      <div class="rule"></div>
+      <div class="tag">How we work</div>
+    </div>
+
+    <div class="paths reveal">
+      <div class="path-card featured">
+        <div class="path-label">Phase 01</div>
+        <div class="path-title">The Commercial Quarter</div>
+        <div class="path-sub">90-day sprint. Fixed scope. Fixed fee. We build your sales engine from the ground up.</div>
+        <div class="path-price">
+          <div class="amount">$25,000</div>
+          <div class="cadence">Flat fee · 90 days · All-inclusive within UAE</div>
+        </div>
+        <div class="path-hr"></div>
+        <div class="path-label" style="margin-bottom:10px;">What you own at the end</div>
+        <ul class="path-list">
+          <li>Lead generation engine: automated prospect sourcing matched to your ICP</li>
+          <li>Automated outbound engine: personalised sequences running continuously</li>
+          <li>AI-driven pitch improvement: messaging that gets smarter with every reply</li>
+          <li>Full CRM architecture and pipeline management process</li>
+          <li>Enterprise sales playbook and MENA buyer engagement guide</li>
+          <li>Hiring framework for your first full-time sales lead</li>
+          <li>Board-ready revenue model and 90-day retrospective</li>
+        </ul>
+        <div class="path-note">UAE travel included. Outside UAE scoped separately.</div>
+      </div>
+      <div class="path-card">
+        <div class="path-label">Phase 02</div>
+        <div class="path-title">Embedded Leadership</div>
+        <div class="path-sub">Ongoing fractional CRO. Runs the engine built in Phase 01. Available to Phase 01 clients only.</div>
+        <div class="path-price">
+          <div class="amount">$10,000</div>
+          <div class="cadence">Per month · Minimum 3 months · In advance</div>
+        </div>
+        <div class="path-hr"></div>
+        <div class="path-label" style="margin-bottom:10px;">What this covers</div>
+        <ul class="path-list">
+          <li>Weekly pipeline review and deal strategy sessions</li>
+          <li>Engine optimisation: lead quality, outbound performance, pitch refinement</li>
+          <li>Direct enterprise outreach and deal structuring</li>
+          <li>Buying committee mapping and negotiation support</li>
+          <li>Sales team coaching and performance management</li>
+          <li>Board-level commercial reporting each month</li>
+        </ul>
+        <div class="path-note">Performance component tied to revenue milestones defined jointly at engagement start.</div>
+      </div>
+    </div>
+    <div class="path-bridge reveal">
+      Phase 01 builds the engine. <strong>Phase 02 runs it.</strong> The decision to continue is yours at day 90, with full pipeline visibility before you commit.
+    </div>
+
+    <!-- ENGINE -->
+    <div class="section-rule reveal" style="margin-bottom:20px;">
+      <h2>The sales engine</h2>
+      <div class="rule"></div>
+      <div class="tag">The product that stays with you</div>
+    </div>
+
+    <div class="engine-wrap reveal">
+      <div class="engine-header">
+        <div>
+          <div class="engine-eyebrow">What makes Reveneering different</div>
+          <div class="engine-headline">Most engagements end with a document. Ours ends with a running machine.</div>
+        </div>
+        <div class="engine-header-right">
+          Built during the 90-day commercial quarter. Owned by your company permanently. <strong>Lead generation finding your next customer, outbound sequences working around the clock, and a pitch framework that gets smarter with every reply</strong>: the engine operates the day after handover without any external support.
+        </div>
+      </div>
+      <div class="engine-components">
+        <div class="engine-component">
+          <div class="ec-num">Component 01</div>
+          <div class="ec-title">Lead Generation Engine</div>
+          <div class="ec-body">A continuously running system that finds, qualifies, and enriches your ideal prospects, matched to the ICP defined during the engagement, updated as your market evolves.</div>
+          <ul class="ec-items">
+            <li>ICP-matched prospect sourcing and enrichment</li>
+            <li>Contact data verified and pipeline-ready</li>
+            <li>Segmentation by buyer type: government, conglomerate, corporate</li>
+            <li>MENA-specific targeting logic built in</li>
+          </ul>
+        </div>
+        <div class="engine-component">
+          <div class="ec-num">Component 02</div>
+          <div class="ec-title">Automated Outbound Engine</div>
+          <div class="ec-body">Personalised outbound sequences running continuously: not broadcast emails, but contextual, multi-touch outreach designed around how MENA enterprise buyers actually respond.</div>
+          <ul class="ec-items">
+            <li>Multi-step sequences personalised per prospect segment</li>
+            <li>Cadence and timing calibrated to regional response patterns</li>
+            <li>Automated follow-up and re-engagement logic</li>
+            <li>Handoff triggers when a prospect is ready for a human conversation</li>
+          </ul>
+        </div>
+        <div class="engine-component">
+          <div class="ec-num">Component 03</div>
+          <div class="ec-title">AI-Driven Pitch Improvement</div>
+          <div class="ec-body">A feedback loop that analyses what is converting and what is not, and continuously refines your messaging, subject lines, and value propositions based on real response data.</div>
+          <ul class="ec-items">
+            <li>Response rate analysis by message variant and segment</li>
+            <li>Iterative pitch refinement based on what actually lands</li>
+            <li>Objection pattern tracking and counter-messaging</li>
+            <li>Monthly optimisation built into the system</li>
+          </ul>
+        </div>
+      </div>
+      <div class="engine-footer">
+        <div class="engine-footer-label">The key difference</div>
+        <div class="engine-footer-text">When the engagement ends, the engine does not. Your team inherits a running system, not a set of instructions for building one. Lead generation, outbound, and pitch improvement continue operating the day after handover.</div>
+      </div>
+    </div>
+
+    <!-- PHASES -->
+    <div class="section-rule reveal" style="margin-bottom:20px;">
+      <h2>Inside the 90-day sprint</h2>
+      <div class="rule"></div>
+    </div>
+    <div class="phases reveal">
+      <div class="phase" id="ph1">
+        <button class="phase-trigger" onclick="togglePhase('ph1')">
+          <div class="phase-num-badge">01</div>
+          <div class="phase-trigger-text">
+            <div class="phase-week">Weeks 1-2</div>
+            <div class="phase-name">Diagnose</div>
+            <div class="phase-output-preview">Pipeline audit, bottleneck analysis, 90-day roadmap</div>
+          </div>
+          <div class="phase-icon">+</div>
+        </button>
+        <div class="phase-body" id="ph1-body">
+          <div class="phase-cols">
+            <div class="phase-col">
+              <div class="phase-col-label">Activities</div>
+              <ul><li>CRM and pipeline state assessment</li><li>Value proposition and messaging review</li><li>Deal bottleneck and stall-point analysis</li><li>ICP definition and market prioritization</li></ul>
+            </div>
+            <div class="phase-col">
+              <div class="phase-col-label">Who is involved</div>
+              <ul><li>CEO and founding team</li><li>Existing sales or BD function</li><li>Review of existing prospect conversations</li></ul>
+            </div>
+          </div>
+          <div class="phase-deliverable"><div class="pd-label">Output</div><div class="pd-text">Diagnostics summary, quick wins list, and a prioritized 90-day commercial roadmap agreed with leadership.</div></div>
+        </div>
+      </div>
+      <div class="phase" id="ph2">
+        <button class="phase-trigger" onclick="togglePhase('ph2')">
+          <div class="phase-num-badge">02</div>
+          <div class="phase-trigger-text">
+            <div class="phase-week">Weeks 3-5</div>
+            <div class="phase-name">Structure</div>
+            <div class="phase-output-preview">Sales playbook, deal framework, MENA buyer guide</div>
+          </div>
+          <div class="phase-icon">+</div>
+        </button>
+        <div class="phase-body" id="ph2-body">
+          <div class="phase-cols">
+            <div class="phase-col">
+              <div class="phase-col-label">Activities</div>
+              <ul><li>MEDDICC deal qualification framework</li><li>ROI narrative by buyer type</li><li>Enterprise pitch structure and objection handling</li><li>Pipeline planning model and stage definitions</li></ul>
+            </div>
+            <div class="phase-col">
+              <div class="phase-col-label">MENA-specific</div>
+              <ul><li>Government and sovereign entity deal framework</li><li>Family office and conglomerate approach</li><li>Multi-emirate and KSA regional sequencing</li><li>Procurement cycle navigation by buyer type</li></ul>
+            </div>
+          </div>
+          <div class="phase-deliverable"><div class="pd-label">Output</div><div class="pd-text">Enterprise sales playbook, deal qualification framework, and MENA-specific buyer engagement guide.</div></div>
+        </div>
+      </div>
+      <div class="phase" id="ph3">
+        <button class="phase-trigger" onclick="togglePhase('ph3')">
+          <div class="phase-num-badge">03</div>
+          <div class="phase-trigger-text">
+            <div class="phase-week">Weeks 6-9</div>
+            <div class="phase-name">Enable</div>
+            <div class="phase-output-preview">Lead engine, outbound automation, pitch framework, live CRM</div>
+          </div>
+          <div class="phase-icon">+</div>
+        </button>
+        <div class="phase-body" id="ph3-body">
+          <div class="phase-cols">
+            <div class="phase-col">
+              <div class="phase-col-label">Sales engine build</div>
+              <ul><li>Lead generation engine: ICP-matched prospect sourcing, automated enrichment</li><li>Outbound engine: personalised sequences, follow-up logic, handoff triggers</li><li>Pitch improvement framework: response tracking, variant testing, iterative refinement</li><li>CRM architecture, pipeline stages, and hygiene rules</li></ul>
+            </div>
+            <div class="phase-col">
+              <div class="phase-col-label">Team enablement</div>
+              <ul><li>Training on running and iterating the engine independently</li><li>Sales dashboard and board-level forecasting setup</li><li>Hiring brief for first full-time sales lead</li><li>Onboarding guide for an incoming hire to take over the engine</li></ul>
+            </div>
+          </div>
+          <div class="phase-deliverable"><div class="pd-label">Output</div><div class="pd-text">Three running engine components (lead generation, outbound, pitch improvement), live CRM, and a training guide so your team can operate everything without external support.</div></div>
+        </div>
+      </div>
+      <div class="phase" id="ph4">
+        <button class="phase-trigger" onclick="togglePhase('ph4')">
+          <div class="phase-num-badge">04</div>
+          <div class="phase-trigger-text">
+            <div class="phase-week">Weeks 10-13</div>
+            <div class="phase-name">Execute</div>
+            <div class="phase-output-preview">Active pipeline, 90-day retrospective, board report</div>
+          </div>
+          <div class="phase-icon">+</div>
+        </button>
+        <div class="phase-body" id="ph4-body">
+          <div class="phase-cols">
+            <div class="phase-col">
+              <div class="phase-col-label">Activities</div>
+              <ul><li>Direct enterprise prospect outreach</li><li>Deal structuring and proposal development</li><li>Pilot project design and commercial scoping</li><li>Buying committee engagement and navigation</li></ul>
+            </div>
+            <div class="phase-col">
+              <div class="phase-col-label">Handover preparation</div>
+              <ul><li>Live pipeline with documented deal status</li><li>90-day retrospective and forward commercial plan</li><li>Board presentation on commercial progress</li><li>Recommendation on Phase 02 or full-time hire</li></ul>
+            </div>
+          </div>
+          <div class="phase-deliverable"><div class="pd-label">Output</div><div class="pd-text">Active qualified pipeline, documented deal records, 90-day retrospective, and a board-ready commercial report.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="roi-calc reveal">
+      <div class="roi-calc-label">The investment case</div>
+      <div class="roi-calc-intro">One closed enterprise deal pays for the entire engagement, and the engine keeps generating more after we're gone. A VP of Sales costs $13K/month before they close anything. A wrong hire costs 9-12 months of runway. <strong>Enter your typical deal value to see the math.</strong></div>
+      <div class="slider-row">
+        <div class="slider-label">Average deal value</div>
+        <input type="range" id="dealSlider" min="50000" max="1000000" step="25000" value="200000" oninput="updateCalc()">
+        <div class="slider-val" id="dealDisplay">$200,000</div>
+      </div>
+      <div class="roi-results">
+        <div class="roi-cell"><div class="rl">Sprint fee as % of deal</div><div class="rv" id="pctOfDeal">12.5%</div><div class="rn">Cost relative to one closed contract</div></div>
+        <div class="roi-cell positive"><div class="rl">Return on one deal</div><div class="rv" id="roiMultiple">8x</div><div class="rn">Value of a single contract vs. the engagement fee</div></div>
+        <div class="roi-cell"><div class="rl">Deals to break even</div><div class="rv" id="dealsToBreak">1</div><div class="rn">Contracts needed to recover the full cost</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TERMS -->
+<section id="terms">
+  <div class="wrap">
+    <div class="section-rule reveal">
+      <h2>Payment and terms</h2>
+      <div class="rule"></div>
+      <div class="tag">Designed for how this market works</div>
+    </div>
+    <div class="reveal" style="margin-bottom:16px;">
+      <div class="payment-steps">
+        <div class="pay-step s1">
+          <div class="pay-when">Payment 01 · Before day one</div>
+          <div class="pay-amount">$12,500</div>
+          <div class="pay-pct">50% · Due before engagement begins</div>
+          <div class="pay-hr"></div>
+          <div class="pay-trigger-label">Trigger</div>
+          <div class="pay-trigger-text">NDA signed, scope confirmed, start date agreed. <strong>No work commences until cleared.</strong></div>
+        </div>
+        <div class="pay-step s2">
+          <div class="pay-when">Payment 02 · End of week 5</div>
+          <div class="pay-amount">$6,250</div>
+          <div class="pay-pct">25% · Due on Phase 02 delivery</div>
+          <div class="pay-hr"></div>
+          <div class="pay-trigger-label">Trigger</div>
+          <div class="pay-trigger-text">Due on delivery of the playbook and MENA buyer framework. <strong>Phase 03 begins on receipt.</strong></div>
+        </div>
+        <div class="pay-step s3">
+          <div class="pay-when">Payment 03 · Day 90</div>
+          <div class="pay-amount">$6,250</div>
+          <div class="pay-pct">25% · Due on final handover</div>
+          <div class="pay-hr"></div>
+          <div class="pay-trigger-label">Trigger</div>
+          <div class="pay-trigger-text">Due on delivery of the running engine, pipeline, and board report. <strong>Final deliverables released on receipt.</strong></div>
+        </div>
+      </div>
+      <div class="pay-retainer">
+        <div class="pr-badge">Phase 02 retainer</div>
+        <div class="pr-note">Monthly, <strong>due in advance</strong> on the first of each month. Minimum 3 months. Performance component agreed in writing before the retainer begins.</div>
+        <div class="pr-amount">$10,000<span>per month · in advance</span></div>
+      </div>
+    </div>
+    <div class="trust-grid reveal">
+      <div class="trust-item">
+        <div class="trust-n">01</div>
+        <div class="trust-title">NDA before any commercial information is shared</div>
+        <div class="trust-text">Signed before the engagement begins and before any diagnostic conversation takes place.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-n">02</div>
+        <div class="trust-title">You own the engine from the moment it is built</div>
+        <div class="trust-text">The lead generation system, outbound sequences, pitch framework, CRM, and all deal records belong to your company. The engine keeps running after the engagement ends.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-n">03</div>
+        <div class="trust-title">No work progresses ahead of payment</div>
+        <div class="trust-text">Each phase begins only when the preceding payment has cleared. Neither party is ever ahead of what has been settled.</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-n">04</div>
+        <div class="trust-title">Success metrics defined jointly before work begins</div>
+        <div class="trust-text">Commercial targets agreed in writing at the start. The 90-day retrospective is measured against those agreed metrics, not a subjective standard set after the fact.</div>
+      </div>
+    </div>
+    <div class="exit-wrap reveal">
+      <button class="exit-trigger" onclick="toggleExit()">
+        <div>
+          <div class="exit-trigger-text">Exit clause: either party may close the engagement at week 5</div>
+          <div class="exit-trigger-sub">Expand to see exactly how it works</div>
+        </div>
+        <div class="exit-icon">+</div>
+      </button>
+      <div class="exit-body" id="exit-body">
+        <div class="exit-grid">
+          <div class="exit-cell">
+            <div class="exit-cell-label">The review point</div>
+            <div class="exit-cell-title">Either party may exit at end of Phase 02</div>
+            <div class="exit-cell-text">At end of week 5, before Payment 02 is due, either party can close the engagement. Both sides have enough information to decide whether to continue.</div>
+          </div>
+          <div class="exit-cell">
+            <div class="exit-cell-label">If Phase 02 was completed</div>
+            <div class="exit-cell-title">Payment 02 is due on delivery</div>
+            <div class="exit-cell-text">If the Phase 02 deliverable has been completed and handed over, Payment 02 is due. The client owns everything delivered. The engagement closes cleanly with no further obligation.</div>
+          </div>
+          <div class="exit-cell">
+            <div class="exit-cell-label">If Phase 02 was not completed</div>
+            <div class="exit-cell-title">Payment 02 is not triggered</div>
+            <div class="exit-cell-text">If the engagement closes before Phase 02 is complete, Payment 02 is not due. The client retains all work produced to that point.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="wrap">
+    <div class="cta-inner reveal">
+      <div>
+        <div class="cta-label">Start the conversation</div>
+        <div class="cta-headline">Book a 30-minute discovery call</div>
+        <div class="cta-body">A focused 30 minutes on your current commercial situation: where the pipeline is, where it is stalling, and whether a Reveneering engagement is the right fit. <strong>If it is not the right fit, that will be said clearly on the call.</strong> No follow-up pressure.</div>
+      </div>
+      <div class="cta-btn-wrap">
+        <a class="btn-primary" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book the call &rarr;</a>
+        <div class="cta-sub">30 minutes · No obligation</div>
+      </div>
+    </div>
+    <div class="closing-split reveal">
+      <div class="closing-quote">The founders who move fastest in this market are not the ones with the best product. They are the ones who build a sales engine before their runway forces them to.</div>
+      <div class="closing-contact">
+        <strong>Reveneering</strong>
+        Dubai, UAE · Revenue Engineered<br>
+        Alexander Kappes, Chief Revenue Officer<br>
+        <a href="mailto:hello@reveneering.com">hello@reveneering.com</a><br>
+        <a href="https://calendly.com/a-m-kappes/30min" target="_blank">calendly.com/a-m-kappes/30min</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SITE FOOTER -->
+<footer class="site-footer">
+  <a class="site-footer-logo" href="#">
+    <svg width="24" height="24" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
+      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-wordmark" style="font-size:15px;">Re<span class="v">v</span>eneering</span>
+  </a>
+  <div class="site-footer-tagline">Revenue · Engineered</div>
+  <div class="site-footer-links">
+    <a href="#problem">The Challenge</a>
+    <a href="#proof">Our Work</a>
+    <a href="#how-it-works">The Engine</a>
+    <a href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a call</a>
+  </div>
+</footer>
+
+<!-- MOBILE CTA -->
+<div class="mobile-cta">
+  <a href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a 30-minute call &rarr;</a>
+</div>
+
+<script>
+  function toggleExpand(btn) {
+    const detail = btn.nextElementSibling;
+    const isOpen = detail.classList.contains('open');
+    detail.classList.toggle('open', !isOpen);
+    btn.classList.toggle('open', !isOpen);
+    btn.querySelector('span').textContent = isOpen ? 'Read more' : 'Show less';
+  }
+  function toggleQ(el) {
+    const answer = el.querySelector('.ceo-q-answer');
+    const isOpen = el.classList.contains('open');
+    el.classList.toggle('open', !isOpen);
+    answer.classList.toggle('open', !isOpen);
+  }
+  function toggleCase(id) {
+    const el = document.getElementById(id);
+    const body = document.getElementById(id + '-body');
+    const isOpen = el.classList.contains('open');
+    el.classList.toggle('open', !isOpen);
+    body.classList.toggle('open', !isOpen);
+  }
+  function togglePhase(id) {
+    const el = document.getElementById(id);
+    const body = document.getElementById(id + '-body');
+    const isOpen = el.classList.contains('open');
+    el.classList.toggle('open', !isOpen);
+    body.classList.toggle('open', !isOpen);
+  }
+  function toggleExit() {
+    const wrap = document.querySelector('.exit-wrap');
+    const body = document.getElementById('exit-body');
+    const isOpen = wrap.classList.contains('open');
+    wrap.classList.toggle('open', !isOpen);
+    body.classList.toggle('open', !isOpen);
+  }
+  function updateCalc() {
+    const deal = parseInt(document.getElementById('dealSlider').value);
+    const fee = 25000;
+    const pct = ((fee / deal) * 100).toFixed(1);
+    const roi = Math.round(deal / fee);
+    const breaks = deal >= fee ? 1 : Math.ceil(fee / deal);
+    document.getElementById('dealDisplay').textContent = '$' + deal.toLocaleString();
+    document.getElementById('pctOfDeal').textContent = pct + '%';
+    document.getElementById('roiMultiple').textContent = roi + 'x';
+    document.getElementById('dealsToBreak').textContent = breaks;
+  }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
