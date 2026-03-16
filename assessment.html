@@ -8,384 +8,229 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy:#0B1623; --n2:#111F2E; --n3:#162534;
+  --bd:rgba(255,255,255,0.08); --b2:rgba(255,255,255,0.15);
+  --cream:#F0EAD6; --white:#FFFFFF;
+  --muted:rgba(255,255,255,0.45); --m2:rgba(255,255,255,0.24);
+  --accent:#C8A96E; --accent2:#E8C98A;
+  --adim:rgba(200,169,110,0.10); --adim2:rgba(200,169,110,0.18);
+  --pb:rgba(29,158,117,0.12); --pt:#5DCAA5;
+  --fb:rgba(186,117,23,0.12); --ft:#FAC775;
+  --xb:rgba(226,75,74,0.12); --xt:#F09595;
+  --nb:rgba(255,255,255,0.05); --nt:rgba(255,255,255,0.35);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy); color: var(--white);
+  font-family: 'DM Sans', sans-serif; font-weight: 300;
+  line-height: 1.65; min-height: 100vh; overflow-x: hidden;
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);
+  background-size: 72px 72px;
+}
 
-  :root {
-    --navy:        #0B1623;
-    --navy2:       #111F2E;
-    --navy3:       #162534;
-    --border:      rgba(255,255,255,0.08);
-    --border2:     rgba(255,255,255,0.15);
-    --cream:       #F0EAD6;
-    --white:       #FFFFFF;
-    --muted:       rgba(255,255,255,0.45);
-    --muted2:      rgba(255,255,255,0.24);
-    --accent:      #C8A96E;
-    --accent2:     #E8C98A;
-    --accent-dim:  rgba(200,169,110,0.10);
-    --accent-dim2: rgba(200,169,110,0.18);
-    --pass-bg:     rgba(29,158,117,0.12);
-    --pass-text:   #5DCAA5;
-    --flag-bg:     rgba(186,117,23,0.12);
-    --flag-text:   #FAC775;
-    --fail-bg:     rgba(226,75,74,0.12);
-    --fail-text:   #F09595;
-    --nd-bg:       rgba(255,255,255,0.05);
-    --nd-text:     rgba(255,255,255,0.35);
-  }
+/* PASSWORD GATE */
+#pw-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--navy); display: flex;
+  align-items: center; justify-content: center; padding: 24px;
+}
+.pw-card {
+  position: relative; z-index: 1;
+  background: var(--n2); border: 1px solid var(--bd);
+  border-radius: 6px; padding: 40px 36px;
+  width: 100%; max-width: 400px; text-align: center;
+}
+.pw-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 28px; }
+.pw-wm { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--cream); letter-spacing: -0.01em; }
+.pw-wm .v { color: var(--accent); font-style: italic; }
+.pw-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.pw-title { font-family: 'DM Serif Display', serif; font-size: 22px; color: var(--cream); margin-bottom: 6px; }
+.pw-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+.pw-iw { position: relative; margin-bottom: 10px; }
+.pw-inp {
+  width: 100%; background: var(--n3); border: 1px solid var(--b2);
+  border-radius: 3px; color: var(--white); font-family: 'DM Sans', sans-serif;
+  font-size: 15px; font-weight: 300; padding: 12px 48px 12px 14px;
+  outline: none; text-align: center; letter-spacing: 0.06em; transition: border-color 0.2s;
+}
+.pw-inp::placeholder { color: var(--m2); letter-spacing: 0.02em; }
+.pw-inp:focus { border-color: rgba(200,169,110,0.4); }
+.pw-inp.shk { animation: shk 0.35s ease; border-color: rgba(226,75,74,0.5); }
+@keyframes shk { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+.pw-tog {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; color: var(--m2);
+  font-size: 11px; font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.08em; text-transform: uppercase; padding: 3px; transition: color 0.2s;
+}
+.pw-tog:hover { color: var(--accent); }
+.pw-err { font-size: 12px; color: var(--xt); min-height: 18px; margin-bottom: 10px; }
+.pw-btn {
+  width: 100%; background: var(--accent); color: var(--navy);
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.04em; padding: 13px; border-radius: 3px; border: none;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+}
+.pw-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+#pw-gate.fade { animation: fade 0.4s ease forwards; }
+@keyframes fade { to { opacity: 0; pointer-events: none; } }
 
-  html { scroll-behavior: smooth; }
+/* MAIN LAYOUT */
+.wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
 
-  body {
-    background: var(--navy);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    line-height: 1.65;
-    min-height: 100vh;
-  }
+/* NAV */
+.nav {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 0 28px; border-bottom: 1px solid var(--bd); margin-bottom: 40px;
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-mark { width: 28px; height: 28px; flex-shrink: 0; }
+.nav-wm { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--cream); letter-spacing: -0.01em; }
+.nav-wm .v { color: var(--accent); font-style: italic; }
+.nav-sub { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--m2); }
 
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-    background-size: 72px 72px;
-    pointer-events: none;
-    z-index: 0;
-  }
+/* FORM */
+.card {
+  background: var(--n2); border: 1px solid var(--bd);
+  border-radius: 6px; padding: 32px; margin-bottom: 24px;
+}
+.eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+.card-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--cream); margin-bottom: 6px; line-height: 1.2; }
+.card-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.65; max-width: 500px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.form-full { grid-column: 1 / -1; }
+.form-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--m2); display: block; margin-bottom: 5px; }
+.form-input {
+  width: 100%; background: var(--n3); border: 1px solid var(--b2);
+  border-radius: 3px; color: var(--white); font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 300; padding: 10px 13px;
+  outline: none; transition: border-color 0.2s;
+}
+.form-input::placeholder { color: var(--m2); }
+.form-input:focus { border-color: rgba(200,169,110,0.4); }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: var(--navy);
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
+  letter-spacing: 0.04em; padding: 12px 26px; border-radius: 3px; border: none;
+  cursor: pointer; transition: background 0.2s, transform 0.15s, opacity 0.2s; margin-top: 6px;
+}
+.btn:hover:not(:disabled) { background: var(--accent2); transform: translateY(-1px); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: none; border: 1px solid var(--b2); color: var(--muted);
+  font-family: 'DM Sans', sans-serif; font-size: 12px; padding: 9px 18px;
+  border-radius: 3px; cursor: pointer; transition: color 0.2s, border-color 0.2s; margin-top: 16px;
+}
+.btn-ghost:hover { color: var(--accent); border-color: rgba(200,169,110,0.4); }
 
-  /* PASSWORD GATE */
-  #pw-gate {
-    position: fixed; inset: 0;
-    background: var(--navy);
-    z-index: 9999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-  #pw-gate::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-    background-size: 72px 72px;
-    pointer-events: none;
-  }
-  .pw-card {
-    position: relative; z-index: 1;
-    background: var(--navy2);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 40px 36px;
-    width: 100%; max-width: 400px;
-    text-align: center;
-  }
-  .pw-logo {
-    display: flex; align-items: center; justify-content: center;
-    gap: 10px; margin-bottom: 28px;
-  }
-  .pw-wordmark {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px; color: var(--cream); letter-spacing: -0.01em;
-  }
-  .pw-wordmark .v { color: var(--accent); font-style: italic; }
-  .pw-eyebrow {
-    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 8px;
-  }
-  .pw-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 22px; color: var(--cream); margin-bottom: 6px; line-height: 1.2;
-  }
-  .pw-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
-  .pw-input-wrap { position: relative; margin-bottom: 10px; }
-  .pw-input {
-    width: 100%;
-    background: var(--navy3);
-    border: 1px solid var(--border2);
-    border-radius: 3px;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px; font-weight: 300;
-    padding: 12px 48px 12px 14px;
-    outline: none; text-align: center;
-    letter-spacing: 0.06em;
-    transition: border-color 0.2s;
-  }
-  .pw-input::placeholder { color: var(--muted2); letter-spacing: 0.02em; }
-  .pw-input:focus { border-color: rgba(200,169,110,0.4); }
-  .pw-input.shake { animation: pw-shake 0.35s ease; border-color: rgba(226,75,74,0.5); }
-  .pw-toggle {
-    position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
-    background: none; border: none; cursor: pointer;
-    color: var(--muted2); font-size: 11px; font-family: 'DM Sans', sans-serif;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 4px; transition: color 0.2s; line-height: 1;
-  }
-  .pw-toggle:hover { color: var(--accent); }
-  .pw-error {
-    font-size: 12px; color: #F09595;
-    min-height: 18px; margin-bottom: 10px;
-  }
-  .pw-btn {
-    width: 100%;
-    background: var(--accent); color: var(--navy);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
-    padding: 13px 28px; border-radius: 3px; border: none;
-    cursor: pointer; transition: background 0.2s, transform 0.15s;
-  }
-  .pw-btn:hover { background: var(--accent2); transform: translateY(-1px); }
-  @keyframes pw-shake {
-    0%,100% { transform: translateX(0); }
-    20%      { transform: translateX(-7px); }
-    40%      { transform: translateX(7px); }
-    60%      { transform: translateX(-4px); }
-    80%      { transform: translateX(4px); }
-  }
-  #pw-gate.fade-out { animation: pw-fade 0.45s ease forwards; }
-  @keyframes pw-fade { to { opacity: 0; pointer-events: none; } }
+/* PROGRESS */
+#prog { display: none; background: var(--n2); border: 1px solid var(--bd); border-radius: 6px; padding: 24px 28px; margin-bottom: 24px; }
+.prog-lbl { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.prog-steps { display: flex; flex-direction: column; gap: 9px; }
+.pst { display: flex; align-items: center; gap: 11px; font-size: 13px; color: var(--m2); transition: color 0.3s; }
+.pst.act { color: var(--cream); } .pst.dn { color: var(--pt); }
+.sdt { width: 7px; height: 7px; border-radius: 50%; background: var(--b2); flex-shrink: 0; transition: background 0.3s; }
+.pst.act .sdt { background: var(--accent); } .pst.dn .sdt { background: var(--pt); }
+.spn { display: none; width: 13px; height: 13px; border: 1.5px solid rgba(200,169,110,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+.pst.act .spn { display: block; } .pst.act .sdt { display: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-  /* MAIN LAYOUT */
-  .wrap {
-    position: relative;
-    z-index: 1;
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 0 24px 80px;
-  }
+/* ERROR */
+.err-box { display: none; background: var(--xb); border: 1px solid rgba(226,75,74,0.2); border-radius: 4px; padding: 14px 18px; font-size: 13px; color: var(--xt); margin-bottom: 20px; }
 
-  /* NAV */
-  .nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 0 32px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 48px;
-  }
-  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .nav-mark { width: 28px; height: 28px; flex-shrink: 0; }
-  .nav-wordmark {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px; color: var(--cream); letter-spacing: -0.01em;
-  }
-  .nav-wordmark .v { color: var(--accent); font-style: italic; }
-  .nav-sub {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted2);
-  }
+/* REPORT */
+#report { display: none; }
+.rpt-hdr { margin-bottom: 24px; }
+.rpt-co { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; }
+.rpt-title { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--cream); line-height: 1.15; margin-bottom: 4px; }
+.rpt-meta { font-size: 12px; color: var(--m2); }
 
-  /* FORM */
-  .form-section {
-    background: var(--navy2); border: 1px solid var(--border);
-    border-radius: 6px; padding: 36px 32px; margin-bottom: 32px;
-  }
-  .form-eyebrow {
-    font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 10px;
-  }
-  .form-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 26px; color: var(--cream); margin-bottom: 6px; line-height: 1.2;
-  }
-  .form-desc {
-    font-size: 13px; color: var(--muted); margin-bottom: 28px;
-    line-height: 1.65; max-width: 520px;
-  }
-  .form-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
-  }
-  .form-group { display: flex; flex-direction: column; gap: 6px; }
-  .form-group.full { grid-column: 1 / -1; }
-  .form-label {
-    font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2);
-  }
-  .form-input {
-    background: var(--navy3); border: 1px solid var(--border2); border-radius: 3px;
-    color: var(--white); font-family: 'DM Sans', sans-serif;
-    font-size: 14px; font-weight: 300; padding: 11px 14px;
-    outline: none; transition: border-color 0.2s; width: 100%;
-  }
-  .form-input::placeholder { color: var(--muted2); }
-  .form-input:focus { border-color: rgba(200,169,110,0.4); }
+/* GATES ROW */
+.gates-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 24px; }
+.gc { background: var(--n2); border: 1px solid var(--bd); border-radius: 4px; padding: 20px; position: relative; overflow: hidden; }
+.gc::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+.gc.pass::before { background: var(--pt); } .gc.flag::before { background: var(--ft); } .gc.fail::before { background: var(--xt); }
+.g-lbl { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--m2); margin-bottom: 5px; }
+.g-name { font-family: 'DM Serif Display', serif; font-size: 16px; color: var(--cream); margin-bottom: 9px; line-height: 1.2; }
+.g-verd { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; padding: 4px 11px; border-radius: 20px; margin-bottom: 9px; }
+.g-verd.pass { background: var(--pb); color: var(--pt); } .g-verd.flag { background: var(--fb); color: var(--ft); } .g-verd.fail { background: var(--xb); color: var(--xt); }
+.g-sum { font-size: 12px; color: var(--muted); line-height: 1.55; }
 
-  .btn-assess {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: var(--accent); color: var(--navy);
-    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500;
-    letter-spacing: 0.04em; padding: 13px 28px; border-radius: 3px; border: none;
-    cursor: pointer; transition: background 0.2s, transform 0.15s, opacity 0.2s; margin-top: 8px;
-  }
-  .btn-assess:hover:not(:disabled) { background: var(--accent2); transform: translateY(-1px); }
-  .btn-assess:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+/* OVERALL VERDICT */
+.ov-box { background: var(--adim2); border: 1px solid rgba(200,169,110,0.2); border-radius: 4px; padding: 20px 22px; margin-bottom: 24px; }
+.ov-lbl { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; }
+.ov-title { font-family: 'DM Serif Display', serif; font-size: 19px; color: var(--cream); margin-bottom: 8px; line-height: 1.3; }
+.ov-body { font-size: 13px; color: var(--muted); line-height: 1.7; }
 
-  /* PROGRESS */
-  #progress-section {
-    display: none; background: var(--navy2); border: 1px solid var(--border);
-    border-radius: 6px; padding: 28px 32px; margin-bottom: 32px;
-  }
-  .progress-label {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 16px;
-  }
-  .progress-steps { display: flex; flex-direction: column; gap: 8px; }
-  .progress-step {
-    display: flex; align-items: center; gap: 12px;
-    font-size: 13px; color: var(--muted2); transition: color 0.3s;
-  }
-  .progress-step.active { color: var(--cream); }
-  .progress-step.done   { color: var(--pass-text); }
-  .step-dot {
-    width: 7px; height: 7px; border-radius: 50%; background: var(--border2);
-    flex-shrink: 0; transition: background 0.3s;
-  }
-  .progress-step.active .step-dot { background: var(--accent); }
-  .progress-step.done   .step-dot { background: var(--pass-text); }
-  .step-spinner {
-    display: none; width: 14px; height: 14px;
-    border: 1.5px solid rgba(200,169,110,0.2); border-top-color: var(--accent);
-    border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0;
-  }
-  .progress-step.active .step-spinner { display: block; }
-  .progress-step.active .step-dot    { display: none; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+/* INTRO EMAIL */
+.email-box { background: var(--n2); border: 1px solid var(--b2); border-radius: 4px; margin-bottom: 24px; overflow: hidden; }
+.email-hdr { padding: 16px 20px; border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.email-hdr-left {}
+.email-eyebrow { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
+.email-title { font-size: 14px; font-weight: 500; color: var(--cream); }
+.copy-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: 1px solid var(--b2); color: var(--m2);
+  font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 6px 14px; border-radius: 3px;
+  cursor: pointer; transition: color 0.2s, border-color 0.2s; flex-shrink: 0;
+}
+.copy-btn:hover { color: var(--accent); border-color: rgba(200,169,110,0.4); }
+.email-body { padding: 20px; font-size: 13px; color: var(--muted); line-height: 1.8; white-space: pre-wrap; }
 
-  /* REPORT */
-  #report-section { display: none; }
-  .report-header { margin-bottom: 28px; }
-  .report-co {
-    font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 6px;
-  }
-  .report-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 32px; color: var(--cream); line-height: 1.15; margin-bottom: 4px;
-  }
-  .report-meta { font-size: 12px; color: var(--muted2); }
+/* SECTION HEADERS */
+.sec-hdr { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--m2); padding: 14px 0 10px; border-bottom: 1px solid var(--bd); margin-bottom: 2px; margin-top: 8px; }
 
-  .gates-row {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 32px;
-  }
-  .gate-card {
-    background: var(--navy2); border: 1px solid var(--border);
-    border-radius: 4px; padding: 22px 22px; position: relative; overflow: hidden;
-  }
-  .gate-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-  }
-  .gate-card.pass-gate::before { background: var(--pass-text); }
-  .gate-card.flag-gate::before { background: var(--flag-text); }
-  .gate-card.fail-gate::before { background: var(--fail-text); }
-  .gate-label {
-    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--muted2); margin-bottom: 6px;
-  }
-  .gate-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px; color: var(--cream); margin-bottom: 10px; line-height: 1.2;
-  }
-  .gate-verdict {
-    display: inline-flex; align-items: center; gap: 6px;
-    font-size: 12px; font-weight: 500; padding: 5px 12px;
-    border-radius: 20px; margin-bottom: 10px;
-  }
-  .gate-verdict.pass { background: var(--pass-bg); color: var(--pass-text); }
-  .gate-verdict.flag { background: var(--flag-bg); color: var(--flag-text); }
-  .gate-verdict.fail { background: var(--fail-bg); color: var(--fail-text); }
-  .gate-summary { font-size: 12px; color: var(--muted); line-height: 1.6; }
+/* CRITERIA */
+.cr { background: var(--n2); border: 1px solid var(--bd); border-radius: 4px; overflow: hidden; margin-bottom: 2px; }
+.cr-btn { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; background: none; border: none; cursor: pointer; text-align: left; transition: background 0.2s; color: var(--white); }
+.cr-btn:hover { background: rgba(255,255,255,0.02); }
+.cr-left { flex: 1; display: flex; align-items: flex-start; gap: 12px; }
+.cr-badge { width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--b2); display: flex; align-items: center; justify-content: center; font-size: 9px; color: var(--accent); flex-shrink: 0; margin-top: 1px; }
+.cr-name { font-size: 13px; color: var(--cream); }
+.cr-prev { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.cr-right { display: flex; align-items: center; gap: 9px; flex-shrink: 0; }
+.vbg { font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 9px; border-radius: 20px; }
+.vbg.pass { background: var(--pb); color: var(--pt); } .vbg.flag { background: var(--fb); color: var(--ft); }
+.vbg.fail { background: var(--xb); color: var(--xt); } .vbg.nd { background: var(--nb); color: var(--nt); }
+.exp-icon { width: 19px; height: 19px; border-radius: 50%; border: 1px solid var(--b2); display: flex; align-items: center; justify-content: center; color: var(--accent); font-size: 13px; transition: transform 0.25s, border-color 0.2s; flex-shrink: 0; }
+.cr.open .exp-icon { transform: rotate(45deg); border-color: var(--accent); }
+.cr-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--bd); }
+.cr-body.open { display: block; }
+.cb-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--bd); border-radius: 3px; overflow: hidden; margin: 14px 0 0; }
+.cb-col { background: var(--n3); padding: 13px 14px; }
+.cb-lbl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--m2); margin-bottom: 5px; }
+.cb-txt { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.conf-row { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--m2); margin-bottom: 6px; }
+.c-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.c-h { background: var(--pt); } .c-m { background: var(--ft); } .c-l { background: var(--xt); }
 
-  .overall-verdict {
-    background: var(--accent-dim2); border: 1px solid rgba(200,169,110,0.2);
-    border-radius: 4px; padding: 22px 24px; margin-bottom: 32px;
-  }
-  .ov-label {
-    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 6px;
-  }
-  .ov-verdict {
-    font-family: 'DM Serif Display', serif;
-    font-size: 20px; color: var(--cream); margin-bottom: 8px; line-height: 1.3;
-  }
-  .ov-body { font-size: 13px; color: var(--muted); line-height: 1.7; }
+/* QA SECTION */
+.qa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 2px; }
+.qa-cell { background: var(--n2); padding: 14px 16px; }
+.qa-q { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--m2); margin-bottom: 5px; }
+.qa-a { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.qa-a strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+.qa-a.nd { color: var(--nt); font-style: italic; }
+.qa-full { grid-column: 1 / -1; }
 
-  .criteria-section-label {
-    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-    color: var(--muted2); padding: 16px 0 10px;
-    border-bottom: 1px solid var(--border); margin-bottom: 2px;
-  }
-
-  .criterion {
-    background: var(--navy2); border: 1px solid var(--border);
-    border-radius: 4px; overflow: hidden; margin-bottom: 2px;
-  }
-  .criterion-trigger {
-    width: 100%; display: flex; align-items: center; justify-content: space-between;
-    gap: 16px; padding: 16px 18px; background: none; border: none;
-    cursor: pointer; text-align: left; transition: background 0.2s; color: var(--white);
-  }
-  .criterion-trigger:hover { background: rgba(255,255,255,0.02); }
-  .criterion-left { flex: 1; display: flex; align-items: flex-start; gap: 14px; }
-  .criterion-num-badge {
-    width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--border2);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px; color: var(--accent); flex-shrink: 0; margin-top: 1px;
-  }
-  .criterion-name { font-size: 14px; color: var(--cream); font-weight: 400; }
-  .criterion-preview { font-size: 12px; color: var(--muted); margin-top: 2px; }
-  .criterion-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-  .verdict-badge {
-    font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 4px 10px; border-radius: 20px;
-  }
-  .verdict-badge.pass { background: var(--pass-bg); color: var(--pass-text); }
-  .verdict-badge.flag { background: var(--flag-bg); color: var(--flag-text); }
-  .verdict-badge.fail { background: var(--fail-bg); color: var(--fail-text); }
-  .verdict-badge.nd   { background: var(--nd-bg);   color: var(--nd-text); }
-  .expand-icon {
-    width: 20px; height: 20px; border-radius: 50%; border: 1px solid var(--border2);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--accent); font-size: 14px; transition: transform 0.25s, border-color 0.2s; flex-shrink: 0;
-  }
-  .criterion.open .expand-icon { transform: rotate(45deg); border-color: var(--accent); }
-
-  .criterion-body { display: none; padding: 0 18px 18px; border-top: 1px solid var(--border); }
-  .criterion-body.open { display: block; }
-
-  .cb-grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
-    background: var(--border); border-radius: 3px; overflow: hidden; margin: 16px 0 12px;
-  }
-  .cb-col { background: var(--navy3); padding: 14px 16px; }
-  .cb-col-label {
-    font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--muted2); margin-bottom: 6px;
-  }
-  .cb-col-text { font-size: 13px; color: var(--muted); line-height: 1.65; }
-  .cb-col-text strong { color: rgba(255,255,255,0.75); font-weight: 500; }
-
-  .confidence-row { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--muted2); }
-  .conf-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-  .conf-high { background: var(--pass-text); }
-  .conf-med  { background: var(--flag-text); }
-  .conf-low  { background: var(--fail-text); }
-
-  .error-box {
-    display: none; background: var(--fail-bg); border: 1px solid rgba(226,75,74,0.2);
-    border-radius: 4px; padding: 16px 20px; font-size: 13px;
-    color: var(--fail-text); margin-bottom: 24px;
-  }
-
-  @media (max-width: 600px) {
-    .form-grid { grid-template-columns: 1fr; }
-    .gates-row { grid-template-columns: 1fr; }
-    .cb-grid   { grid-template-columns: 1fr; }
-    .form-section { padding: 24px 20px; }
-    .pw-card { padding: 32px 24px; }
-  }
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .gates-row { grid-template-columns: 1fr; }
+  .cb-grid { grid-template-columns: 1fr; }
+  .qa-grid { grid-template-columns: 1fr; }
+  .card { padding: 22px 18px; }
+  .pw-card { padding: 32px 22px; }
+}
 </style>
 </head>
 <body>
@@ -403,25 +248,22 @@
         <circle cx="14" cy="10" r="2" fill="#C8A96E" opacity="0.6"/>
         <circle cx="14" cy="34" r="2" fill="#C8A96E" opacity="0.4"/>
       </svg>
-      <span class="pw-wordmark">Re<span class="v">v</span>eneering</span>
+      <span class="pw-wm">Re<span class="v">v</span>eneering</span>
     </div>
     <div class="pw-eyebrow">Internal tool</div>
     <div class="pw-title">Prospect Assessment</div>
     <div class="pw-desc">Enter your password to continue.</div>
-    <div class="pw-input-wrap">
-      <input class="pw-input" type="password" id="pw-input" placeholder="Password" autocomplete="off"
-        onkeydown="if(event.key==='Enter') checkPassword()">
-      <button class="pw-toggle" id="pw-toggle" onclick="togglePwVisibility()" tabindex="-1">show</button>
+    <div class="pw-iw">
+      <input class="pw-inp" type="password" id="pw-inp" placeholder="Password" autocomplete="off" onkeydown="if(event.key==='Enter')pwCheck()">
+      <button class="pw-tog" id="pw-tog" onclick="pwToggle()" tabindex="-1">show</button>
     </div>
-    <div class="pw-error" id="pw-error"></div>
-    <button class="pw-btn" onclick="checkPassword()">Unlock &rarr;</button>
+    <div class="pw-err" id="pw-err"></div>
+    <button class="pw-btn" onclick="pwCheck()">Unlock &rarr;</button>
   </div>
 </div>
 
 <!-- MAIN APP -->
 <div class="wrap">
-
-  <!-- NAV -->
   <nav class="nav">
     <a class="nav-logo" href="#">
       <svg class="nav-mark" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
@@ -433,431 +275,402 @@
         <circle cx="14" cy="10" r="2" fill="#C8A96E" opacity="0.6"/>
         <circle cx="14" cy="34" r="2" fill="#C8A96E" opacity="0.4"/>
       </svg>
-      <span class="nav-wordmark">Re<span class="v">v</span>eneering</span>
+      <span class="nav-wm">Re<span class="v">v</span>eneering</span>
     </a>
     <div class="nav-sub">Prospect Assessment Tool</div>
   </nav>
 
-  <!-- FORM -->
-  <div class="form-section">
-    <div class="form-eyebrow">Pre-engagement filter</div>
-    <div class="form-title">Assess a prospect</div>
-    <div class="form-desc">Enter a company name, website, and LinkedIn URL. The tool will research the company and score it against Reveneering's 6-criterion fit filter — Gate 1 (do they need us?) and Gate 2 (can we help them?).</div>
-
+  <div class="card">
+    <div class="eyebrow">Pre-engagement filter</div>
+    <div class="card-title">Assess a prospect</div>
+    <div class="card-desc">Enter a company name, website, and LinkedIn URL. The tool will research the company and score it against Reveneering's 6-criterion fit filter — Gate 1 (do they need us?) and Gate 2 (can we help them?).</div>
     <div class="form-grid">
-      <div class="form-group">
-        <label class="form-label" for="company-name">Company name</label>
-        <input class="form-input" type="text" id="company-name" placeholder="e.g. Mozn" autocomplete="off">
+      <div>
+        <label class="form-label" for="f-name">Company name</label>
+        <input class="form-input" type="text" id="f-name" placeholder="e.g. Roamless" autocomplete="off">
       </div>
-      <div class="form-group">
-        <label class="form-label" for="company-website">Website URL</label>
-        <input class="form-input" type="url" id="company-website" placeholder="https://mozn.sa" autocomplete="off">
+      <div>
+        <label class="form-label" for="f-web">Website URL</label>
+        <input class="form-input" type="url" id="f-web" placeholder="https://roamless.com" autocomplete="off">
       </div>
-      <div class="form-group full">
-        <label class="form-label" for="company-linkedin">LinkedIn URL</label>
-        <input class="form-input" type="url" id="company-linkedin" placeholder="https://linkedin.com/company/mozn" autocomplete="off">
+      <div class="form-full">
+        <label class="form-label" for="f-li">LinkedIn URL <span style="font-size:9px;color:var(--m2);letter-spacing:0.04em;">(optional)</span></label>
+        <input class="form-input" type="url" id="f-li" placeholder="https://linkedin.com/company/roamless" autocomplete="off">
       </div>
     </div>
-
-    <button class="btn-assess" id="assess-btn" onclick="startAssessment()">
-      Start assessment &rarr;
-    </button>
+    <div class="err-box" id="err-box"></div>
+    <button class="btn" id="run-btn" onclick="runAssessment()">Start assessment &rarr;</button>
   </div>
 
-  <!-- ERROR -->
-  <div class="error-box" id="error-box"></div>
-
-  <!-- PROGRESS -->
-  <div id="progress-section">
-    <div class="progress-label">Running assessment</div>
-    <div class="progress-steps">
-      <div class="progress-step" id="step-1">
-        <div class="step-spinner"></div><div class="step-dot"></div>
-        <span>Fetching company website and LinkedIn</span>
-      </div>
-      <div class="progress-step" id="step-2">
-        <div class="step-spinner"></div><div class="step-dot"></div>
-        <span>Researching funding, team, and product</span>
-      </div>
-      <div class="progress-step" id="step-3">
-        <div class="step-spinner"></div><div class="step-dot"></div>
-        <span>Identifying buyer persona and decision-maker</span>
-      </div>
-      <div class="progress-step" id="step-4">
-        <div class="step-spinner"></div><div class="step-dot"></div>
-        <span>Scoring against Gate 1 and Gate 2 criteria</span>
-      </div>
-      <div class="progress-step" id="step-5">
-        <div class="step-spinner"></div><div class="step-dot"></div>
-        <span>Generating fit verdict and report</span>
-      </div>
+  <div id="prog">
+    <div class="prog-lbl">Running assessment</div>
+    <div class="prog-steps">
+      <div class="pst" id="s1"><div class="spn"></div><div class="sdt"></div><span>Fetching company website and LinkedIn</span></div>
+      <div class="pst" id="s2"><div class="spn"></div><div class="sdt"></div><span>Researching funding, team and product</span></div>
+      <div class="pst" id="s3"><div class="spn"></div><div class="sdt"></div><span>Identifying buyer persona and decision-maker</span></div>
+      <div class="pst" id="s4"><div class="spn"></div><div class="sdt"></div><span>Scoring against Gate 1 and Gate 2 criteria</span></div>
+      <div class="pst" id="s5"><div class="spn"></div><div class="sdt"></div><span>Generating report and intro email</span></div>
     </div>
   </div>
 
-  <!-- REPORT -->
-  <div id="report-section"></div>
-
+  <div id="report"></div>
 </div>
 
 <script>
-// PASSWORD
-const CORRECT_PASSWORD = '@$$essment!';
+// ─── CONFIGURATION ──────────────────────────────────────────────────────────
+// Replace this URL with your Cloudflare Worker URL after deployment.
+// See the worker.js file in this repository for setup instructions.
+const PROXY_URL = 'https://reveneering-assessment.a-m-kappes.workers.dev/assess';
+const PASSWORD = '@$$essment!';
 
-function checkPassword() {
-  const input = document.getElementById('pw-input');
-  const errorEl = document.getElementById('pw-error');
-  if (input.value === CORRECT_PASSWORD) {
-    errorEl.textContent = '';
+// ─── PASSWORD ────────────────────────────────────────────────────────────────
+function pwCheck() {
+  const inp = document.getElementById('pw-inp');
+  const err = document.getElementById('pw-err');
+  if (inp.value === PASSWORD) {
     const gate = document.getElementById('pw-gate');
-    gate.classList.add('fade-out');
-    setTimeout(() => { gate.style.display = 'none'; }, 450);
-    document.getElementById('company-name').focus();
+    gate.classList.add('fade');
+    setTimeout(() => gate.style.display = 'none', 420);
+    setTimeout(() => document.getElementById('f-name').focus(), 440);
   } else {
-    errorEl.textContent = 'Incorrect password. Please try again.';
-    input.classList.remove('shake');
-    void input.offsetWidth;
-    input.classList.add('shake');
-    input.value = '';
-    setTimeout(() => input.classList.remove('shake'), 400);
+    err.textContent = 'Incorrect password. Please try again.';
+    inp.classList.remove('shk'); void inp.offsetWidth; inp.classList.add('shk');
+    inp.value = '';
+    setTimeout(() => inp.classList.remove('shk'), 400);
   }
 }
-
-function togglePwVisibility() {
-  const input = document.getElementById('pw-input');
-  const btn = document.getElementById('pw-toggle');
-  const isHidden = input.type === 'password';
-  input.type = isHidden ? 'text' : 'password';
-  btn.textContent = isHidden ? 'hide' : 'show';
+function pwToggle() {
+  const i = document.getElementById('pw-inp'), b = document.getElementById('pw-tog');
+  const h = i.type === 'password';
+  i.type = h ? 'text' : 'password';
+  b.textContent = h ? 'hide' : 'show';
 }
+setTimeout(() => { const e = document.getElementById('pw-inp'); if (e) e.focus(); }, 200);
 
-// Focus password input on load
-window.addEventListener('load', () => {
-  document.getElementById('pw-input').focus();
-});
+// ─── SYSTEM PROMPT ───────────────────────────────────────────────────────────
+const SYS = `You are Reveneering's prospect assessment engine. Reveneering is a fractional CRO service for MENA founders at Seed to Series B, run by Alexander Kappes — former CEO of Groupon Middle East ($60M revenue), founder of Greener Crop and Greener Herd, 15+ years closing enterprise deals in MENA.
 
-// ASSESSMENT
-const SYSTEM_PROMPT = `You are Reveneering's prospect assessment engine. Reveneering is a fractional CRO service for MENA founders at Seed to Series B, run by Alexander Kappes — former CEO of Groupon Middle East ($60M revenue), founder of Greener Crop and Greener Herd, 15+ years of enterprise sales in the MENA region.
+You must research the company using web_search and produce a complete structured assessment.
 
-Your job: research the given company using web search and produce a structured fit assessment.
+──────────────────────────────────────────────
+SECTION 1: COMPANY & PRODUCT Q&A
+Answer every question below. If genuinely not determinable from public sources, write "Not determinable from public data" for that field.
 
-Reveneering's fit filter has 6 criteria across 2 gates:
+Company:
+- product_type: What type of product is this? (SaaS / mobile app / marketplace / API platform / hardware / services / etc.)
+- segment: What industry segment? (Fintech / AI / Foodtech / Agtech / Proptech / Healthtech / etc.)
+- targeting: Who do they target? (B2C consumers / B2B SMEs / Enterprise / Government / etc.)
+- funding_raised: Have they raised funding? Stage and amount.
+- geography: What geographies are they targeting?
+- elevator_pitch: One sentence, max 25 words.
+
+Product:
+- what_is_it: Describe the product in 2-3 sentences.
+- nice_or_critical: Is this a nice-to-have or does it solve a critical problem? Why?
+- price: How much does it cost? (if not public, say so)
+- payment_model: How do clients pay? (subscription / usage-based / commission / fixed fee / etc.)
+- implementation_time: How long to implement? (instant app download / days / weeks / months)
+- promised_benefit: What is the core promised benefit? (ROI / cost saving / time saving / revenue growth / compliance / etc.)
+- quantified_benefit: Any quantified proof of benefit from public sources?
+- complexity_to_explain: How complex is the product to explain? (simple / moderate / complex) and why.
+- expected_sales_cycle: Short (<1 month) / Medium (2-6 months) / Long (7+ months) — and why.
+
+Clients:
+- target_audience: Describe the specific target audience.
+- department_owner: If B2B — which department owns this decision? (Sales / Ops / Finance / IT / C-suite / etc.)
+- decision_maker: Who is the purchase decision-maker by title?
+- market_size: How big is the market in their target geography?
+- linkedin_findability: Can the decision-maker be found on LinkedIn? Assess difficulty.
+- how_they_buy: How do clients of this type typically discover products like this? (trade shows / social media / direct sales / word of mouth / etc.)
+- buying_committee_size: How many people typically involved in the buying decision?
+- purchase_trigger: Is the purchase proactive or triggered by an event?
+
+Team:
+- founder_industry_background: Do founders have relevant industry background?
+- founder_sales_experience: Have founders held sales or commercial roles?
+- existing_sales_function: Is there evidence of an existing dedicated sales team?
+
+──────────────────────────────────────────────
+SECTION 2: FIT SCORING (6 criteria)
 
 GATE 1 — DO THEY NEED REVENEERING?
-C1: Funding stage
-  PASS = $500K–$5M raised
-  FLAG = $5M–$20M raised (possible, depends on other signals)
-  FAIL = $20M+ raised (likely have a full-time commercial hire already)
-  ND = funding not determinable
-
-C2: Decision-maker language
-  PASS = CEO, CCO, CFO, COO, procurement — business KPIs drive the decision
-  FLAG = Mixed — CTO involved but not the primary decision-maker
-  FAIL = CTO, engineer, or technical specialist owns the close
-  ND = not determinable
-
-C3: Founder sales background
-  PASS = No sales or commercial background in founding team (gap exists)
-  FLAG = Some commercial experience but limited or not in MENA enterprise
-  FAIL = Founding team has strong sales pedigree or has already hired a CRO/VP Sales
-  ND = not determinable
+C1 Funding stage: PASS=$500K-$5M raised; FLAG=$5M-$20M; FAIL=$20M+; ND=not found
+C2 Decision-maker language: PASS=CEO/CCO/CFO/COO/procurement own the close — business KPIs; FLAG=mixed, CTO involved but not primary; FAIL=CTO/engineer/technical specialist owns the close; ND=not determinable
+C3 Founder sales background: PASS=no sales background in founding team, gap exists; FLAG=some commercial experience but limited or not in MENA enterprise; FAIL=strong sales pedigree or CRO/VP Sales already hired; ND=not determinable
 
 GATE 2 — CAN REVENEERING ACTUALLY HELP?
-C4: Implementation complexity post-sale
-  PASS = Implementation handed off to a separate team after commercial sign-off; sales conversation is about business outcomes
-  FLAG = Sales person needs to navigate some technical questions during the sales cycle
-  FAIL = Deep technical expertise required to get through the door at all
-  ND = not determinable
+C4 Implementation complexity: PASS=implementation handed off to separate team post-sale, sales conversation is about business outcomes; FLAG=some technical questions arise during sales cycle; FAIL=deep technical expertise required to get through the door at all; ND=not determinable
+C5 Geography and buyer network: PASS=target buyers in MENA/UAE/KSA/GCC; FLAG=MENA-based company but primarily targeting buyers outside the region; FAIL=no MENA buyer overlap; ND=not determinable
+C6 Domain credibility with buyer: PASS=buyer pain maps to areas Alexander has sold before — growth, revenue, cost, efficiency, market expansion, government/enterprise procurement; FLAG=specialist domain like compliance or clinical or legal but translatable with prep, vocabulary can be built during client onboarding; FAIL=so specialised that credibility cannot be built without years of sector experience; ND=not determinable
 
-C5: Geography and buyer network
-  PASS = Target buyers are in MENA — UAE, KSA, broader GCC
-  FLAG = MENA-based company but targeting buyers outside the region primarily
-  FAIL = No MENA buyer overlap
-  ND = not determinable
+Gate verdict logic: any FAIL in gate = gate FAIL; all pass = gate PASS; mix of pass/flag = gate FLAG.
+Overall: STRONG FIT (both gates pass), POSSIBLE FIT (flags, no fails), WEAK FIT (any fail in either gate).
 
-C6: Domain credibility with the buyer
-  PASS = Buyer's core pain maps to areas Alexander has sold before: growth, revenue, cost, operational efficiency, market expansion, government/enterprise procurement
-  FLAG = Buyer lives in a specialist domain (compliance, clinical, legal, engineering) but pain is translatable with prep — vocabulary can be acquired during client onboarding
-  FAIL = Domain is so specialised that credibility cannot be built without years of sector experience
-  ND = not determinable
+──────────────────────────────────────────────
+SECTION 3: INTRO EMAIL
+Only generate this if overall verdict is NOT WEAK FIT.
+Write a cold outreach email from Alexander Kappes to the CEO of this company.
+Structure: greeting by first name, one-sentence intro ("My name is Alexander Kappes — I'm a fractional CRO who builds sales engines for founders in MENA."), then exactly 3 bullet points showing how Reveneering can help their specific situation (make these specific to what you found, not generic), then a CTA: "Would you be open to a 30-minute call? You can book directly here: calendly.com/a-m-kappes/30min". Sign off: "Alexander Kappes / Reveneering / hello@reveneering.com".
+Keep the email concise, confident, and not salesy. No fluff. Reference specific things about their company to show you've done your homework.
+If overall verdict IS WEAK FIT, set email to null.
 
-IMPORTANT RULES:
-- Use web_search to research the company. Search for: funding rounds, founders backgrounds, product description, target customers, pricing, implementation complexity, client testimonials, job postings.
-- For each criterion, provide: a verdict (PASS/FLAG/FAIL/ND), a finding (2-4 sentences of what you found and why it leads to this verdict), a confidence level (HIGH/MEDIUM/LOW), and a confidence reason (one sentence on what data supports or limits your confidence).
-- For the overall verdict, provide: a title and a 3-5 sentence plain-English recommendation.
-- Gate 1 summary verdict: if any C1/C2/C3 is FAIL then gate fails. If all pass then gate passes. If mix of pass/flag then gate flags.
-- Gate 2 summary verdict: same logic for C4/C5/C6.
-- Overall: STRONG FIT (both gates pass), POSSIBLE FIT (one or both gates flag, no fails), WEAK FIT (one or more fails in either gate).
-
-Respond ONLY with a valid JSON object in this exact structure — no markdown, no preamble:
+──────────────────────────────────────────────
+Respond ONLY with valid JSON. No markdown. No preamble. No explanation outside the JSON.
 
 {
-  "company_name": "string",
-  "elevator_pitch": "string — one sentence, max 25 words",
-  "gate1": {
-    "verdict": "PASS|FLAG|FAIL",
-    "summary": "string — 1-2 sentences"
-  },
-  "gate2": {
-    "verdict": "PASS|FLAG|FAIL",
-    "summary": "string — 1-2 sentences"
-  },
-  "overall": {
-    "verdict": "STRONG FIT|POSSIBLE FIT|WEAK FIT",
-    "title": "string",
-    "recommendation": "string — 3-5 sentences"
-  },
+  "company_name": "",
+  "gate1": { "verdict": "PASS|FLAG|FAIL", "summary": "" },
+  "gate2": { "verdict": "PASS|FLAG|FAIL", "summary": "" },
+  "overall": { "verdict": "STRONG FIT|POSSIBLE FIT|WEAK FIT", "title": "", "recommendation": "" },
   "criteria": [
-    {
-      "id": "C1",
-      "gate": 1,
-      "name": "Funding stage",
-      "verdict": "PASS|FLAG|FAIL|ND",
-      "preview": "string — 8 words max",
-      "finding": "string — 2-4 sentences",
-      "confidence": "HIGH|MEDIUM|LOW",
-      "confidence_reason": "string — one sentence"
-    },
+    { "id": "C1", "gate": 1, "name": "Funding stage", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
     { "id": "C2", "gate": 1, "name": "Decision-maker language", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
     { "id": "C3", "gate": 1, "name": "Founder sales background", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
     { "id": "C4", "gate": 2, "name": "Implementation complexity", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
     { "id": "C5", "gate": 2, "name": "Geography and buyer network", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
     { "id": "C6", "gate": 2, "name": "Domain credibility with buyer", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" }
-  ]
+  ],
+  "qa": {
+    "product_type": "", "segment": "", "targeting": "", "funding_raised": "",
+    "geography": "", "elevator_pitch": "", "what_is_it": "", "nice_or_critical": "",
+    "price": "", "payment_model": "", "implementation_time": "", "promised_benefit": "",
+    "quantified_benefit": "", "complexity_to_explain": "", "expected_sales_cycle": "",
+    "target_audience": "", "department_owner": "", "decision_maker": "",
+    "market_size": "", "linkedin_findability": "", "how_they_buy": "",
+    "buying_committee_size": "", "purchase_trigger": "",
+    "founder_industry_background": "", "founder_sales_experience": "", "existing_sales_function": ""
+  },
+  "email": "full email text here or null"
 }`;
 
-async function startAssessment() {
-  const name = document.getElementById('company-name').value.trim();
-  const website = document.getElementById('company-website').value.trim();
-  const linkedin = document.getElementById('company-linkedin').value.trim();
+// ─── ASSESSMENT ──────────────────────────────────────────────────────────────
+async function runAssessment() {
+  const name = document.getElementById('f-name').value.trim();
+  const web  = document.getElementById('f-web').value.trim();
+  const li   = document.getElementById('f-li').value.trim();
 
-  if (!name || !website) {
-    showError('Please enter at least a company name and website URL.');
-    return;
+  if (!name || !web) { showErr('Please enter at least a company name and website URL.'); return; }
+  hideErr();
+
+  document.getElementById('run-btn').disabled = true;
+  document.getElementById('report').style.display = 'none';
+  document.getElementById('report').innerHTML = '';
+
+  const prog = document.getElementById('prog');
+  prog.style.display = 'block';
+  prog.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  const steps = ['s1','s2','s3','s4','s5'];
+  let si = 0;
+  function adv() {
+    if (si > 0) document.getElementById(steps[si-1]).className = 'pst dn';
+    if (si < steps.length) { document.getElementById(steps[si]).className = 'pst act'; si++; }
   }
-
-  hideError();
-  document.getElementById('assess-btn').disabled = true;
-  document.getElementById('report-section').style.display = 'none';
-  document.getElementById('report-section').innerHTML = '';
-
-  const progressSection = document.getElementById('progress-section');
-  progressSection.style.display = 'block';
-  progressSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  const steps = ['step-1','step-2','step-3','step-4','step-5'];
-  let stepIndex = 0;
-
-  function advanceStep() {
-    if (stepIndex > 0) {
-      document.getElementById(steps[stepIndex-1]).className = 'progress-step done';
-    }
-    if (stepIndex < steps.length) {
-      document.getElementById(steps[stepIndex]).className = 'progress-step active';
-      stepIndex++;
-    }
-  }
-
-  advanceStep();
-  const stepTimer = setInterval(() => {
-    if (stepIndex < steps.length) advanceStep();
-  }, 3200);
-
-  const userMessage = `Assess this company for Reveneering fit:
-Company name: ${name}
-Website: ${website}
-LinkedIn: ${linkedin || 'not provided'}
-
-Research this company thoroughly using web search and return the JSON assessment.`;
+  adv();
+  const tmr = setInterval(() => { if (si < steps.length) adv(); }, 3500);
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch(PROXY_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 4000,
-        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
-        system: SYSTEM_PROMPT,
-        messages: [{ role: 'user', content: userMessage }]
+        system: SYS,
+        user: `Assess this company for Reveneering fit:\nCompany: ${name}\nWebsite: ${web}\nLinkedIn: ${li || 'not provided'}\n\nResearch thoroughly using web search and return the complete JSON.`
       })
     });
 
-    clearInterval(stepTimer);
-    steps.forEach(s => { document.getElementById(s).className = 'progress-step done'; });
+    clearInterval(tmr);
+    steps.forEach(s => document.getElementById(s).className = 'pst dn');
 
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || 'API request failed');
-    }
+    if (!res.ok) { const e = await res.json(); throw new Error(e.error || 'Proxy error ' + res.status); }
+    const data = await res.json();
 
-    const data = await response.json();
-
-    let jsonText = '';
-    for (const block of data.content) {
-      if (block.type === 'text') jsonText += block.text;
-    }
-
-    jsonText = jsonText.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
-    const start = jsonText.indexOf('{');
-    const end = jsonText.lastIndexOf('}');
-    if (start === -1 || end === -1) throw new Error('No valid JSON in response');
-    jsonText = jsonText.slice(start, end + 1);
-
-    const result = JSON.parse(jsonText);
+    let txt = data.text || '';
+    txt = txt.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+    const s0 = txt.indexOf('{'), e0 = txt.lastIndexOf('}');
+    if (s0 < 0 || e0 < 0) throw new Error('No JSON found in response');
+    const result = JSON.parse(txt.slice(s0, e0 + 1));
 
     setTimeout(() => {
-      progressSection.style.display = 'none';
+      prog.style.display = 'none';
       renderReport(result, name);
-      document.getElementById('report-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 600);
+      document.getElementById('report').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 500);
 
-  } catch (err) {
-    clearInterval(stepTimer);
-    progressSection.style.display = 'none';
-    showError('Assessment failed: ' + err.message + '. Please check your inputs and try again.');
+  } catch(err) {
+    clearInterval(tmr);
+    prog.style.display = 'none';
+    showErr('Assessment failed: ' + err.message + '. Check that your Cloudflare Worker is deployed and the PROXY_URL at the top of this file is updated.');
   }
-
-  document.getElementById('assess-btn').disabled = false;
+  document.getElementById('run-btn').disabled = false;
 }
 
-function verdictClass(v) {
-  if (!v) return 'nd';
-  const u = v.toUpperCase();
-  if (u === 'PASS') return 'pass';
-  if (u === 'FLAG') return 'flag';
-  if (u === 'FAIL') return 'fail';
-  return 'nd';
-}
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function vc(v) { if (!v) return 'nd'; const u = v.toUpperCase(); if (u==='PASS') return 'pass'; if (u==='FLAG') return 'flag'; if (u==='FAIL') return 'fail'; return 'nd'; }
+function vl(v) { if (!v) return 'N/D'; const u = v.toUpperCase(); if (u==='PASS') return '✓ Pass'; if (u==='FLAG') return '⚑ Flag'; if (u==='FAIL') return '✕ Fail'; if (u==='ND') return '— N/D'; return v; }
+function gl(v) { if (!v) return '— N/D'; const u = v.toUpperCase(); if (u==='PASS') return '✓ Gate passes'; if (u==='FLAG') return '⚑ Needs review'; if (u==='FAIL') return '✕ Gate fails'; return v; }
+function cfh(l) { const c = l==='HIGH'?'c-h':l==='MEDIUM'?'c-m':'c-l', lb = l==='HIGH'?'High confidence':l==='MEDIUM'?'Medium confidence':'Low confidence'; return `<div class="conf-row"><div class="c-dot ${c}"></div><span>${lb}</span></div>`; }
+function xe(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function qaVal(v) { if (!v || v.toLowerCase().includes('not determinable')) return `<div class="qa-a nd">Not determinable from public data</div>`; return `<div class="qa-a">${xe(v)}</div>`; }
 
-function verdictLabel(v) {
-  if (!v) return 'N/D';
-  const u = v.toUpperCase();
-  if (u === 'PASS') return '&#10003; Pass';
-  if (u === 'FLAG') return '&#9873; Flag';
-  if (u === 'FAIL') return '&#10005; Fail';
-  if (u === 'ND')   return '&mdash; N/D';
-  return v;
-}
-
-function gateVerdictLabel(v) {
-  if (!v) return '&mdash; N/D';
-  const u = v.toUpperCase();
-  if (u === 'PASS') return '&#10003; Gate passes';
-  if (u === 'FLAG') return '&#9873; Needs review';
-  if (u === 'FAIL') return '&#10005; Gate fails';
-  return v;
-}
-
-function confidenceHTML(level) {
-  const cls   = level === 'HIGH' ? 'conf-high' : level === 'MEDIUM' ? 'conf-med' : 'conf-low';
-  const label = level === 'HIGH' ? 'High confidence' : level === 'MEDIUM' ? 'Medium confidence' : 'Low confidence';
-  return `<div class="confidence-row"><div class="conf-dot ${cls}"></div><span>${label}</span></div>`;
-}
-
-function renderReport(data, inputName) {
-  const companyName = data.company_name || inputName;
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderReport(d, inputName) {
+  const co = d.company_name || inputName;
   const now = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
 
+  // Gates
   let html = `
-    <div class="report-header">
-      <div class="report-co">Reveneering fit assessment</div>
-      <div class="report-title">${escHtml(companyName)}</div>
-      <div class="report-meta">Generated ${now}${data.elevator_pitch ? ' &middot; ' + escHtml(data.elevator_pitch) : ''}</div>
+    <div class="rpt-hdr">
+      <div class="rpt-co">Reveneering fit assessment</div>
+      <div class="rpt-title">${xe(co)}</div>
+      <div class="rpt-meta">Generated ${now}${d.qa?.elevator_pitch ? ' &middot; ' + xe(d.qa.elevator_pitch) : ''}</div>
     </div>
     <div class="gates-row">
-      <div class="gate-card ${verdictClass(data.gate1?.verdict)}-gate">
-        <div class="gate-label">Gate 1</div>
-        <div class="gate-title">Do they need Reveneering?</div>
-        <div class="gate-verdict ${verdictClass(data.gate1?.verdict)}">${gateVerdictLabel(data.gate1?.verdict)}</div>
-        <div class="gate-summary">${escHtml(data.gate1?.summary || '')}</div>
+      <div class="gc ${vc(d.gate1?.verdict)}">
+        <div class="g-lbl">Gate 1</div><div class="g-name">Do they need Reveneering?</div>
+        <div class="g-verd ${vc(d.gate1?.verdict)}">${gl(d.gate1?.verdict)}</div>
+        <div class="g-sum">${xe(d.gate1?.summary||'')}</div>
       </div>
-      <div class="gate-card ${verdictClass(data.gate2?.verdict)}-gate">
-        <div class="gate-label">Gate 2</div>
-        <div class="gate-title">Can Reveneering actually help?</div>
-        <div class="gate-verdict ${verdictClass(data.gate2?.verdict)}">${gateVerdictLabel(data.gate2?.verdict)}</div>
-        <div class="gate-summary">${escHtml(data.gate2?.summary || '')}</div>
+      <div class="gc ${vc(d.gate2?.verdict)}">
+        <div class="g-lbl">Gate 2</div><div class="g-name">Can Reveneering actually help?</div>
+        <div class="g-verd ${vc(d.gate2?.verdict)}">${gl(d.gate2?.verdict)}</div>
+        <div class="g-sum">${xe(d.gate2?.summary||'')}</div>
       </div>
     </div>
-    <div class="overall-verdict">
-      <div class="ov-label">Overall verdict &middot; ${escHtml(data.overall?.verdict || '')}</div>
-      <div class="ov-verdict">${escHtml(data.overall?.title || '')}</div>
-      <div class="ov-body">${escHtml(data.overall?.recommendation || '')}</div>
-    </div>
-  `;
+    <div class="ov-box">
+      <div class="ov-lbl">Overall verdict &middot; ${xe(d.overall?.verdict||'')}</div>
+      <div class="ov-title">${xe(d.overall?.title||'')}</div>
+      <div class="ov-body">${xe(d.overall?.recommendation||'')}</div>
+    </div>`;
 
-  const gate1Criteria = (data.criteria || []).filter(c => c.gate === 1);
-  const gate2Criteria = (data.criteria || []).filter(c => c.gate === 2);
-
-  if (gate1Criteria.length) {
-    html += `<div class="criteria-section-label">Gate 1 criteria &mdash; Do they need Reveneering?</div>`;
-    gate1Criteria.forEach((c, i) => { html += renderCriterion(c, i); });
+  // Intro email
+  if (d.email && d.overall?.verdict?.toUpperCase() !== 'WEAK FIT') {
+    const emailText = d.email;
+    html += `
+      <div class="email-box">
+        <div class="email-hdr">
+          <div class="email-hdr-left">
+            <div class="email-eyebrow">Suggested outreach</div>
+            <div class="email-title">Intro email to ${xe(co)} CEO</div>
+          </div>
+          <button class="copy-btn" onclick="copyEmail()" id="copy-btn">Copy email</button>
+        </div>
+        <div class="email-body" id="email-text">${xe(emailText)}</div>
+      </div>`;
   }
-  if (gate2Criteria.length) {
-    html += `<div class="criteria-section-label" style="margin-top:24px;">Gate 2 criteria &mdash; Can Reveneering actually help?</div>`;
-    gate2Criteria.forEach((c, i) => { html += renderCriterion(c, i + 10); });
+
+  // Criteria
+  const g1 = (d.criteria||[]).filter(c => c.gate===1);
+  const g2 = (d.criteria||[]).filter(c => c.gate===2);
+  if (g1.length) {
+    html += `<div class="sec-hdr">Gate 1 criteria &mdash; Do they need Reveneering?</div>`;
+    g1.forEach((c,i) => { html += renderCrit(c, i); });
+  }
+  if (g2.length) {
+    html += `<div class="sec-hdr" style="margin-top:20px;">Gate 2 criteria &mdash; Can Reveneering actually help?</div>`;
+    g2.forEach((c,i) => { html += renderCrit(c, i+10); });
   }
 
-  const section = document.getElementById('report-section');
-  section.style.display = 'block';
-  section.innerHTML = html;
+  // Q&A
+  const q = d.qa || {};
+  html += `<div class="sec-hdr" style="margin-top:20px;">Full analysis &mdash; Company</div>`;
+  html += `<div class="qa-grid">
+    <div class="qa-cell"><div class="qa-q">1.1 Product type</div>${qaVal(q.product_type)}</div>
+    <div class="qa-cell"><div class="qa-q">1.2 Segment</div>${qaVal(q.segment)}</div>
+    <div class="qa-cell"><div class="qa-q">1.3 Who they're targeting</div>${qaVal(q.targeting)}</div>
+    <div class="qa-cell"><div class="qa-q">1.4 Funding raised</div>${qaVal(q.funding_raised)}</div>
+    <div class="qa-cell"><div class="qa-q">1.5 Geography</div>${qaVal(q.geography)}</div>
+    <div class="qa-cell qa-full"><div class="qa-q">1.6 Elevator pitch</div>${qaVal(q.elevator_pitch)}</div>
+  </div>`;
+
+  html += `<div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Product</div>`;
+  html += `<div class="qa-grid">
+    <div class="qa-cell qa-full"><div class="qa-q">2.1 What is the product?</div>${qaVal(q.what_is_it)}</div>
+    <div class="qa-cell"><div class="qa-q">2.2 Nice-to-have or critical problem?</div>${qaVal(q.nice_or_critical)}</div>
+    <div class="qa-cell"><div class="qa-q">2.3 Price</div>${qaVal(q.price)}</div>
+    <div class="qa-cell"><div class="qa-q">2.4 Payment model</div>${qaVal(q.payment_model)}</div>
+    <div class="qa-cell"><div class="qa-q">2.5 Implementation time</div>${qaVal(q.implementation_time)}</div>
+    <div class="qa-cell"><div class="qa-q">2.6 Promised benefit</div>${qaVal(q.promised_benefit)}</div>
+    <div class="qa-cell"><div class="qa-q">2.7 Quantified benefit</div>${qaVal(q.quantified_benefit)}</div>
+    <div class="qa-cell"><div class="qa-q">2.8 Complexity to explain</div>${qaVal(q.complexity_to_explain)}</div>
+    <div class="qa-cell qa-full"><div class="qa-q">2.9 Expected sales cycle</div>${qaVal(q.expected_sales_cycle)}</div>
+  </div>`;
+
+  html += `<div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Clients</div>`;
+  html += `<div class="qa-grid">
+    <div class="qa-cell"><div class="qa-q">3.1 Target audience</div>${qaVal(q.target_audience)}</div>
+    <div class="qa-cell"><div class="qa-q">3.2 Department owner (B2B)</div>${qaVal(q.department_owner)}</div>
+    <div class="qa-cell"><div class="qa-q">3.3 Decision-maker title</div>${qaVal(q.decision_maker)}</div>
+    <div class="qa-cell"><div class="qa-q">3.4 Market size</div>${qaVal(q.market_size)}</div>
+    <div class="qa-cell"><div class="qa-q">3.5 LinkedIn findability</div>${qaVal(q.linkedin_findability)}</div>
+    <div class="qa-cell"><div class="qa-q">3.6 How clients discover products</div>${qaVal(q.how_they_buy)}</div>
+    <div class="qa-cell"><div class="qa-q">3.7 Buying committee size</div>${qaVal(q.buying_committee_size)}</div>
+    <div class="qa-cell"><div class="qa-q">3.8 Purchase trigger</div>${qaVal(q.purchase_trigger)}</div>
+  </div>`;
+
+  html += `<div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Team</div>`;
+  html += `<div class="qa-grid">
+    <div class="qa-cell"><div class="qa-q">4.1 Founder industry background</div>${qaVal(q.founder_industry_background)}</div>
+    <div class="qa-cell"><div class="qa-q">4.2 Founder sales experience</div>${qaVal(q.founder_sales_experience)}</div>
+    <div class="qa-cell qa-full"><div class="qa-q">4.3 Existing sales function</div>${qaVal(q.existing_sales_function)}</div>
+  </div>`;
+
+  html += `<button class="btn-ghost" onclick="resetForm()">&larr; New assessment</button>`;
+
+  const sec = document.getElementById('report');
+  sec.style.display = 'block';
+  sec.innerHTML = html;
+  window._emailText = d.email || '';
 }
 
-function renderCriterion(c, idx) {
-  const id = `criterion-${idx}`;
+function renderCrit(c, idx) {
+  const id = 'cr' + idx;
   return `
-    <div class="criterion" id="${id}">
-      <button class="criterion-trigger" onclick="toggleCriterion('${id}')">
-        <div class="criterion-left">
-          <div class="criterion-num-badge">${c.id}</div>
-          <div>
-            <div class="criterion-name">${escHtml(c.name)}</div>
-            <div class="criterion-preview">${escHtml(c.preview || '')}</div>
-          </div>
+    <div class="cr" id="${id}">
+      <button class="cr-btn" onclick="togCr('${id}')">
+        <div class="cr-left">
+          <div class="cr-badge">${xe(c.id)}</div>
+          <div><div class="cr-name">${xe(c.name)}</div><div class="cr-prev">${xe(c.preview||'')}</div></div>
         </div>
-        <div class="criterion-right">
-          <span class="verdict-badge ${verdictClass(c.verdict)}">${verdictLabel(c.verdict)}</span>
-          <div class="expand-icon">+</div>
+        <div class="cr-right">
+          <span class="vbg ${vc(c.verdict)}">${vl(c.verdict)}</span>
+          <div class="exp-icon">+</div>
         </div>
       </button>
-      <div class="criterion-body" id="${id}-body">
+      <div class="cr-body" id="${id}b">
         <div class="cb-grid">
-          <div class="cb-col">
-            <div class="cb-col-label">Finding</div>
-            <div class="cb-col-text">${escHtml(c.finding || '')}</div>
-          </div>
-          <div class="cb-col">
-            <div class="cb-col-label">Confidence</div>
-            <div class="cb-col-text" style="margin-bottom:8px;">${confidenceHTML(c.confidence)}</div>
-            <div class="cb-col-text">${escHtml(c.confidence_reason || '')}</div>
-          </div>
+          <div class="cb-col"><div class="cb-lbl">Finding</div><div class="cb-txt">${xe(c.finding||'')}</div></div>
+          <div class="cb-col"><div class="cb-lbl">Confidence</div>${cfh(c.confidence)}<div class="cb-txt">${xe(c.confidence_reason||'')}</div></div>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
-function toggleCriterion(id) {
-  const el   = document.getElementById(id);
-  const body = document.getElementById(id + '-body');
-  const isOpen = el.classList.contains('open');
-  el.classList.toggle('open', !isOpen);
-  body.classList.toggle('open', !isOpen);
+function togCr(id) {
+  const el = document.getElementById(id), b = document.getElementById(id+'b');
+  const o = el.classList.contains('open');
+  el.classList.toggle('open', !o); b.classList.toggle('open', !o);
 }
 
-function showError(msg) {
-  const box = document.getElementById('error-box');
-  box.textContent = msg;
-  box.style.display = 'block';
+function copyEmail() {
+  const txt = window._emailText || document.getElementById('email-text')?.innerText || '';
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = document.getElementById('copy-btn');
+    if (btn) { btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy email', 2000); }
+  });
 }
 
-function hideError() {
-  document.getElementById('error-box').style.display = 'none';
+function resetForm() {
+  document.getElementById('report').style.display = 'none';
+  document.getElementById('report').innerHTML = '';
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-web').value = '';
+  document.getElementById('f-li').value = '';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function escHtml(str) {
-  if (!str) return '';
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+function showErr(m) { const b = document.getElementById('err-box'); b.textContent = m; b.style.display = 'block'; }
+function hideErr() { document.getElementById('err-box').style.display = 'none'; }
 </script>
 </body>
 </html>
