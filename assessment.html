@@ -78,8 +78,8 @@ body::before {
   cursor: pointer; transition: background 0.2s, transform 0.15s;
 }
 .pw-btn:hover { background: var(--accent2); transform: translateY(-1px); }
-#pw-gate.fade { animation: fade 0.4s ease forwards; }
-@keyframes fade { to { opacity: 0; pointer-events: none; } }
+#pw-gate.fade { animation: gfade 0.4s ease forwards; }
+@keyframes gfade { to { opacity: 0; pointer-events: none; } }
 
 /* MAIN LAYOUT */
 .wrap { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; padding: 0 24px 80px; }
@@ -95,11 +95,49 @@ body::before {
 .nav-wm .v { color: var(--accent); font-style: italic; }
 .nav-sub { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--m2); }
 
-/* FORM */
-.card {
-  background: var(--n2); border: 1px solid var(--bd);
-  border-radius: 6px; padding: 32px; margin-bottom: 24px;
+/* SAVED REPORTS */
+#saved-section { margin-bottom: 32px; }
+.saved-hdr {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 10px;
 }
+.saved-hdr-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--m2); }
+.clear-all-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 11px; color: var(--m2); font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 0;
+  transition: color 0.2s;
+}
+.clear-all-btn:hover { color: var(--xt); }
+.saved-list { display: flex; flex-direction: column; gap: 2px; }
+.saved-item {
+  background: var(--n2); border: 1px solid var(--bd); border-radius: 4px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding: 12px 16px; transition: border-color 0.2s;
+}
+.saved-item:hover { border-color: var(--b2); }
+.saved-item-left { display: flex; align-items: center; gap: 12px; flex: 1; cursor: pointer; min-width: 0; }
+.saved-verdict-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.saved-verdict-dot.pass { background: var(--pt); }
+.saved-verdict-dot.flag { background: var(--ft); }
+.saved-verdict-dot.fail { background: var(--xt); }
+.saved-item-name { font-size: 14px; color: var(--cream); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.saved-item-meta { font-size: 11px; color: var(--m2); white-space: nowrap; flex-shrink: 0; }
+.saved-item-verdict {
+  font-size: 10px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 20px; flex-shrink: 0;
+}
+.saved-item-verdict.pass { background: var(--pb); color: var(--pt); }
+.saved-item-verdict.flag { background: var(--fb); color: var(--ft); }
+.saved-item-verdict.fail { background: var(--xb); color: var(--xt); }
+.del-btn {
+  background: none; border: none; cursor: pointer; color: var(--m2);
+  font-size: 16px; padding: 2px 4px; line-height: 1; transition: color 0.2s; flex-shrink: 0;
+}
+.del-btn:hover { color: var(--xt); }
+
+/* FORM */
+.card { background: var(--n2); border: 1px solid var(--bd); border-radius: 6px; padding: 32px; margin-bottom: 24px; }
 .eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
 .card-title { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--cream); margin-bottom: 6px; line-height: 1.2; }
 .card-desc { font-size: 13px; color: var(--muted); margin-bottom: 24px; line-height: 1.65; max-width: 500px; }
@@ -173,7 +211,6 @@ body::before {
 /* INTRO EMAIL */
 .email-box { background: var(--n2); border: 1px solid var(--b2); border-radius: 4px; margin-bottom: 24px; overflow: hidden; }
 .email-hdr { padding: 16px 20px; border-bottom: 1px solid var(--bd); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-.email-hdr-left {}
 .email-eyebrow { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 3px; }
 .email-title { font-size: 14px; font-weight: 500; color: var(--cream); }
 .copy-btn {
@@ -218,7 +255,6 @@ body::before {
 .qa-cell { background: var(--n2); padding: 14px 16px; }
 .qa-q { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--m2); margin-bottom: 5px; }
 .qa-a { font-size: 13px; color: var(--muted); line-height: 1.6; }
-.qa-a strong { color: rgba(255,255,255,0.75); font-weight: 500; }
 .qa-a.nd { color: var(--nt); font-style: italic; }
 .qa-full { grid-column: 1 / -1; }
 
@@ -280,6 +316,16 @@ body::before {
     <div class="nav-sub">Prospect Assessment Tool</div>
   </nav>
 
+  <!-- SAVED REPORTS -->
+  <div id="saved-section" style="display:none;">
+    <div class="saved-hdr">
+      <div class="saved-hdr-label">Saved reports</div>
+      <button class="clear-all-btn" onclick="clearAllReports()">Clear all</button>
+    </div>
+    <div class="saved-list" id="saved-list"></div>
+  </div>
+
+  <!-- FORM -->
   <div class="card">
     <div class="eyebrow">Pre-engagement filter</div>
     <div class="card-title">Assess a prospect</div>
@@ -317,13 +363,12 @@ body::before {
 </div>
 
 <script>
-// ─── CONFIGURATION ──────────────────────────────────────────────────────────
-// Replace this URL with your Cloudflare Worker URL after deployment.
-// See the worker.js file in this repository for setup instructions.
-const PROXY_URL = 'https://reveneering-assessment.a-m-kappes.workers.dev/assess';
-const PASSWORD = '@$$essment!';
+// ─── CONFIGURATION ────────────────────────────────────────────────────────────
+const PROXY_URL = 'https://YOUR-WORKER.workers.dev/assess';
+const PASSWORD  = '@$$essment!';
+const LS_KEY    = 'rev_saved_reports';
 
-// ─── PASSWORD ────────────────────────────────────────────────────────────────
+// ─── PASSWORD ─────────────────────────────────────────────────────────────────
 function pwCheck() {
   const inp = document.getElementById('pw-inp');
   const err = document.getElementById('pw-err');
@@ -331,7 +376,10 @@ function pwCheck() {
     const gate = document.getElementById('pw-gate');
     gate.classList.add('fade');
     setTimeout(() => gate.style.display = 'none', 420);
-    setTimeout(() => document.getElementById('f-name').focus(), 440);
+    setTimeout(() => {
+      renderSavedList();
+      document.getElementById('f-name').focus();
+    }, 440);
   } else {
     err.textContent = 'Incorrect password. Please try again.';
     inp.classList.remove('shk'); void inp.offsetWidth; inp.classList.add('shk');
@@ -347,7 +395,83 @@ function pwToggle() {
 }
 setTimeout(() => { const e = document.getElementById('pw-inp'); if (e) e.focus(); }, 200);
 
-// ─── SYSTEM PROMPT ───────────────────────────────────────────────────────────
+// ─── LOCAL STORAGE ────────────────────────────────────────────────────────────
+function getSaved() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY) || '[]'); }
+  catch(e) { return []; }
+}
+function saveReport(data) {
+  const saved = getSaved();
+  const entry = {
+    id: Date.now(),
+    company: data.company_name || 'Unknown',
+    verdict: data.overall?.verdict || '',
+    date: new Date().toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' }),
+    data: data
+  };
+  // Replace if same company already saved
+  const idx = saved.findIndex(s => s.company.toLowerCase() === entry.company.toLowerCase());
+  if (idx >= 0) saved[idx] = entry; else saved.unshift(entry);
+  // Keep max 50
+  if (saved.length > 50) saved.splice(50);
+  localStorage.setItem(LS_KEY, JSON.stringify(saved));
+  renderSavedList();
+}
+function deleteReport(id) {
+  const saved = getSaved().filter(s => s.id !== id);
+  localStorage.setItem(LS_KEY, JSON.stringify(saved));
+  renderSavedList();
+}
+function clearAllReports() {
+  if (confirm('Delete all saved reports? This cannot be undone.')) {
+    localStorage.removeItem(LS_KEY);
+    renderSavedList();
+  }
+}
+function verdictDotClass(v) {
+  if (!v) return 'nd';
+  const u = v.toUpperCase();
+  if (u === 'STRONG FIT') return 'pass';
+  if (u === 'POSSIBLE FIT') return 'flag';
+  if (u === 'WEAK FIT') return 'fail';
+  return 'nd';
+}
+function verdictShort(v) {
+  if (!v) return 'N/D';
+  const u = v.toUpperCase();
+  if (u === 'STRONG FIT') return 'Strong fit';
+  if (u === 'POSSIBLE FIT') return 'Possible fit';
+  if (u === 'WEAK FIT') return 'Weak fit';
+  return v;
+}
+function renderSavedList() {
+  const saved = getSaved();
+  const sec = document.getElementById('saved-section');
+  const list = document.getElementById('saved-list');
+  if (!saved.length) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  list.innerHTML = saved.map(s => `
+    <div class="saved-item">
+      <div class="saved-item-left" onclick="loadSaved(${s.id})">
+        <div class="saved-verdict-dot ${verdictDotClass(s.verdict)}"></div>
+        <div class="saved-item-name">${xe(s.company)}</div>
+        <div class="saved-item-meta">${xe(s.date)}</div>
+        <span class="saved-item-verdict ${verdictDotClass(s.verdict)}">${xe(verdictShort(s.verdict))}</span>
+      </div>
+      <button class="del-btn" onclick="deleteReport(${s.id})" title="Delete">&times;</button>
+    </div>
+  `).join('');
+}
+function loadSaved(id) {
+  const entry = getSaved().find(s => s.id === id);
+  if (!entry) return;
+  document.getElementById('report').style.display = 'none';
+  document.getElementById('report').innerHTML = '';
+  renderReport(entry.data, entry.company);
+  document.getElementById('report').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ─── SYSTEM PROMPT ────────────────────────────────────────────────────────────
 const SYS = `You are Reveneering's prospect assessment engine. Reveneering is a fractional CRO service for MENA founders at Seed to Series B, run by Alexander Kappes — former CEO of Groupon Middle East ($60M revenue), founder of Greener Crop and Greener Herd, 15+ years closing enterprise deals in MENA.
 
 You must research the company using web_search and produce a complete structured assessment.
@@ -381,7 +505,7 @@ Clients:
 - decision_maker: Who is the purchase decision-maker by title?
 - market_size: How big is the market in their target geography?
 - linkedin_findability: Can the decision-maker be found on LinkedIn? Assess difficulty.
-- how_they_buy: How do clients of this type typically discover products like this? (trade shows / social media / direct sales / word of mouth / etc.)
+- how_they_buy: How do clients of this type typically discover products like this?
 - buying_committee_size: How many people typically involved in the buying decision?
 - purchase_trigger: Is the purchase proactive or triggered by an event?
 
@@ -401,7 +525,7 @@ C3 Founder sales background: PASS=no sales background in founding team, gap exis
 GATE 2 — CAN REVENEERING ACTUALLY HELP?
 C4 Implementation complexity: PASS=implementation handed off to separate team post-sale, sales conversation is about business outcomes; FLAG=some technical questions arise during sales cycle; FAIL=deep technical expertise required to get through the door at all; ND=not determinable
 C5 Geography and buyer network: PASS=target buyers in MENA/UAE/KSA/GCC; FLAG=MENA-based company but primarily targeting buyers outside the region; FAIL=no MENA buyer overlap; ND=not determinable
-C6 Domain credibility with buyer: PASS=buyer pain maps to areas Alexander has sold before — growth, revenue, cost, efficiency, market expansion, government/enterprise procurement; FLAG=specialist domain like compliance or clinical or legal but translatable with prep, vocabulary can be built during client onboarding; FAIL=so specialised that credibility cannot be built without years of sector experience; ND=not determinable
+C6 Domain credibility with buyer: PASS=buyer pain maps to areas Alexander has sold before — growth, revenue, cost, efficiency, market expansion, government/enterprise procurement; FLAG=specialist domain like compliance or clinical or legal but translatable with prep; FAIL=so specialised that credibility cannot be built without years of sector experience; ND=not determinable
 
 Gate verdict logic: any FAIL in gate = gate FAIL; all pass = gate PASS; mix of pass/flag = gate FLAG.
 Overall: STRONG FIT (both gates pass), POSSIBLE FIT (flags, no fails), WEAK FIT (any fail in either gate).
@@ -415,7 +539,7 @@ Keep the email concise, confident, and not salesy. No fluff. Reference specific 
 If overall verdict IS WEAK FIT, set email to null.
 
 ──────────────────────────────────────────────
-Respond ONLY with valid JSON. No markdown. No preamble. No explanation outside the JSON.
+Respond ONLY with valid JSON. No markdown. No preamble.
 
 {
   "company_name": "",
@@ -443,7 +567,7 @@ Respond ONLY with valid JSON. No markdown. No preamble. No explanation outside t
   "email": "full email text here or null"
 }`;
 
-// ─── ASSESSMENT ──────────────────────────────────────────────────────────────
+// ─── ASSESSMENT ───────────────────────────────────────────────────────────────
 async function runAssessment() {
   const name = document.getElementById('f-name').value.trim();
   const web  = document.getElementById('f-web').value.trim();
@@ -493,6 +617,7 @@ async function runAssessment() {
 
     setTimeout(() => {
       prog.style.display = 'none';
+      saveReport(result);
       renderReport(result, name);
       document.getElementById('report').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 500);
@@ -505,20 +630,19 @@ async function runAssessment() {
   document.getElementById('run-btn').disabled = false;
 }
 
-// ─── HELPERS ─────────────────────────────────────────────────────────────────
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
 function vc(v) { if (!v) return 'nd'; const u = v.toUpperCase(); if (u==='PASS') return 'pass'; if (u==='FLAG') return 'flag'; if (u==='FAIL') return 'fail'; return 'nd'; }
 function vl(v) { if (!v) return 'N/D'; const u = v.toUpperCase(); if (u==='PASS') return '✓ Pass'; if (u==='FLAG') return '⚑ Flag'; if (u==='FAIL') return '✕ Fail'; if (u==='ND') return '— N/D'; return v; }
 function gl(v) { if (!v) return '— N/D'; const u = v.toUpperCase(); if (u==='PASS') return '✓ Gate passes'; if (u==='FLAG') return '⚑ Needs review'; if (u==='FAIL') return '✕ Gate fails'; return v; }
 function cfh(l) { const c = l==='HIGH'?'c-h':l==='MEDIUM'?'c-m':'c-l', lb = l==='HIGH'?'High confidence':l==='MEDIUM'?'Medium confidence':'Low confidence'; return `<div class="conf-row"><div class="c-dot ${c}"></div><span>${lb}</span></div>`; }
 function xe(s) { if (!s) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-function qaVal(v) { if (!v || v.toLowerCase().includes('not determinable')) return `<div class="qa-a nd">Not determinable from public data</div>`; return `<div class="qa-a">${xe(v)}</div>`; }
+function qaVal(v) { if (!v || String(v).toLowerCase().includes('not determinable')) return `<div class="qa-a nd">Not determinable from public data</div>`; return `<div class="qa-a">${xe(v)}</div>`; }
 
 // ─── RENDER ───────────────────────────────────────────────────────────────────
 function renderReport(d, inputName) {
-  const co = d.company_name || inputName;
+  const co  = d.company_name || inputName;
   const now = new Date().toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
 
-  // Gates
   let html = `
     <div class="rpt-hdr">
       <div class="rpt-co">Reveneering fit assessment</div>
@@ -545,17 +669,16 @@ function renderReport(d, inputName) {
 
   // Intro email
   if (d.email && d.overall?.verdict?.toUpperCase() !== 'WEAK FIT') {
-    const emailText = d.email;
     html += `
       <div class="email-box">
         <div class="email-hdr">
-          <div class="email-hdr-left">
+          <div>
             <div class="email-eyebrow">Suggested outreach</div>
             <div class="email-title">Intro email to ${xe(co)} CEO</div>
           </div>
           <button class="copy-btn" onclick="copyEmail()" id="copy-btn">Copy email</button>
         </div>
-        <div class="email-body" id="email-text">${xe(emailText)}</div>
+        <div class="email-body" id="email-text">${xe(d.email)}</div>
       </div>`;
   }
 
@@ -573,18 +696,17 @@ function renderReport(d, inputName) {
 
   // Q&A
   const q = d.qa || {};
-  html += `<div class="sec-hdr" style="margin-top:20px;">Full analysis &mdash; Company</div>`;
-  html += `<div class="qa-grid">
+  html += `<div class="sec-hdr" style="margin-top:20px;">Full analysis &mdash; Company</div>
+  <div class="qa-grid">
     <div class="qa-cell"><div class="qa-q">1.1 Product type</div>${qaVal(q.product_type)}</div>
     <div class="qa-cell"><div class="qa-q">1.2 Segment</div>${qaVal(q.segment)}</div>
     <div class="qa-cell"><div class="qa-q">1.3 Who they're targeting</div>${qaVal(q.targeting)}</div>
     <div class="qa-cell"><div class="qa-q">1.4 Funding raised</div>${qaVal(q.funding_raised)}</div>
     <div class="qa-cell"><div class="qa-q">1.5 Geography</div>${qaVal(q.geography)}</div>
     <div class="qa-cell qa-full"><div class="qa-q">1.6 Elevator pitch</div>${qaVal(q.elevator_pitch)}</div>
-  </div>`;
-
-  html += `<div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Product</div>`;
-  html += `<div class="qa-grid">
+  </div>
+  <div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Product</div>
+  <div class="qa-grid">
     <div class="qa-cell qa-full"><div class="qa-q">2.1 What is the product?</div>${qaVal(q.what_is_it)}</div>
     <div class="qa-cell"><div class="qa-q">2.2 Nice-to-have or critical problem?</div>${qaVal(q.nice_or_critical)}</div>
     <div class="qa-cell"><div class="qa-q">2.3 Price</div>${qaVal(q.price)}</div>
@@ -594,10 +716,9 @@ function renderReport(d, inputName) {
     <div class="qa-cell"><div class="qa-q">2.7 Quantified benefit</div>${qaVal(q.quantified_benefit)}</div>
     <div class="qa-cell"><div class="qa-q">2.8 Complexity to explain</div>${qaVal(q.complexity_to_explain)}</div>
     <div class="qa-cell qa-full"><div class="qa-q">2.9 Expected sales cycle</div>${qaVal(q.expected_sales_cycle)}</div>
-  </div>`;
-
-  html += `<div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Clients</div>`;
-  html += `<div class="qa-grid">
+  </div>
+  <div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Clients</div>
+  <div class="qa-grid">
     <div class="qa-cell"><div class="qa-q">3.1 Target audience</div>${qaVal(q.target_audience)}</div>
     <div class="qa-cell"><div class="qa-q">3.2 Department owner (B2B)</div>${qaVal(q.department_owner)}</div>
     <div class="qa-cell"><div class="qa-q">3.3 Decision-maker title</div>${qaVal(q.decision_maker)}</div>
@@ -606,10 +727,9 @@ function renderReport(d, inputName) {
     <div class="qa-cell"><div class="qa-q">3.6 How clients discover products</div>${qaVal(q.how_they_buy)}</div>
     <div class="qa-cell"><div class="qa-q">3.7 Buying committee size</div>${qaVal(q.buying_committee_size)}</div>
     <div class="qa-cell"><div class="qa-q">3.8 Purchase trigger</div>${qaVal(q.purchase_trigger)}</div>
-  </div>`;
-
-  html += `<div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Team</div>`;
-  html += `<div class="qa-grid">
+  </div>
+  <div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Team</div>
+  <div class="qa-grid">
     <div class="qa-cell"><div class="qa-q">4.1 Founder industry background</div>${qaVal(q.founder_industry_background)}</div>
     <div class="qa-cell"><div class="qa-q">4.2 Founder sales experience</div>${qaVal(q.founder_sales_experience)}</div>
     <div class="qa-cell qa-full"><div class="qa-q">4.3 Existing sales function</div>${qaVal(q.existing_sales_function)}</div>
@@ -653,7 +773,7 @@ function togCr(id) {
 }
 
 function copyEmail() {
-  const txt = window._emailText || document.getElementById('email-text')?.innerText || '';
+  const txt = window._emailText || '';
   navigator.clipboard.writeText(txt).then(() => {
     const btn = document.getElementById('copy-btn');
     if (btn) { btn.textContent = 'Copied!'; setTimeout(() => btn.textContent = 'Copy email', 2000); }
