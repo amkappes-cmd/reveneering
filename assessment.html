@@ -351,9 +351,9 @@ body::before {
   <div id="prog">
     <div class="prog-lbl">Running assessment</div>
     <div class="prog-steps">
-      <div class="pst" id="s1"><div class="spn"></div><div class="sdt"></div><span>Fetching company website and LinkedIn</span></div>
+      <div class="pst" id="s1"><div class="spn"></div><div class="sdt"></div><span>Searching the web for company information</span></div>
       <div class="pst" id="s2"><div class="spn"></div><div class="sdt"></div><span>Researching funding, team and product</span></div>
-      <div class="pst" id="s3"><div class="spn"></div><div class="sdt"></div><span>Identifying buyer persona and decision-maker</span></div>
+      <div class="pst" id="s3"><div class="spn"></div><div class="sdt"></div><span>Mapping clients, market size and buyer profile</span></div>
       <div class="pst" id="s4"><div class="spn"></div><div class="sdt"></div><span>Scoring against Gate 1 and Gate 2 criteria</span></div>
       <div class="pst" id="s5"><div class="spn"></div><div class="sdt"></div><span>Generating report and intro email</span></div>
     </div>
@@ -364,7 +364,7 @@ body::before {
 
 <script>
 // ─── CONFIGURATION ────────────────────────────────────────────────────────────
-const PROXY_URL = 'https://reveneering-assessment.a-m-kappes.workers.dev/assess';
+const PROXY_URL = 'https://reveneering-assessment.a-m-kappes.workers.dev'; // just the base URL, no path
 const PASSWORD  = '@$$essment!';
 const LS_KEY    = 'rev_saved_reports';
 
@@ -471,142 +471,16 @@ function loadSaved(id) {
   document.getElementById('report').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// ─── SYSTEM PROMPT ────────────────────────────────────────────────────────────
-const SYS = `You are Reveneering's prospect assessment engine. Reveneering is a fractional CRO service for MENA founders at Seed to Series B, run by Alexander Kappes — former CEO of Groupon Middle East ($60M revenue), founder of Greener Crop and Greener Herd, 15+ years closing enterprise deals in MENA.
-
-You must research the company using web_search and produce a complete structured assessment.
-
-──────────────────────────────────────────────
-SECTION 1: COMPANY & PRODUCT Q&A
-Answer every question below. If genuinely not determinable from public sources, write "Not determinable from public data" for that field.
-
-Company:
-- product_type: What type of product is this? (SaaS / mobile app / marketplace / API platform / hardware / services / etc.)
-- segment: What industry segment? (Fintech / AI / Foodtech / Agtech / Proptech / Healthtech / etc.)
-- targeting: Who do they target? (B2C consumers / B2B SMEs / Enterprise / Government / etc.)
-- funding_raised: Have they raised funding? Stage and amount.
-- geography: What geographies are they targeting?
-- elevator_pitch: One sentence, max 25 words.
-
-Product:
-- what_is_it: Describe the product in 2-3 sentences.
-- nice_or_critical: Is this a nice-to-have or does it solve a critical problem? Why?
-- price: How much does it cost? (if not public, say so)
-- payment_model: How do clients pay? (subscription / usage-based / commission / fixed fee / etc.)
-- implementation_time: How long to implement? (instant app download / days / weeks / months)
-- promised_benefit: What is the core promised benefit? (ROI / cost saving / time saving / revenue growth / compliance / etc.)
-- quantified_benefit: Any quantified proof of benefit from public sources?
-- complexity_to_explain: How complex is the product to explain? (simple / moderate / complex) and why.
-- expected_sales_cycle: Short (<1 month) / Medium (2-6 months) / Long (7+ months) — and why.
-
-Clients:
-- target_audience: Describe the specific target audience.
-- department_owner: If B2B — which department owns this decision? (Sales / Ops / Finance / IT / C-suite / etc.)
-- decision_maker: Who is the purchase decision-maker by title?
-- market_size: Estimate the approximate number of reachable leads or potential buyers in their target geography. Do not give TAM/SAM/SOM. Give a concrete number or range. Examples: "Approximately 3 major fuel retail networks in the UAE (ADNOC, ENOC, EMARAAT)" or "Approximately 2 million livestock farmers across MENA" or "Approximately 400 licensed fintechs operating in KSA and UAE." Reason from the product's ICP and geography.
-- linkedin_findability: Can the decision-maker be found on LinkedIn? Assess difficulty.
-- how_they_buy: How do clients of this type typically discover products like this?
-- current_clients: List the clients or customer names this company mentions on their website, press releases, or public materials. These are their existing named clients or partners. If none are publicly named, say so.
-- lighthouse_clients_or_channels: If this is a B2B company: name 3-5 specific companies they would likely love to have as clients but do not yet have. Reason from their ICP, geography, and product category. Do not overlap with current_clients. If this is a B2C company: describe the 2-3 most important growth channels for acquiring users at scale in their geography (e.g. paid social, influencer partnerships, referral programmes, app store optimisation, employer/corporate partnerships, etc.).
-- purchase_trigger: Is the purchase proactive or triggered by an event?
-
-Team:
-- founder_industry_background: Do founders have relevant industry background?
-- founder_sales_experience: Have founders held sales or commercial roles?
-- existing_sales_function: Is there evidence of an existing dedicated sales team?
-
-──────────────────────────────────────────────
-SECTION 2: FIT SCORING (6 criteria)
-
-GATE 1 — DO THEY NEED REVENEERING?
-C1 Funding stage: PASS=$500K-$5M raised; FLAG=$5M-$20M; FAIL=$20M+; ND=not found
-C2 Decision-maker language: PASS=CEO/CCO/CFO/COO/procurement own the close — business KPIs; FLAG=mixed, CTO involved but not primary; FAIL=CTO/engineer/technical specialist owns the close; ND=not determinable
-C3 Founder sales background: PASS=no sales background in founding team, gap exists; FLAG=some commercial experience but limited or not in MENA enterprise; FAIL=strong sales pedigree or CRO/VP Sales already hired; ND=not determinable
-
-GATE 2 — CAN REVENEERING ACTUALLY HELP?
-C4 Implementation complexity: PASS=implementation handed off to separate team post-sale, sales conversation is about business outcomes; FLAG=some technical questions arise during sales cycle; FAIL=deep technical expertise required to get through the door at all; ND=not determinable
-C5 Geography and buyer network: PASS=target buyers in MENA/UAE/KSA/GCC; FLAG=MENA-based company but primarily targeting buyers outside the region; FAIL=no MENA buyer overlap; ND=not determinable
-C6 Domain credibility with buyer: PASS=buyer pain maps to areas Alexander has sold before — growth, revenue, cost, efficiency, market expansion, government/enterprise procurement; FLAG=specialist domain like compliance or clinical or legal but translatable with prep; FAIL=so specialised that credibility cannot be built without years of sector experience; ND=not determinable
-
-Gate verdict logic: any FAIL in gate = gate FAIL; all pass = gate PASS; mix of pass/flag = gate FLAG.
-Overall: STRONG FIT (both gates pass), POSSIBLE FIT (flags, no fails), WEAK FIT (any fail in either gate).
-
-──────────────────────────────────────────────
-SECTION 3: INTRO EMAIL
-Only generate this if overall verdict is NOT WEAK FIT. If WEAK FIT, set email to null.
-
-Follow every instruction below exactly.
-
-STEP 1 — DETERMINE EMAIL TYPE
-If the company has any B2B or B2B2C revenue lines, use B2B format. Only use B2C format if the company is purely consumer-facing with no meaningful B2B motion.
-
-STEP 2 — SUBJECT LINE
-Derive directly from bullet 1 content.
-B2B: a short curiosity-gap line referencing the target company list (e.g. "5 companies that need [Product Name]"). Under 60 characters. No em-dashes.
-B2C: a short line referencing the growth channels (e.g. "3 channels that will drive your next 10,000 users"). Under 60 characters. No em-dashes.
-
-STEP 3 — LINE 1
-One sentence only. State what the company's most commercially promising product or revenue line is, name the buyer or audience it serves, and connect it to Alexander's 15 years of experience selling to exactly that audience in the region. This line must prove specific understanding of their business. No flattery. No category description. No em-dashes.
-
-STEP 4 — BULLET 1: The shortlist (B2B) or The channels (B2C)
-B2B: Draw from field current_clients and lighthouse_clients_or_channels. List the named target companies the company should be pursuing but does not yet have as clients. Introduce as: "I've identified [N] organisations that are natural [Product Name] clients, ones I can help you target with the right sales engine: [Company 1] / [Company 2] / [Company 3] / [Company 4] / [Company 5]"
-B2C: Draw from field lighthouse_clients_or_channels. List the 2-3 most important acquisition channels. Introduce as: "I've mapped the [N] channels most likely to drive sustainable growth for [Product Name] at your stage, and built engines on all of them: [Channel 1] / [Channel 2] / [Channel 3]"
-
-STEP 5 — BULLET 2: The question your investors will ask
-Draw from the overall verdict, gate findings, and founder_sales_experience. Identify the single most important commercial gap the company faces at their current funding stage. Frame it as a question the CEO cannot yet cleanly answer — one that will surface in their next raise. Do not make accusations or state assumptions as facts. Phrase as an open question that creates productive discomfort. No em-dashes.
-
-STEP 6 — BULLET 3: What I build
-Always open with: "I put together the sales engines behind Groupon, Delivery Hero, and Rocket Internet's phenomenal regional growth." Follow with one sentence describing what Reveneering will build for this specific company in 90 days, drawing from the most relevant engine components for their ICP and sales motion (lead sourcing, outbound sequences, deal framework, channel playbook, etc.). Use "I can build" not "I build". No em-dashes.
-
-STEP 7 — CTA
-B2B: "Which of those [N] names would you most like to target next? Book a 30-min call and let's map it out: calendly.com/a-m-kappes/30min"
-B2C: "Which of those channels are you least confident about? Book a 30-min call and let's map it out: calendly.com/a-m-kappes/30min"
-
-STEP 8 — SIGN-OFF
-Always exactly:
-Alexander Kappes
-Reveneering
-hello@reveneering.com
-
-STRICT RULES — violations will make the email unusable:
-- No em-dashes anywhere in the email
-- No filler phrases ("I hope this finds you well", "I wanted to reach out", "I came across your company", etc.)
-- No assertions presented as facts unless drawn directly from public information in the assessment
-- Bullet labels (The shortlist / The channels / The question your investors will ask / What I build) must always be bold
-- Total structure: subject line + 1 opening line + 3 bullets + CTA + sign-off. Nothing more.
-- Do not add a greeting line or salutation before line 1
-- The email field in the JSON must include the subject line at the top, formatted as: Subject: [subject line text]
-
-──────────────────────────────────────────────
-Respond ONLY with valid JSON. No markdown. No preamble.
-
-{
-  "company_name": "",
-  "gate1": { "verdict": "PASS|FLAG|FAIL", "summary": "" },
-  "gate2": { "verdict": "PASS|FLAG|FAIL", "summary": "" },
-  "overall": { "verdict": "STRONG FIT|POSSIBLE FIT|WEAK FIT", "title": "", "recommendation": "" },
-  "criteria": [
-    { "id": "C1", "gate": 1, "name": "Funding stage", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
-    { "id": "C2", "gate": 1, "name": "Decision-maker language", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
-    { "id": "C3", "gate": 1, "name": "Founder sales background", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
-    { "id": "C4", "gate": 2, "name": "Implementation complexity", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
-    { "id": "C5", "gate": 2, "name": "Geography and buyer network", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" },
-    { "id": "C6", "gate": 2, "name": "Domain credibility with buyer", "verdict": "PASS|FLAG|FAIL|ND", "preview": "", "finding": "", "confidence": "HIGH|MEDIUM|LOW", "confidence_reason": "" }
-  ],
-  "qa": {
-    "product_type": "", "segment": "", "targeting": "", "funding_raised": "",
-    "geography": "", "elevator_pitch": "", "what_is_it": "", "nice_or_critical": "",
-    "price": "", "payment_model": "", "implementation_time": "", "promised_benefit": "",
-    "quantified_benefit": "", "complexity_to_explain": "", "expected_sales_cycle": "",
-    "target_audience": "", "department_owner": "", "decision_maker": "",
-    "market_size": "", "linkedin_findability": "", "how_they_buy": "",
-    "current_clients": "", "lighthouse_clients_or_channels": "", "purchase_trigger": "",
-    "founder_industry_background": "", "founder_sales_experience": "", "existing_sales_function": ""
-  },
-  "email": "full email text here or null"
-}`;
+// System prompts live in worker.js (split across /research and /analyse endpoints)
 
 // ─── ASSESSMENT ───────────────────────────────────────────────────────────────
+function parseJSON(txt) {
+  txt = txt.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+  const s0 = txt.indexOf('{'), e0 = txt.lastIndexOf('}');
+  if (s0 < 0 || e0 < 0) throw new Error('No JSON found in response');
+  return JSON.parse(txt.slice(s0, e0 + 1));
+}
+
 async function runAssessment() {
   const name = document.getElementById('f-name').value.trim();
   const web  = document.getElementById('f-web').value.trim();
@@ -629,41 +503,88 @@ async function runAssessment() {
     if (si > 0) document.getElementById(steps[si-1]).className = 'pst dn';
     if (si < steps.length) { document.getElementById(steps[si]).className = 'pst act'; si++; }
   }
-  adv();
-  const tmr = setInterval(() => { if (si < steps.length) adv(); }, 3500);
+  // Advance steps 1-3 during call 1, steps 4-5 during call 2
+  adv(); adv(); adv();
+  const tmr1 = setInterval(() => { if (si <= 3) adv(); }, 8000);
 
   try {
-    const res = await fetch(PROXY_URL, {
+    // ── CALL 1: Research ──────────────────────────────────────
+    const r1 = await fetch(PROXY_URL + '/research', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        system: SYS,
-        user: `Assess this company for Reveneering fit:\nCompany: ${name}\nWebsite: ${web}\nLinkedIn: ${li || 'not provided'}\n\nResearch thoroughly using web search and return the complete JSON.`
-      })
+      body: JSON.stringify({ company: name, website: web, linkedin: li || null })
     });
+    clearInterval(tmr1);
+    if (!r1.ok) { const e = await r1.json(); throw new Error(e.error || 'Research call failed ' + r1.status); }
+    const d1 = await r1.json();
+    const research = parseJSON(d1.text || '');
+    const researchStr = JSON.stringify(research, null, 2);
 
-    clearInterval(tmr);
+    // Advance to steps 4-5 for call 2
+    steps.slice(0, 3).forEach(s => document.getElementById(s).className = 'pst dn');
+    adv(); adv();
+    const tmr2 = setInterval(() => {}, 9999); // placeholder, cleared below
+
+    // ── CALL 2: Analyse ───────────────────────────────────────
+    const r2 = await fetch(PROXY_URL + '/analyse', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ research: researchStr })
+    });
+    clearInterval(tmr2);
     steps.forEach(s => document.getElementById(s).className = 'pst dn');
+    if (!r2.ok) { const e = await r2.json(); throw new Error(e.error || 'Analysis call failed ' + r2.status); }
+    const d2 = await r2.json();
+    const analysis = parseJSON(d2.text || '');
 
-    if (!res.ok) { const e = await res.json(); throw new Error(e.error || 'Proxy error ' + res.status); }
-    const data = await res.json();
-
-    let txt = data.text || '';
-    txt = txt.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
-    const s0 = txt.indexOf('{'), e0 = txt.lastIndexOf('}');
-    if (s0 < 0 || e0 < 0) throw new Error('No JSON found in response');
-    const result = JSON.parse(txt.slice(s0, e0 + 1));
+    // Merge research Q&A into analysis result
+    const result = {
+      company_name: research.company_name || name,
+      gate1: analysis.gate1,
+      gate2: analysis.gate2,
+      overall: analysis.overall,
+      criteria: analysis.criteria,
+      email: analysis.email,
+      qa: {
+        product_type: research.product_type,
+        segment: research.segment,
+        targeting: research.targeting,
+        funding_raised: research.funding_raised,
+        geography: research.geography,
+        elevator_pitch: research.elevator_pitch,
+        what_is_it: research.what_is_it,
+        nice_or_critical: research.nice_or_critical,
+        price: research.price,
+        payment_model: research.payment_model,
+        implementation_time: research.implementation_time,
+        promised_benefit: research.promised_benefit,
+        quantified_benefit: research.quantified_benefit,
+        complexity_to_explain: research.complexity_to_explain,
+        expected_sales_cycle: research.expected_sales_cycle,
+        target_audience: research.target_audience,
+        department_owner: research.department_owner,
+        decision_maker: research.decision_maker,
+        market_size: research.market_size,
+        linkedin_findability: research.linkedin_findability,
+        how_they_buy: research.how_they_buy,
+        current_clients: research.current_clients,
+        lighthouse_clients_or_channels: research.lighthouse_clients_or_channels,
+        purchase_trigger: research.purchase_trigger,
+        founder_industry_background: research.founder_industry_background,
+        founder_sales_experience: research.founder_sales_experience,
+        existing_sales_function: research.existing_sales_function,
+      }
+    };
 
     setTimeout(() => {
       prog.style.display = 'none';
       saveReport(result);
       renderReport(result, name);
       document.getElementById('report').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }, 500);
+    }, 400);
 
   } catch(err) {
-    clearInterval(tmr);
-    prog.style.display = 'none';
+    document.getElementById('prog').style.display = 'none';
     showErr('Assessment failed: ' + err.message + '. Check that your Cloudflare Worker is deployed and the PROXY_URL at the top of this file is updated.');
   }
   document.getElementById('run-btn').disabled = false;
