@@ -364,8 +364,8 @@ body::before {
 
 <script>
 // ─── CONFIGURATION ────────────────────────────────────────────────────────────
-const PROXY_URL = 'https://reveneering-assessment.a-m-kappes.workers.dev/assess';
-const PASSWORD  = '@ssessment!';
+const PROXY_URL = 'https://YOUR-WORKER.workers.dev/assess';
+const PASSWORD  = '@$$essment!';
 const LS_KEY    = 'rev_saved_reports';
 
 // ─── PASSWORD ─────────────────────────────────────────────────────────────────
@@ -503,10 +503,11 @@ Clients:
 - target_audience: Describe the specific target audience.
 - department_owner: If B2B — which department owns this decision? (Sales / Ops / Finance / IT / C-suite / etc.)
 - decision_maker: Who is the purchase decision-maker by title?
-- market_size: How big is the market in their target geography?
+- market_size: Estimate the approximate number of reachable leads or potential buyers in their target geography. Do not give TAM/SAM/SOM. Give a concrete number or range. Examples: "Approximately 3 major fuel retail networks in the UAE (ADNOC, ENOC, EMARAAT)" or "Approximately 2 million livestock farmers across MENA" or "Approximately 400 licensed fintechs operating in KSA and UAE." Reason from the product's ICP and geography.
 - linkedin_findability: Can the decision-maker be found on LinkedIn? Assess difficulty.
 - how_they_buy: How do clients of this type typically discover products like this?
-- buying_committee_size: How many people typically involved in the buying decision?
+- current_clients: List the clients or customer names this company mentions on their website, press releases, or public materials. These are their existing named clients or partners. If none are publicly named, say so.
+- lighthouse_clients_or_channels: If this is a B2B company: name 3-5 specific companies they would likely love to have as clients but do not yet have. Reason from their ICP, geography, and product category. Do not overlap with current_clients. If this is a B2C company: describe the 2-3 most important growth channels for acquiring users at scale in their geography (e.g. paid social, influencer partnerships, referral programmes, app store optimisation, employer/corporate partnerships, etc.).
 - purchase_trigger: Is the purchase proactive or triggered by an event?
 
 Team:
@@ -532,11 +533,49 @@ Overall: STRONG FIT (both gates pass), POSSIBLE FIT (flags, no fails), WEAK FIT 
 
 ──────────────────────────────────────────────
 SECTION 3: INTRO EMAIL
-Only generate this if overall verdict is NOT WEAK FIT.
-Write a cold outreach email from Alexander Kappes to the CEO of this company.
-Structure: greeting by first name, one-sentence intro ("My name is Alexander Kappes — I'm a fractional CRO who builds sales engines for founders in MENA."), then exactly 3 bullet points showing how Reveneering can help their specific situation (make these specific to what you found, not generic), then a CTA: "Would you be open to a 30-minute call? You can book directly here: calendly.com/a-m-kappes/30min". Sign off: "Alexander Kappes / Reveneering / hello@reveneering.com".
-Keep the email concise, confident, and not salesy. No fluff. Reference specific things about their company to show you've done your homework.
-If overall verdict IS WEAK FIT, set email to null.
+Only generate this if overall verdict is NOT WEAK FIT. If WEAK FIT, set email to null.
+
+Follow every instruction below exactly.
+
+STEP 1 — DETERMINE EMAIL TYPE
+If the company has any B2B or B2B2C revenue lines, use B2B format. Only use B2C format if the company is purely consumer-facing with no meaningful B2B motion.
+
+STEP 2 — SUBJECT LINE
+Derive directly from bullet 1 content.
+B2B: a short curiosity-gap line referencing the target company list (e.g. "5 companies that need [Product Name]"). Under 60 characters. No em-dashes.
+B2C: a short line referencing the growth channels (e.g. "3 channels that will drive your next 10,000 users"). Under 60 characters. No em-dashes.
+
+STEP 3 — LINE 1
+One sentence only. State what the company's most commercially promising product or revenue line is, name the buyer or audience it serves, and connect it to Alexander's 15 years of experience selling to exactly that audience in the region. This line must prove specific understanding of their business. No flattery. No category description. No em-dashes.
+
+STEP 4 — BULLET 1: The shortlist (B2B) or The channels (B2C)
+B2B: Draw from field current_clients and lighthouse_clients_or_channels. List the named target companies the company should be pursuing but does not yet have as clients. Introduce as: "I've identified [N] organisations that are natural [Product Name] clients, ones I can help you target with the right sales engine: [Company 1] / [Company 2] / [Company 3] / [Company 4] / [Company 5]"
+B2C: Draw from field lighthouse_clients_or_channels. List the 2-3 most important acquisition channels. Introduce as: "I've mapped the [N] channels most likely to drive sustainable growth for [Product Name] at your stage, and built engines on all of them: [Channel 1] / [Channel 2] / [Channel 3]"
+
+STEP 5 — BULLET 2: The question your investors will ask
+Draw from the overall verdict, gate findings, and founder_sales_experience. Identify the single most important commercial gap the company faces at their current funding stage. Frame it as a question the CEO cannot yet cleanly answer — one that will surface in their next raise. Do not make accusations or state assumptions as facts. Phrase as an open question that creates productive discomfort. No em-dashes.
+
+STEP 6 — BULLET 3: What I build
+Always open with: "I put together the sales engines behind Groupon, Delivery Hero, and Rocket Internet's phenomenal regional growth." Follow with one sentence describing what Reveneering will build for this specific company in 90 days, drawing from the most relevant engine components for their ICP and sales motion (lead sourcing, outbound sequences, deal framework, channel playbook, etc.). Use "I can build" not "I build". No em-dashes.
+
+STEP 7 — CTA
+B2B: "Which of those [N] names would you most like to target next? Book a 30-min call and let's map it out: calendly.com/a-m-kappes/30min"
+B2C: "Which of those channels are you least confident about? Book a 30-min call and let's map it out: calendly.com/a-m-kappes/30min"
+
+STEP 8 — SIGN-OFF
+Always exactly:
+Alexander Kappes
+Reveneering
+hello@reveneering.com
+
+STRICT RULES — violations will make the email unusable:
+- No em-dashes anywhere in the email
+- No filler phrases ("I hope this finds you well", "I wanted to reach out", "I came across your company", etc.)
+- No assertions presented as facts unless drawn directly from public information in the assessment
+- Bullet labels (The shortlist / The channels / The question your investors will ask / What I build) must always be bold
+- Total structure: subject line + 1 opening line + 3 bullets + CTA + sign-off. Nothing more.
+- Do not add a greeting line or salutation before line 1
+- The email field in the JSON must include the subject line at the top, formatted as: Subject: [subject line text]
 
 ──────────────────────────────────────────────
 Respond ONLY with valid JSON. No markdown. No preamble.
@@ -561,7 +600,7 @@ Respond ONLY with valid JSON. No markdown. No preamble.
     "quantified_benefit": "", "complexity_to_explain": "", "expected_sales_cycle": "",
     "target_audience": "", "department_owner": "", "decision_maker": "",
     "market_size": "", "linkedin_findability": "", "how_they_buy": "",
-    "buying_committee_size": "", "purchase_trigger": "",
+    "current_clients": "", "lighthouse_clients_or_channels": "", "purchase_trigger": "",
     "founder_industry_background": "", "founder_sales_experience": "", "existing_sales_function": ""
   },
   "email": "full email text here or null"
@@ -722,11 +761,12 @@ function renderReport(d, inputName) {
     <div class="qa-cell"><div class="qa-q">3.1 Target audience</div>${qaVal(q.target_audience)}</div>
     <div class="qa-cell"><div class="qa-q">3.2 Department owner (B2B)</div>${qaVal(q.department_owner)}</div>
     <div class="qa-cell"><div class="qa-q">3.3 Decision-maker title</div>${qaVal(q.decision_maker)}</div>
-    <div class="qa-cell"><div class="qa-q">3.4 Market size</div>${qaVal(q.market_size)}</div>
+    <div class="qa-cell"><div class="qa-q">3.4 Approx. reachable leads</div>${qaVal(q.market_size)}</div>
     <div class="qa-cell"><div class="qa-q">3.5 LinkedIn findability</div>${qaVal(q.linkedin_findability)}</div>
     <div class="qa-cell"><div class="qa-q">3.6 How clients discover products</div>${qaVal(q.how_they_buy)}</div>
-    <div class="qa-cell"><div class="qa-q">3.7 Buying committee size</div>${qaVal(q.buying_committee_size)}</div>
-    <div class="qa-cell"><div class="qa-q">3.8 Purchase trigger</div>${qaVal(q.purchase_trigger)}</div>
+    <div class="qa-cell qa-full"><div class="qa-q">3.7 Current named clients</div>${qaVal(q.current_clients)}</div>
+    <div class="qa-cell qa-full"><div class="qa-q">3.8 Lighthouse clients (B2B) / Key growth channels (B2C)</div>${qaVal(q.lighthouse_clients_or_channels)}</div>
+    <div class="qa-cell qa-full"><div class="qa-q">3.9 Purchase trigger</div>${qaVal(q.purchase_trigger)}</div>
   </div>
   <div class="sec-hdr" style="margin-top:4px;">Full analysis &mdash; Team</div>
   <div class="qa-grid">
