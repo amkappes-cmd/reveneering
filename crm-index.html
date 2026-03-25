@@ -311,7 +311,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 <script>
 // ─── CONFIG — update WORKER_URL after deploying the worker ────────────────────
-const WORKER_URL = 'https://reveneering-crm.a-m-kappes.workers.dev';
+const WORKER_URL = 'https://reveneering-crm.YOUR-SUBDOMAIN.workers.dev';
 const PASSWORD   = 'crm2025!'; // change this to whatever you want
 
 // ─── PASSWORD ─────────────────────────────────────────────────────────────────
@@ -373,7 +373,16 @@ async function saveLeads() {
 const seedLeads = [
   {id:'seed1',company:'Conservis',founder:'Steve Berger',email:'steve@conservis.ag',description:'Farm management ERP for large-scale grain producers.',fit:'high',fitReason:'Enterprise SaaS targeting commercial growers — long sales cycles, multiple stakeholders.',status:'untouched',notes:'',emailHistory:[],createdAt:Date.now()-86400000*5},
   {id:'seed2',company:'Semios',founder:'Michael Gilbert',email:'',description:'IoT pest and disease monitoring for orchards and vineyards.',fit:'high',fitReason:'Strong technology, complex enterprise sale. U.S. expansion underway with no commercial engine in place.',status:'draft',notes:'Met at AgFunder summit. U.S. expansion slower than expected. No CRM, pipeline is founder-led.',emailHistory:[],createdAt:Date.now()-86400000*3},
-  {id:'seed3',company:'Tillable',founder:'Corbett Kull',email:'corbett@tillable.com',description:'Online farmland rental marketplace connecting landowners with farmers.',fit:'medium',fitReason:'Commercial execution fit is strong but two-sided marketplace adds scope complexity.',status:'responded',notes:'Intro call positive. Interested in 90-day sprint but concerned about Series B timing.',emailHistory:[{type:'Intro email',subject:'Building a commercial engine for Tillable',date:'2025-03-10',body:'Hi Corbett,\n\nTillable has clearly solved a real trust problem in farmland rental.\n\nI work with U.S. AgTech founders hitting a ceiling on commercial execution. Worth 30 minutes to see if the timing makes sense.\n\nAlex\nReveneering'}],createdAt:Date.now()-86400000*10}
+  {id:'seed3',company:'Tillable',founder:'Corbett Kull',email:'corbett@tillable.com',description:'Online farmland rental marketplace connecting landowners with farmers.',fit:'medium',fitReason:'Commercial execution fit is strong but two-sided marketplace adds scope complexity.',status:'responded',notes:'Intro call positive. Interested in 90-day sprint but concerned about Series B timing.',emailHistory:[{type:'Intro email',subject:'Building a commercial engine for Tillable',date:'2025-03-10',body:'Hi Corbett,\n\nTillable has clearly solved a real trust problem in farmland rental.\n\nI work with U.S. AgTech founders hitting a ceiling on commercial execution. Worth 30 minutes to see if the timing makes sense.\n\nAlex\nReveneering'}],createdAt:Date.now()-86400000*10},
+  // ── Imported from Notion (Stage: Discovered) ──────────────────────────────
+  {id:'notion_1',company:'Barnwell Bio',founder:'',email:'',description:'Animal health data platform powered by wastewater analysis. Early identification of health trends to minimise livestock mortality and maximise productivity.',fit:'high',fitReason:'HIGH fit — AgTech Founder at early stage, animal health data. AgLaunch 2025 cohort.',status:'untouched',notes:'Source: AgLaunch 2025 cohort. HQ: USA.',emailHistory:[],createdAt:Date.now()},
+  {id:'notion_2',company:'Gripp Ag',founder:'',email:'',description:'Farm activity and equipment tracking via QR code and mobile app. Makes it easy to capture unrecorded farm events. Producer buyer.',fit:'high',fitReason:'HIGH fit — AgTech Founder, producer-focused SaaS, early commercial stage. AgLaunch 2024 cohort.',status:'untouched',notes:'Source: AgLaunch 2024 cohort. HQ: USA.',emailHistory:[],createdAt:Date.now()},
+  {id:'notion_3',company:'Frost Methane',founder:'',email:'',description:'Partners with livestock farmers to capture and neutralise methane from manure ponds, generating carbon credit revenue and preventing water ingress.',fit:'high',fitReason:'HIGH fit — AgTech Founder, livestock sector, commercial engine needed to scale carbon credit partnerships.',status:'untouched',notes:'HQ: Juneau, AK, USA.',emailHistory:[],createdAt:Date.now()},
+  {id:'notion_4',company:'Gather',founder:'',email:'',description:'Simplified robotic crop transportation tools for specialty crop farms. First product: affordable harvest robot for table grape farms.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, hardware-led but commercial motion still needed. AgLaunch 2024 cohort.',status:'untouched',notes:'Source: AgLaunch 2024 cohort. HQ: USA.',emailHistory:[],createdAt:Date.now()},
+  {id:'notion_5',company:'Earnest Ag',founder:'',email:'',description:'Probiotics that increase crop yields — protect against disease, insects and weeds; promote soil health and drought tolerance. Grower buyer.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, inputs sector, grower buyer. AgLaunch 2024 cohort.',status:'untouched',notes:'Source: AgLaunch 2024 cohort. HQ: USA.',emailHistory:[],createdAt:Date.now()},
+  {id:'notion_6',company:'Agronnect',founder:'',email:'',description:'Fintech and agronomic platform reshaping agricultural financial services and crop management. Featured at World Agri-Tech San Francisco 2025.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, fintech-agri crossover, early commercial traction.',status:'untouched',notes:'HQ: USA. Featured at World Agri-Tech SF 2025.',emailHistory:[],createdAt:Date.now()},
+  {id:'notion_7',company:'Agsolaire',founder:'',email:'',description:'Small farm equipment powered by solar, wind, or stored renewable energy, targeting energy-cost reduction for producers. The Combine incubator resident.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, hardware-energy play, producer buyer. The Combine incubator.',status:'untouched',notes:'HQ: Nebraska, USA. The Combine incubator resident.',emailHistory:[],createdAt:Date.now()},
+  {id:'notion_8',company:'Viosomos Agriculture',founder:'',email:'',description:'Developing effective, non-toxic, and affordable fungicides for agricultural crops using proprietary methods. The Combine current resident.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, crop protection inputs, early stage. The Combine current resident.',status:'untouched',notes:'HQ: Nebraska, USA. The Combine current resident.',emailHistory:[],createdAt:Date.now()}
 ];
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
@@ -562,7 +571,17 @@ function sendToGmail(id) {
   const es=document.getElementById('subject-'+id);
   if (!eo||!eo.textContent.trim()) return;
   const subj = eo.dataset.subject || es.textContent.replace('Subject: ','') || 'Following up – Reveneering';
-  window.open('https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(l.email||'')+'&su='+encodeURIComponent(subj)+'&body='+encodeURIComponent(eo.innerText||eo.textContent),'_blank');
+  // Convert plain text to basic HTML for Gmail (preserves line breaks)
+  const plainText = eo.innerText || eo.textContent;
+  const htmlBody = '<div style="font-family:Arial,sans-serif;font-size:14px;line-height:1.6">'
+    + plainText.split('\n').map(l => l.trim() === '' ? '<br>' : '<p style="margin:0 0 8px">' + l.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') + '</p>').join('')
+    + '</div>';
+  const gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1'
+    + '&to=' + encodeURIComponent(l.email||'')
+    + '&su=' + encodeURIComponent(subj)
+    + '&body=' + encodeURIComponent(plainText)
+    + '&html=' + encodeURIComponent(htmlBody);
+  window.open(gmailUrl, '_blank');
   toast('Opening Gmail draft','info');
 }
 
