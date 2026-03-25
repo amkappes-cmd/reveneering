@@ -228,6 +228,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
     <span class="topbar-tag">CRM</span>
   </div>
   <div class="topbar-right">
+    <button class="btn-import" id="notionBtn" onclick="runNotionSync()" title="Sync Discovered leads from Notion">🔄 Sync Notion</button>
     <button class="btn-import" id="importBtn" onclick="runGmailImport()" title="Import from Gmail Sent folder">⬇ Import Gmail</button>
     <button class="btn-add" onclick="openAddModal()">+ Add Lead</button>
   </div>
@@ -346,11 +347,11 @@ async function loadLeads() {
     const res = await fetch(WORKER_URL + '/load');
     const data = await res.json();
     if (data.error) throw new Error(data.error);
-    leads = (data.leads && data.leads.length) ? data.leads : seedLeads;
+    leads = data.leads || [];
     driveFileId = data.fileId || null;
   } catch(e) {
-    console.warn('Drive load failed, using seed data:', e.message);
-    leads = seedLeads;
+    console.warn('Drive load failed:', e.message);
+    leads = [];
   }
   renderLeads();
 }
@@ -368,34 +369,6 @@ async function saveLeads() {
     console.warn('Drive save failed:', e.message);
   }
 }
-
-// ─── SEED DATA ────────────────────────────────────────────────────────────────
-const seedLeads = [
-  {id:'seed1',company:'Conservis',founder:'Steve Berger',email:'steve@conservis.ag',description:'Farm management ERP for large-scale grain producers.',fit:'high',fitReason:'Enterprise SaaS targeting commercial growers — long sales cycles, multiple stakeholders.',status:'untouched',notes:'',emailHistory:[],createdAt:Date.now()-86400000*5},
-  {id:'seed2',company:'Semios',founder:'Michael Gilbert',email:'',description:'IoT pest and disease monitoring for orchards and vineyards.',fit:'high',fitReason:'Strong technology, complex enterprise sale. U.S. expansion underway with no commercial engine in place.',status:'draft',notes:'Met at AgFunder summit. U.S. expansion slower than expected. No CRM, pipeline is founder-led.',emailHistory:[],createdAt:Date.now()-86400000*3},
-  {id:'seed3',company:'Tillable',founder:'Corbett Kull',email:'corbett@tillable.com',description:'Online farmland rental marketplace connecting landowners with farmers.',fit:'medium',fitReason:'Commercial execution fit is strong but two-sided marketplace adds scope complexity.',status:'responded',notes:'Intro call positive. Interested in 90-day sprint but concerned about Series B timing.',emailHistory:[{type:'Intro email',subject:'Building a commercial engine for Tillable',date:'2025-03-10',body:'Hi Corbett,\n\nTillable has clearly solved a real trust problem in farmland rental.\n\nI work with U.S. AgTech founders hitting a ceiling on commercial execution. Worth 30 minutes to see if the timing makes sense.\n\nAlex\nReveneering'}],createdAt:Date.now()-86400000*10},
-  // ── Imported from Notion (Stage: Discovered) ──────────────────────────────
-  {id:'notion_1',company:'Barnwell Bio',founder:'',email:'',description:'Animal health data platform powered by wastewater analysis. Early identification of health trends to minimise livestock mortality and maximise productivity.',fit:'high',fitReason:'HIGH fit — AgTech Founder at early stage, animal health data. AgLaunch 2025 cohort.',status:'untouched',notes:'Source: AgLaunch 2025 cohort. HQ: USA.',emailHistory:[],createdAt:Date.now()},
-  {id:'notion_2',company:'Gripp Ag',founder:'',email:'',description:'Farm activity and equipment tracking via QR code and mobile app. Makes it easy to capture unrecorded farm events. Producer buyer.',fit:'high',fitReason:'HIGH fit — AgTech Founder, producer-focused SaaS, early commercial stage. AgLaunch 2024 cohort.',status:'untouched',notes:'Source: AgLaunch 2024 cohort. HQ: USA.',emailHistory:[],createdAt:Date.now()},
-  {id:'notion_3',company:'Frost Methane',founder:'',email:'',description:'Partners with livestock farmers to capture and neutralise methane from manure ponds, generating carbon credit revenue and preventing water ingress.',fit:'high',fitReason:'HIGH fit — AgTech Founder, livestock sector, commercial engine needed to scale carbon credit partnerships.',status:'untouched',notes:'HQ: Juneau, AK, USA.',emailHistory:[],createdAt:Date.now()},
-  {id:'notion_4',company:'Gather',founder:'',email:'',description:'Simplified robotic crop transportation tools for specialty crop farms. First product: affordable harvest robot for table grape farms.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, hardware-led but commercial motion still needed. AgLaunch 2024 cohort.',status:'untouched',notes:'Source: AgLaunch 2024 cohort. HQ: USA.',emailHistory:[],createdAt:Date.now()},
-  {id:'notion_5',company:'Earnest Ag',founder:'',email:'',description:'Probiotics that increase crop yields — protect against disease, insects and weeds; promote soil health and drought tolerance. Grower buyer.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, inputs sector, grower buyer. AgLaunch 2024 cohort.',status:'untouched',notes:'Source: AgLaunch 2024 cohort. HQ: USA.',emailHistory:[],createdAt:Date.now()},
-  {id:'notion_6',company:'Agronnect',founder:'',email:'',description:'Fintech and agronomic platform reshaping agricultural financial services and crop management. Featured at World Agri-Tech San Francisco 2025.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, fintech-agri crossover, early commercial traction.',status:'untouched',notes:'HQ: USA. Featured at World Agri-Tech SF 2025.',emailHistory:[],createdAt:Date.now()},
-  {id:'notion_7',company:'Agsolaire',founder:'',email:'',description:'Small farm equipment powered by solar, wind, or stored renewable energy, targeting energy-cost reduction for producers. The Combine incubator resident.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, hardware-energy play, producer buyer. The Combine incubator.',status:'untouched',notes:'HQ: Nebraska, USA. The Combine incubator resident.',emailHistory:[],createdAt:Date.now()},
-  {id:'notion_8',company:'Viosomos Agriculture',founder:'',email:'',description:'Developing effective, non-toxic, and affordable fungicides for agricultural crops using proprietary methods. The Combine current resident.',fit:'medium',fitReason:'MEDIUM fit — AgTech Founder, crop protection inputs, early stage. The Combine current resident.',status:'untouched',notes:'HQ: Nebraska, USA. The Combine current resident.',emailHistory:[],createdAt:Date.now()},
-
-  // ── Radicle Growth Portfolio ─────────────────────────────────────────────────
-  {id:'radicle_1',company:'HerdDogg',founder:'Andrew Uden',email:'',description:'AI-powered cattle health monitoring platform using Bluetooth smart ear tags. Tracks activity, temperature, estrus cycles and location across the herd in real time. 480 sensor readings per day per animal.',fit:'high',fitReason:'HIGH fit — US-based livestock SaaS, cattle producer buyer, raised $22M, active commercial expansion. CEO is 6th-gen cattle industry veteran. Classic commercial engine gap.',status:'untouched',notes:'HQ: Seward, NE. CEO: Andrew Uden (appointed 2023). Raised $22M total incl. $6M Series A-4 (March 2024). Radicle Growth portfolio. Grit Road Partners also invested.',emailHistory:[],createdAt:Date.now()},
-  {id:'radicle_2',company:'Burro',founder:'Charlie Andersen',email:'',description:'Autonomous collaborative robots for specialty crop farms, nurseries and vineyards. 400+ robots deployed across US, Australia, NZ. People-scale and pallet-scale autonomous ground vehicles that work alongside farm workers.',fit:'high',fitReason:'HIGH fit — US AgTech hardware-as-a-service, specialty crop grower buyer, raised $44.5M Series B. 400+ paying customers, scaling fast. Commercial infrastructure likely lagging hardware growth.',status:'untouched',notes:'HQ: Philadelphia, PA. CEO: Charlie Andersen (co-founder). Raised $44.5M total (Series B Dec 2023, $24M). Investors: Radicle Growth, S2G Ventures, Toyota Ventures, Catalyst Investors. 40+ countries.',emailHistory:[],createdAt:Date.now()},
-  {id:'radicle_3',company:'BioLumic',founder:'Steve Sibulkin',email:'',description:'UV light technology applied to seeds at molecular level to enhance germination, yield and stress tolerance. Changes plant properties pre-planting. Works with commercial seed companies and growers.',fit:'high',fitReason:'HIGH fit — US-eligible AgTech biotech inputs, seed company and grower buyer. Commercial scale-up stage typical of Radicle portfolio. CEO is non-founder operator (post-scaling hire).',status:'untouched',notes:'HQ: New Zealand / US operations. CEO: Steve Sibulkin (former Yara digital lead). Founder: Jason Wargent. Radicle Growth portfolio. Finistere Ventures co-investor.',emailHistory:[],createdAt:Date.now()},
-  {id:'radicle_4',company:'Pluton Biosciences',founder:'Barry Goldman',email:'',description:'High-throughput microbial discovery platform (Micromining) that identifies novel soil microbes for biofertilizers, biopesticides, and carbon sequestration products. Based in St. Louis.',fit:'medium',fitReason:'MEDIUM fit — US AgTech biotech, B2B ag inputs commercialization. Discovery-stage platform means commercial motion is upstream. Timing-dependent on product readiness.',status:'untouched',notes:'HQ: St. Louis, MO. Founder/current CEO status varies — Dr. Barry Goldman (founder), Dr. Steven Slater (appointed CEO 2021). $1M Radicle Growth investment 2022. Also: Bayer partnership, Wells Fargo Innovation Incubator.',emailHistory:[],createdAt:Date.now()},
-  {id:'radicle_5',company:'FarmSense',founder:'Leslie Hickle',email:'',description:'Optical sensor technology (FlightSensor) providing real-time insect monitoring and classification for pest management. Reduces pesticide use, improves crop yield. AI-powered entomology in the field.',fit:'high',fitReason:'HIGH fit — US AgTech, commercial grower buyer, crop protection decision support. Won $750K Radicle Inclusion Challenge 2023. CEO is co-founder scientist with proven pitch. Commercial scale-up stage.',status:'untouched',notes:'HQ: Riverside, CA. CEO/Co-Founder: Dr. Leslie Hickle. Won $750K Radicle/Nutrien Inclusion Challenge 2023. Also backed by Nutrien.',emailHistory:[],createdAt:Date.now()},
-  {id:'radicle_6',company:'PheroSyn',founder:'Mary Ellis',email:'',description:'Green chemistry platform producing complex insect pheromones for monitoring and controlling crop pests. Sustainable alternative to synthetic agrochemicals. Sold to distributors for agriculture and horticulture.',fit:'medium',fitReason:'MEDIUM fit — US AgTech, ag inputs / crop protection, distributor channel. B2B but complex channel go-to-market. Commercial engine needed as they scale.',status:'untouched',notes:'HQ: USA. CEO: Mary Ellis. Won $750K Radicle/Nutrien Inclusion Challenge 2023. Early commercial stage.',emailHistory:[],createdAt:Date.now()},
-  {id:'radicle_7',company:'Scanit Technologies',founder:'Glenn Wanke',email:'',description:'In-field platform detecting airborne plant pathogens before they infect crops. Instruments ingest, inspect and transmit air particles to the cloud where ML algorithms alert growers of active spore counts.',fit:'high',fitReason:'HIGH fit — US AgTech, commercial grower buyer (field and greenhouse), precision crop protection. Won $250K Radicle/Corteva Challenge 2020. CCO is Glenn Wanke (commercialization-focused).',status:'untouched',notes:'HQ: USA. CCO: Glenn Wanke (commercial lead, likely best contact). Won $250K Radicle/Corteva Challenge 2020. Outdoor and controlled environment ag.',emailHistory:[],createdAt:Date.now()},
-  {id:'radicle_8',company:'TeleSense',founder:'Satchel Spencer',email:'',description:'IoT environmental monitoring platform for grain storage — sensors track temperature, moisture and CO2 to prevent spoilage and quality loss. Acquired by Decco/UPL in September 2022.',fit:'low',fitReason:'LOW fit — acquired (Decco/UPL, Sept 2022). No longer an independent founder-led company. Not a Reveneering prospect.',status:'untouched',notes:'HQ: USA. Acquired by Deccopresent (UPL group) Sept 2022. Historical Radicle portfolio — not a prospect.',emailHistory:[],createdAt:Date.now()},
-  {id:'radicle_9',company:'Vence',founder:'Frank Wooten',email:'',description:'Virtual fencing technology for livestock — GPS collar system enables ranchers to move and manage cattle without physical fences using app-controlled boundaries. Reduces fencing costs and labor.',fit:'high',fitReason:'HIGH fit — US AgTech, cattle rancher buyer, hardware+SaaS model, significant commercial scale opportunity. 2018 Radicle Challenge finalist.',status:'untouched',notes:'HQ: San Diego, CA. CEO: Frank Wooten. 2018 Radicle Challenge finalist (HerdDogg also finalist same year). Merck Animal Health partnership. Commercial expansion stage.',emailHistory:[],createdAt:Date.now()},
-  {id:'radicle_10',company:'New Iridium',founder:'Chern-Hooi Lim',email:'',description:'Photocatalysis platform converting CO2 and corn/bioethanol feedstocks into low-cost, low-carbon chemicals (acetic acid, ethyl acetate). Decarbonizes chemical manufacturing using US corn infrastructure.',fit:'low',fitReason:'LOW fit — industrial chemistry / cleantech, not direct AgTech commercial sales. Buyer is chemical industry, not ag producers or food companies.',status:'untouched',notes:'HQ: Boulder, CO. CEO/Founder: Chern-Hooi Lim. Raised $2.65M Seed (June 2025) led by Radicle. Most recent Radicle investment. Radicle Corn Value Chain Challenge winner.',emailHistory:[],createdAt:Date.now()}
-];
 
 // ─── STATE ────────────────────────────────────────────────────────────────────
 let leads = [];
@@ -748,6 +721,42 @@ async function runGmailImport() {
 
 function closeImportBar() {
   document.getElementById('importBar').classList.remove('show');
+}
+
+// ─── NOTION SYNC ──────────────────────────────────────────────────────────────
+async function runNotionSync() {
+  const btn = document.getElementById('notionBtn');
+  const bar = document.getElementById('importBar');
+  const txt = document.getElementById('importBarText');
+
+  btn.disabled = true;
+  btn.textContent = 'Syncing…';
+  bar.classList.add('show');
+  txt.innerHTML = '<strong>Syncing Notion</strong> — Fetching Discovered leads from your pipeline…';
+
+  try {
+    await new Promise(r => setTimeout(r, 50));
+
+    const res = await fetch(WORKER_URL + '/import-notion', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ existingLeads: leads, fileId: driveFileId }),
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+
+    leads = data.leads;
+    if (data.fileId) driveFileId = data.fileId;
+    renderLeads();
+
+    txt.innerHTML = `✓ Notion sync complete — <strong>${data.importCount} new leads</strong> added, <strong>${data.updateCount} existing leads</strong> updated from ${data.total} Discovered entries.`;
+
+  } catch(err) {
+    txt.innerHTML = '<strong>Notion sync failed:</strong> ' + (err.message || 'Unknown error');
+  }
+
+  btn.disabled = false;
+  btn.textContent = '🔄 Sync Notion';
 }
 </script>
 </body>
