@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Frameworks for AgTech Founders — Reveneering</title>
+<meta name="description" content="An honest breakdown of the most widely used B2B sales frameworks and how they apply to AgTech founders at Seed to Series B.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0B1623; --navy2: #111F2E; --navy3: #162534;
+  --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.14);
+  --cream: #F0EAD6; --white: #FFFFFF;
+  --muted: rgba(255,255,255,0.45); --muted2: rgba(255,255,255,0.24);
+  --accent: #C8A96E; --accent2: #E8C98A;
+  --accent-dim: rgba(200,169,110,0.10); --accent-dim2: rgba(200,169,110,0.18);
+  --max: 1100px; --pad: clamp(20px,5vw,56px);
+}
+html { scroll-behavior: smooth; }
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* Grid texture */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none; z-index: 0;
+}
+
+/* NAV */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(11,22,35,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: 58px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--pad);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-wordmark { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--cream); }
+.nav-wordmark .v { color: var(--accent); font-style: italic; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); }
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent); color: var(--navy);
+  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+  padding: 8px 18px; border-radius: 3px; text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--accent2); }
+
+/* WRAP */
+.wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+/* HERO */
+.hero {
+  padding-top: 120px; padding-bottom: 72px;
+  border-bottom: 1px solid var(--border);
+  position: relative; z-index: 1;
+  overflow: hidden;
+}
+.hero-eyebrow {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 16px;
+}
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(32px, 5vw, 58px);
+  font-weight: 400; line-height: 1.1;
+  color: var(--white); margin-bottom: 20px;
+}
+.hero-title em { font-style: italic; color: var(--cream); }
+.hero-body {
+  font-size: clamp(14px, 1.6vw, 16px);
+  color: var(--muted); max-width: 620px; line-height: 1.8; margin-bottom: 32px;
+}
+.hero-body strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+/* Hero illustration — technical blueprint */
+.hero-illustration {
+  position: absolute;
+  top: 0; right: -20px;
+  width: 560px; height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 20%, rgba(0,0,0,0.9) 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 20%, rgba(0,0,0,0.9) 100%);
+}
+.hero-illustration svg {
+  position: absolute;
+  top: 50%; right: 0;
+  transform: translateY(-50%);
+  width: 560px; height: auto;
+}
+
+/* FRAMEWORK COUNTER */
+.counter-bar {
+  display: flex; align-items: center; gap: 16px;
+  padding: 14px 0; margin-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+}
+.counter-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.counter-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.counter-pill {
+  font-size: 12px; color: rgba(255,255,255,0.75);
+  background: var(--navy3); border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 20px; padding: 4px 12px;
+  cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s;
+  white-space: nowrap; text-decoration: none;
+}
+.counter-pill:hover { color: var(--accent2); border-color: rgba(200,169,110,0.5); background: rgba(200,169,110,0.08); }
+
+/* SECTION RULE */
+.section-rule {
+  display: flex; align-items: center; gap: 16px; margin-bottom: 40px;
+  position: relative; z-index: 1;
+}
+.section-rule h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(20px, 2.5vw, 28px);
+  font-weight: 400; color: var(--white); white-space: nowrap;
+}
+.section-rule .rule { flex: 1; height: 1px; background: var(--border); }
+.section-rule .tag {
+  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--muted2); white-space: nowrap;
+}
+
+/* FRAMEWORK CARD */
+.framework-section {
+  padding: 72px 0;
+  border-bottom: 1px solid var(--border);
+  position: relative; z-index: 1;
+}
+.framework-section:last-of-type { border-bottom: none; }
+
+.framework-card {
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden;
+}
+
+/* Card header */
+.card-header {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.card-header-left {
+  background: var(--navy3); padding: 28px 28px 24px;
+}
+.card-header-right {
+  background: var(--navy2); padding: 28px 28px 24px;
+  display: flex; flex-direction: column; justify-content: space-between;
+}
+.card-num {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 8px;
+}
+.card-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(20px, 2.5vw, 26px);
+  color: var(--cream); line-height: 1.2; margin-bottom: 6px;
+}
+.card-origin {
+  font-size: 12px; color: var(--muted2); font-style: italic; line-height: 1.5;
+}
+.card-summary {
+  font-size: 14px; color: var(--muted); line-height: 1.75;
+}
+.card-summary strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+/* Card body - what is it */
+.card-what {
+  padding: 24px 28px;
+  border-bottom: 1px solid var(--border);
+}
+.card-what-label {
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted2); margin-bottom: 14px;
+}
+.card-principles {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+.principle {
+  background: var(--navy3); border-radius: 3px;
+  padding: 12px 14px; font-size: 13px;
+  color: var(--muted); line-height: 1.55;
+  border-left: 2px solid var(--border2);
+  transition: border-color 0.2s;
+}
+.principle:hover { border-color: var(--accent); }
+.principle strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+/* Yes/No grid */
+.verdict-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+}
+.verdict {
+  padding: 24px 28px;
+}
+.verdict-yes { background: var(--navy2); }
+.verdict-no { background: var(--navy2); }
+.verdict-label {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  margin-bottom: 12px; padding: 5px 10px; border-radius: 2px;
+  display: inline-block;
+}
+.verdict-yes .verdict-label {
+  color: #6FCF97; background: rgba(74,124,94,0.15);
+}
+.verdict-no .verdict-label {
+  color: #E07070; background: rgba(180,70,70,0.12);
+}
+.verdict-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: 15px; color: var(--cream); margin-bottom: 14px; line-height: 1.3;
+}
+.verdict-items { list-style: none; padding: 0; }
+.verdict-items li {
+  font-size: 13px; color: var(--muted); line-height: 1.65;
+  padding: 8px 0; border-bottom: 1px solid var(--border);
+  display: flex; gap: 10px; align-items: flex-start;
+}
+.verdict-items li:last-child { border-bottom: none; padding-bottom: 0; }
+.verdict-yes .verdict-items li::before {
+  content: '';
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #6FCF97; flex-shrink: 0; margin-top: 7px;
+}
+.verdict-no .verdict-items li::before {
+  content: '';
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #E07070; flex-shrink: 0; margin-top: 7px;
+}
+.verdict-items li strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+/* Anchor tags for jump nav */
+.framework-anchor { display: block; position: relative; top: -80px; visibility: hidden; }
+
+/* CTA strip */
+.cta-strip {
+  background: var(--accent-dim2);
+  border: 1px solid rgba(200,169,110,0.2);
+  border-radius: 4px; padding: 24px 28px;
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  margin-top: 24px; position: relative; z-index: 1;
+}
+.cta-strip-text { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.cta-strip-text strong { color: var(--cream); font-weight: 500; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: var(--navy);
+  font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+  padding: 12px 24px; border-radius: 3px; text-decoration: none;
+  white-space: nowrap; flex-shrink: 0; transition: background 0.2s;
+}
+.cta-btn:hover { background: var(--accent2); }
+
+/* FOOTER */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px var(--pad);
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  position: relative; z-index: 1;
+}
+.footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.footer-copy { font-size: 12px; color: var(--muted2); }
+.footer-link { font-size: 12px; color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+.footer-link:hover { color: var(--accent); }
+
+/* Reveal animation */
+.reveal {
+  opacity: 0; transform: translateY(18px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Progress indicator */
+.progress-bar {
+  position: fixed; top: 58px; left: 0; right: 0;
+  height: 2px; background: transparent; z-index: 99;
+}
+.progress-fill {
+  height: 100%; background: var(--accent);
+  width: 0%; transition: width 0.1s linear;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .hero-illustration { display: none; }
+  .card-header { grid-template-columns: 1fr; }
+  .verdict-grid { grid-template-columns: 1fr; }
+  .counter-bar { flex-direction: column; align-items: flex-start; }
+  .cta-strip { flex-direction: column; align-items: flex-start; }
+  .site-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .nav-label { display: none; }
+  .card-principles { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="https://reveneering.com">
+    <svg width="26" height="26" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
+      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-wordmark">Re<span class="v">v</span>eneering</span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-label">Sales Frameworks · AgTech</span>
+    <a class="nav-cta" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a call &rarr;</a>
+  </div>
+</nav>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- HERO -->
+<div class="hero">
+  <!-- Technical blueprint illustration -->
+  <div class="hero-illustration">
+    <svg viewBox="0 0 560 320" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#C8A96E" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round" opacity="0.22">
+      <!-- Combine harvester side profile -->
+
+      <!-- Main body / grain tank -->
+      <rect x="180" y="80" width="220" height="110" rx="4"/>
+      <!-- Grain tank top curve -->
+      <path d="M180 80 Q200 60 290 58 Q360 57 400 80"/>
+      <!-- Cab -->
+      <rect x="340" y="70" width="90" height="90" rx="3"/>
+      <!-- Cab window -->
+      <rect x="352" y="78" width="66" height="52" rx="2" stroke-width="0.5" opacity="0.7"/>
+      <line x1="385" y1="78" x2="385" y2="130" stroke-width="0.4"/>
+      <!-- Cab roof detail -->
+      <line x1="340" y1="70" x2="430" y2="70" stroke-width="0.5"/>
+      <path d="M340 70 Q345 62 360 60 L420 60 Q428 62 430 70" stroke-width="0.5"/>
+
+      <!-- Header / cutting platform -->
+      <rect x="30" y="155" width="170" height="45" rx="2"/>
+      <path d="M30 155 L10 145 L10 205 L30 200"/>
+      <!-- Header dividers -->
+      <line x1="67" y1="155" x2="67" y2="200"/>
+      <line x1="104" y1="155" x2="104" y2="200"/>
+      <line x1="141" y1="155" x2="141" y2="200"/>
+      <!-- Reel (rotating drum above header) -->
+      <circle cx="115" cy="150" r="22" stroke-width="0.6"/>
+      <line x1="115" y1="128" x2="115" y2="172" stroke-width="0.4"/>
+      <line x1="93" y1="150" x2="137" y2="150" stroke-width="0.4"/>
+      <line x1="99" y1="134" x2="131" y2="166" stroke-width="0.4"/>
+      <line x1="131" y1="134" x2="99" y2="166" stroke-width="0.4"/>
+      <!-- Header auger -->
+      <ellipse cx="115" cy="197" rx="80" ry="8" stroke-width="0.5" opacity="0.6"/>
+
+      <!-- Feeder house / throat -->
+      <path d="M200 155 L200 120 L185 120 L185 155"/>
+      <line x1="185" y1="137" x2="200" y2="137" stroke-width="0.4"/>
+
+      <!-- Rear body extension -->
+      <rect x="400" y="130" width="80" height="60" rx="2"/>
+      <!-- Straw chopper fins -->
+      <line x1="415" y1="130" x2="415" y2="190"/>
+      <line x1="432" y1="130" x2="432" y2="190"/>
+      <line x1="449" y1="130" x2="449" y2="190"/>
+      <line x1="466" y1="130" x2="466" y2="190"/>
+
+      <!-- Drive wheels (large rear) -->
+      <circle cx="390" cy="220" r="45" stroke-width="1"/>
+      <circle cx="390" cy="220" r="36" stroke-width="0.4"/>
+      <circle cx="390" cy="220" r="10" stroke-width="0.8"/>
+      <!-- Wheel spokes -->
+      <line x1="390" y1="184" x2="390" y2="256" stroke-width="0.4"/>
+      <line x1="354" y1="220" x2="426" y2="220" stroke-width="0.4"/>
+      <line x1="365" y1="194" x2="415" y2="246" stroke-width="0.4"/>
+      <line x1="415" y1="194" x2="365" y2="246" stroke-width="0.4"/>
+      <!-- Tread lugs -->
+      <path d="M347 206 Q355 200 360 210" stroke-width="0.5" opacity="0.6"/>
+      <path d="M420 230 Q428 235 432 225" stroke-width="0.5" opacity="0.6"/>
+
+      <!-- Steering wheels (small front) -->
+      <circle cx="195" cy="230" r="28" stroke-width="0.9"/>
+      <circle cx="195" cy="230" r="21" stroke-width="0.4"/>
+      <circle cx="195" cy="230" r="7" stroke-width="0.7"/>
+      <line x1="195" y1="202" x2="195" y2="258" stroke-width="0.4"/>
+      <line x1="167" y1="230" x2="223" y2="230" stroke-width="0.4"/>
+      <line x1="175" y1="208" x2="215" y2="252" stroke-width="0.4"/>
+      <line x1="215" y1="208" x2="175" y2="252" stroke-width="0.4"/>
+
+      <!-- Ground line -->
+      <line x1="10" y1="265" x2="545" y2="265" stroke-width="0.4" opacity="0.4"/>
+
+      <!-- Grain unloading auger arm -->
+      <line x1="280" y1="58" x2="310" y2="10" stroke-width="1.2"/>
+      <circle cx="310" cy="10" r="5" stroke-width="0.8"/>
+      <line x1="295" y1="58" x2="325" y2="10" stroke-width="0.5" opacity="0.5"/>
+
+      <!-- Engine / mechanical detail under cab -->
+      <rect x="340" y="160" width="60" height="30" rx="1" stroke-width="0.5"/>
+      <line x1="355" y1="160" x2="355" y2="190" stroke-width="0.4"/>
+      <line x1="370" y1="160" x2="370" y2="190" stroke-width="0.4"/>
+      <line x1="385" y1="160" x2="385" y2="190" stroke-width="0.4"/>
+
+      <!-- Dimension lines -->
+      <line x1="30" y1="280" x2="480" y2="280" stroke-width="0.35" opacity="0.4" stroke-dasharray="2,3"/>
+      <line x1="30" y1="276" x2="30" y2="284" stroke-width="0.5" opacity="0.4"/>
+      <line x1="480" y1="276" x2="480" y2="284" stroke-width="0.5" opacity="0.4"/>
+      <line x1="10" y1="145" x2="10" y2="265" stroke-width="0.35" opacity="0.4" stroke-dasharray="2,3"/>
+      <line x1="6" y1="145" x2="14" y2="145" stroke-width="0.5" opacity="0.4"/>
+      <line x1="6" y1="265" x2="14" y2="265" stroke-width="0.5" opacity="0.4"/>
+
+      <!-- Small detail cross-hatching on body panels -->
+      <line x1="220" y1="90" x2="240" y2="110" stroke-width="0.3" opacity="0.5"/>
+      <line x1="240" y1="90" x2="260" y2="110" stroke-width="0.3" opacity="0.5"/>
+      <line x1="260" y1="90" x2="280" y2="110" stroke-width="0.3" opacity="0.5"/>
+
+      <!-- Exhaust stack -->
+      <rect x="420" y="48" width="8" height="22" rx="1" stroke-width="0.6"/>
+      <ellipse cx="424" cy="47" rx="5" ry="2.5" stroke-width="0.5"/>
+
+      <!-- Step/ladder on cab -->
+      <line x1="430" y1="160" x2="445" y2="160" stroke-width="0.5" opacity="0.6"/>
+      <line x1="430" y1="172" x2="445" y2="172" stroke-width="0.5" opacity="0.6"/>
+      <line x1="432" y1="155" x2="432" y2="190" stroke-width="0.4" opacity="0.6"/>
+      <line x1="443" y1="155" x2="443" y2="190" stroke-width="0.4" opacity="0.6"/>
+    </svg>
+  </div>
+  <div class="wrap">
+    <div class="hero-eyebrow reveal">Sales Methodology · AgTech Founders · Seed to Series B</div>
+    <h1 class="hero-title reveal">Which sales frameworks<br>actually work in <em>AgTech?</em></h1>
+    <p class="hero-body reveal">
+      Every framework below was built for a different buyer in a different market. <strong>Most were developed in enterprise SaaS or financial services.</strong> Some transfer cleanly to AgTech. Others will stall your deals or damage relationships with buyers who don't respond to corporate sales logic. Here is an honest breakdown of each one.
+    </p>
+
+  </div>
+</div>
+
+<!-- JUMP NAV -->
+<div style="background: var(--navy2); border-bottom: 1px solid var(--border); position: relative; z-index: 1;">
+  <div class="wrap">
+    <div class="counter-bar">
+      <div class="counter-label">Jump to</div>
+      <div class="counter-pills">
+        <a class="counter-pill" href="#spin">SPIN Selling</a>
+        <a class="counter-pill" href="#solution">Solution Selling</a>
+        <a class="counter-pill" href="#strategic">Strategic Selling</a>
+        <a class="counter-pill" href="#meddicc">MEDDICC</a>
+        <a class="counter-pill" href="#challenger">Challenger Sale</a>
+        <a class="counter-pill" href="#challenger-customer">Challenger Customer</a>
+        <a class="counter-pill" href="#predictable">Predictable Revenue</a>
+        <a class="counter-pill" href="#gap">Gap Selling</a>
+        <a class="counter-pill" href="#jolt">JOLT Effect</a>
+        <a class="counter-pill" href="#fanatical">Fanatical Prospecting</a>
+        <a class="counter-pill" href="#never-split">Never Split the Difference</a>
+        <a class="counter-pill" href="#jtbd">Jobs to Be Done</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FRAMEWORK 01: SPIN SELLING ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="spin"></a>
+    <div class="section-rule reveal">
+      <h2>SPIN Selling</h2>
+      <div class="rule"></div>
+      <div class="tag">01 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 01 · Neil Rackham, 1988</div>
+          <div class="card-title">SPIN Selling</div>
+          <div class="card-origin">Based on research across 35,000+ sales calls. Still one of the most widely taught B2B frameworks in the world.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">The question for AgTech founders is not whether SPIN is popular. It is whether your buyers respond to it. A food company CFO and a livestock producer require completely different conversational approaches.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Four question types that structure every sales conversation</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Situation</strong> — Establish context. What does the operation look like today?</div>
+          <div class="principle"><strong>Problem</strong> — Surface pain. Where is yield, cost, or compliance causing friction?</div>
+          <div class="principle"><strong>Implication</strong> — Expand the pain. What does that problem cost annually?</div>
+          <div class="principle"><strong>Need-Payoff</strong> — Let the buyer articulate the value of solving it themselves.</div>
+          <div class="principle">Works best in a structured meeting with a financially-oriented buyer, not a field conversation with a producer.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">Your buyer quantifies their problem in business terms</div>
+          <ul class="verdict-items">
+            <li>You're selling to a food company, retailer, or ag conglomerate with a finance or ops leader in the room</li>
+            <li>Your buyer can put a number on their problem: yield loss, input waste, compliance penalties</li>
+            <li>You have enough discovery time to run the full question sequence</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">Your buyer experiences the problem physically, not analytically</div>
+          <ul class="verdict-items">
+            <li>Your buyer is a producer or farmer — Implication questions will feel like an interrogation</li>
+            <li>You're in a government or USDA procurement process where buying criteria are already defined</li>
+            <li>Your sales cycle is relationship-first and the buyer hasn't yet granted you credibility to ask hard questions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 02: SOLUTION SELLING ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="solution"></a>
+    <div class="section-rule reveal">
+      <h2>Solution Selling</h2>
+      <div class="rule"></div>
+      <div class="tag">02 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 02 · Mike Bosworth, 1994</div>
+          <div class="card-title">Solution Selling</div>
+          <div class="card-origin">The framework that told a generation of salespeople to lead with the problem, not the product.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">The instinct — diagnose before prescribing — is correct. The catch in AgTech: diagnosing only works if your buyer trusts you enough to be honest about what is broken. That trust has to come first.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Lead with buyer pain, not product features</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Lead with the problem</strong> — The salesperson acts as a consultant: diagnose pain before offering a solution.</div>
+          <div class="principle"><strong>Buyers buy solutions</strong> — Not products. Not features. Solutions to specific business problems.</div>
+          <div class="principle"><strong>Map your offering</strong> — Directly to the buyer's stated pain, not your product roadmap.</div>
+          <div class="principle"><strong>Best in complex sales</strong> — Works where the buyer is uncertain what they need, not where buying criteria are fixed.</div>
+          <div class="principle"><strong>Requires case studies</strong> — "Here's what this problem cost a similar operation" is the most effective opening.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">The buyer already knows they have the problem</div>
+          <ul class="verdict-items">
+            <li>Your technology solves a clearly defined operational problem — pest pressure, water efficiency, livestock mortality — and the buyer knows they have it</li>
+            <li>You're selling to a corporate buyer who can articulate their pain in business terms</li>
+            <li>You have case studies that let you quantify what the problem costs a similar operation</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">Your buyer doesn't frame their operation as having "problems"</div>
+          <ul class="verdict-items">
+            <li>Your buyer is a producer — they have seasons, challenges, and practical realities. Not pain points.</li>
+            <li>You're selling a new technology category where the buyer doesn't yet know the problem exists</li>
+            <li>The procurement process is driven by policy or grant criteria rather than operational pain</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 03: STRATEGIC SELLING ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="strategic"></a>
+    <div class="section-rule reveal">
+      <h2>Strategic Selling</h2>
+      <div class="rule"></div>
+      <div class="tag">03 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 03 · Miller &amp; Heiman</div>
+          <div class="card-title">Strategic Selling</div>
+          <div class="card-origin">The foundational methodology for complex, multi-stakeholder deals. Built for one specific situation: you only have access to one person in an organization where multiple people control the decision.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">For AgTech founders selling into food companies, ag conglomerates, or government agencies, this is the most underused framework in the stack. If your deal keeps stalling after promising early conversations, this is usually why.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Map the buying committee before you engage</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Economic Buyer</strong> — The person who approves budget. Most founders never reach them.</div>
+          <div class="principle"><strong>User Buyer</strong> — Uses the product day-to-day. Often your champion.</div>
+          <div class="principle"><strong>Technical Buyer</strong> — Evaluates fit, surfaces objections. Don't skip them.</div>
+          <div class="principle"><strong>Coach</strong> — Guides you through the internal politics. A deal without a Coach is a deal you're flying blind.</div>
+          <div class="principle"><strong>Win/Result/Change</strong> — For each stakeholder: what do they win, what result do they need, and what has to change for them to say yes?</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">You're selling into an organization with 3+ stakeholders</div>
+          <ul class="verdict-items">
+            <li>You're selling into a food manufacturer, retailer, ag conglomerate, or government body with a buying committee</li>
+            <li>Your deal has stalled and you don't know why — usually because you're talking to the wrong person</li>
+            <li>You're at pilot stage and trying to navigate from a technical champion to the Economic Buyer who signs the contract</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">One person is the entire decision-making unit</div>
+          <ul class="verdict-items">
+            <li>You're selling directly to a producer or smallholder where one person decides and buys</li>
+            <li>Your sales cycle is early-stage and relationship-driven — mapping a buying committee before trust is established feels clinical</li>
+            <li>You're in a grant or accelerator process where the "buyer" is an evaluator, not an organization</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 04: MEDDICC ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="meddicc"></a>
+    <div class="section-rule reveal">
+      <h2>MEDDICC</h2>
+      <div class="rule"></div>
+      <div class="tag">04 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 04 · Jack Napoli, PTC, 1990s</div>
+          <div class="card-title">MEDDICC</div>
+          <div class="card-origin">Not a sales technique. A qualification framework — a way of deciding whether a deal is real before you invest months in it.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">In AgTech, where sales cycles run 12–18 months, using MEDDICC badly — or not at all — is expensive. The framework doesn't close deals. It tells you which ones are worth closing.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Seven questions that determine if a deal is real</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Metrics</strong> — What does success look like in numbers for this buyer?</div>
+          <div class="principle"><strong>Economic Buyer</strong> — Have you spoken to the person who actually controls the budget?</div>
+          <div class="principle"><strong>Decision Criteria</strong> — What does the buyer use to evaluate their options?</div>
+          <div class="principle"><strong>Decision Process</strong> — What are the actual steps to a signed contract?</div>
+          <div class="principle"><strong>Identify Pain</strong> — Is the pain real, quantified, and urgent enough to act?</div>
+          <div class="principle"><strong>Champion</strong> — Do you have someone inside the account who wants you to win?</div>
+          <div class="principle"><strong>Competition</strong> — Who else are they talking to, including "do nothing"?</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">You need to know if an enterprise deal is real</div>
+          <ul class="verdict-items">
+            <li>You're in a multi-stakeholder enterprise deal and want to know if it's real before investing another quarter in it</li>
+            <li>Conversations have stalled without explanation — MEDDICC usually reveals the missing piece: no Economic Buyer, no Champion, no defined process</li>
+            <li>You're preparing a board pipeline report and need a consistent way to score deal quality</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">You're selling at volume or still finding your market</div>
+          <ul class="verdict-items">
+            <li>You're selling to producers at volume — MEDDICC is built for individual high-value deals, not community-based acquisition</li>
+            <li>You apply it rigidly in early conversations — asking a prospect to define decision criteria in meeting one will end the relationship</li>
+            <li>You use it to impress investors rather than actually qualify pipeline — a fully completed MEDDICC on a bad deal is still a bad deal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 05: THE CHALLENGER SALE ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="challenger"></a>
+    <div class="section-rule reveal">
+      <h2>The Challenger Sale</h2>
+      <div class="rule"></div>
+      <div class="tag">05 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 05 · Dixon &amp; Adamson, 2011</div>
+          <div class="card-title">The Challenger Sale</div>
+          <div class="card-origin">Based on research across 6,000+ sales reps. The provocation: relationship-builders are the worst-performing salespeople. The best ones teach, tailor, and take control.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">That conclusion was real. But the research was drawn almost entirely from enterprise SaaS and financial services. The transfer to AgTech is more nuanced than the book suggests — especially if your buyer is a producer.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Teach, tailor, and take control of the conversation</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Teach first</strong> — Show the buyer something they didn't know about their own business before you sell anything.</div>
+          <div class="principle"><strong>Tailor the message</strong> — To the specific economic and operational reality of each buyer, not a generic pitch.</div>
+          <div class="principle"><strong>Take control</strong> — Don't let the buyer set the agenda or stall indefinitely.</div>
+          <div class="principle"><strong>Commercial insight</strong> — Not product features, moves the modern B2B buyer.</div>
+          <div class="principle"><strong>Displace "do nothing"</strong> — Teaching is the most effective way to create urgency without pressure.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">Your buyer is sophisticated and expects to be challenged</div>
+          <ul class="verdict-items">
+            <li>You're selling to a food company, retailer, or ag conglomerate where the buyer expects commercial insight</li>
+            <li>You have genuine field data that reframes how the buyer thinks about their cost structure or risk exposure</li>
+            <li>You're trying to displace "do nothing" as the default — teaching is the most effective way to create urgency without pressure</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">You haven't earned the credibility to challenge yet</div>
+          <ul class="verdict-items">
+            <li>Your buyer is a producer — agricultural operators do not respond well to being told they've been thinking about their operation wrong by someone who hasn't worked one</li>
+            <li>You don't yet have the credibility to challenge — this framework requires proof, not attitude</li>
+            <li>You're in a government or institutional process where the decision criteria are set and challenging them is off the table</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 06: THE CHALLENGER CUSTOMER ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="challenger-customer"></a>
+    <div class="section-rule reveal">
+      <h2>The Challenger Customer</h2>
+      <div class="rule"></div>
+      <div class="tag">06 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 06 · Adamson, Dixon et al., 2015</div>
+          <div class="card-title">The Challenger Customer</div>
+          <div class="card-origin">The follow-up to The Challenger Sale — focused on the buying side, not the selling side.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">The Challenger Sale told you how to sell. This book tells you something harder: the person you've been selling to probably can't buy. In AgTech, where every enterprise deal involves a buying committee you've never fully met, this is the one that actually matters.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Find the Mobilizer before you find the budget holder</div>
+        <div class="card-principles">
+          <div class="principle"><strong>5–7 stakeholders</strong> — The average B2B deal now involves this many people. Winning one is not enough.</div>
+          <div class="principle"><strong>Deals die internally</strong> — Not because you lost to a competitor but because the buying committee couldn't reach consensus.</div>
+          <div class="principle"><strong>Find the Mobilizer</strong> — The internal stakeholder who can build consensus around change. Find them before you find the budget holder.</div>
+          <div class="principle"><strong>Arm them</strong> — Give your Mobilizer the tools to sell internally on your behalf when you're not in the room.</div>
+          <div class="principle"><strong>Consensus quality</strong> — Not pitching quality, determines whether enterprise deals close.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">Your deal keeps stalling after promising early conversations</div>
+          <ul class="verdict-items">
+            <li>You're selling into a food company, government agency, or ag conglomerate and deals stall after strong starts</li>
+            <li>You've identified a champion but they keep saying "let me check with the team" — this explains exactly what's happening</li>
+            <li>You're at pilot stage and trying to convert to a full enterprise contract — the buying committee expands at that point</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">One person decides and the relationship is still being built</div>
+          <ul class="verdict-items">
+            <li>Your buyer is a single decision-maker — individual producer, small cooperative</li>
+            <li>You're pre-product or pre-pilot and still building the initial relationship — stakeholder mapping is a Phase 2 problem</li>
+            <li>You over-engineer the process and turn a relationship-driven sale into a political analysis exercise</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 07: PREDICTABLE REVENUE ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="predictable"></a>
+    <div class="section-rule reveal">
+      <h2>Predictable Revenue</h2>
+      <div class="rule"></div>
+      <div class="tag">07 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 07 · Aaron Ross &amp; Marylou Tyler, 2011</div>
+          <div class="card-title">Predictable Revenue</div>
+          <div class="card-origin">The book that created the modern SDR role and outbound sales function. Built at Salesforce.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">It worked spectacularly for Salesforce. The question is whether the model survives contact with an AgTech sales cycle — and with agricultural buyers who don't operate like SaaS procurement teams.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Separate prospecting, closing, and account management into distinct roles</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Separate the roles</strong> — Prospectors (outbound), closers (AEs), farmers (account management). Don't mix them.</div>
+          <div class="principle"><strong>Cold outbound at volume</strong> — To a tightly defined ICP generates predictable pipeline. Not referrals, not inbound.</div>
+          <div class="principle"><strong>Cold calling 2.0</strong> — Email-first, permission-based outbound that asks for a referral to the right person, not a meeting.</div>
+          <div class="principle"><strong>Consistency of input</strong> — Outbound volume produces consistency of output. Pipeline is a math problem.</div>
+          <div class="principle"><strong>Measure everything</strong> — Conversion rates at each stage reveal where the system is breaking down.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">You've validated your ICP and are ready to scale what's working</div>
+          <ul class="verdict-items">
+            <li>You're selling to food companies, retailers, or corporate ag buyers who have a defined procurement function and respond to structured outbound</li>
+            <li>You have enough deal volume to justify separating prospecting from closing — works best at Series A and beyond</li>
+            <li>You've already validated your ICP and message and are now looking to scale</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">Your buyer is a producer or you haven't found your ICP yet</div>
+          <ul class="verdict-items">
+            <li>You're selling to producers — agricultural operators are not reachable through cold email sequences</li>
+            <li>You're pre-ICP — running high-volume outbound before you know exactly who you're selling to burns reputation and budget simultaneously</li>
+            <li>You're a solo founder at Seed stage — the three-role separation requires headcount you don't have</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 08: GAP SELLING ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="gap"></a>
+    <div class="section-rule reveal">
+      <h2>Gap Selling</h2>
+      <div class="rule"></div>
+      <div class="tag">08 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 08 · Keenan, 2018</div>
+          <div class="card-title">Gap Selling</div>
+          <div class="card-origin">The core idea: the bigger the gap between where your buyer is now and where they want to be, the easier the sale.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">AgTech buyers don't always behave like the buyers this framework was built for. Gap Selling is powerful when the buyer can articulate their gap in financial terms — and breaks down when they can't or won't.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Quantify the cost of staying where they are</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Current vs. future state</strong> — Map the gap between where they are and where they want to be.</div>
+          <div class="principle"><strong>Features don't sell</strong> — The cost of inaction does.</div>
+          <div class="principle"><strong>Discovery is everything</strong> — Diagnose before prescribing.</div>
+          <div class="principle"><strong>Price objections disappear</strong> — When the gap is larger than the cost of solving it.</div>
+          <div class="principle"><strong>Calculate for them</strong> — Field data and case studies that quantify the gap are more effective than asking the buyer to do it themselves.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">Your buyer already knows they have a quantifiable problem</div>
+          <ul class="verdict-items">
+            <li>Your buyer already knows they have a problem — yield loss, input waste, compliance risk — and can put a number on it</li>
+            <li>You are selling to a corporate food company, retailer, or ag conglomerate with finance involved</li>
+            <li>You have field data or case studies that let you calculate the gap for them</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">Your buyer doesn't frame their operation in gap terms</div>
+          <ul class="verdict-items">
+            <li>Your buyer is a producer or farmer who doesn't frame their operation in gap terms and will distrust a salesperson who does</li>
+            <li>You are in a government or institutional procurement process driven by policy criteria, not ROI pain</li>
+            <li>Your technology is genuinely new and the buyer doesn't yet know what "desired future state" looks like</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 09: THE JOLT EFFECT ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="jolt"></a>
+    <div class="section-rule reveal">
+      <h2>The JOLT Effect</h2>
+      <div class="rule"></div>
+      <div class="tag">09 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 09 · Dixon &amp; McKenna, 2022</div>
+          <div class="card-title">The JOLT Effect</div>
+          <div class="card-origin">Based on analysis of 2.5 million sales calls. Built around a specific problem: deals that should close but don't.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">The buyer liked you, agreed with the ROI, had budget — and still didn't sign. In AgTech, where 12–18 month cycles create ample time for indecision, this is a more common cause of pipeline death than most founders admit.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Address late-stage buyer indecision, not early-stage disqualification</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Judge the indecision</strong> — Diagnose whether the stall is real hesitation or a polite no.</div>
+          <div class="principle"><strong>Offer your recommendation</strong> — Don't ask the buyer what they want to do. Tell them what you recommend.</div>
+          <div class="principle"><strong>Limit the exploration</strong> — More data, more case studies, and more time often make indecision worse.</div>
+          <div class="principle"><strong>Take risk off the table</strong> — Structured pilot, phased commitment, or performance guarantee. Remove the fear of being wrong.</div>
+          <div class="principle"><strong>Fear of a bad decision</strong> — Not competition — kills more late-stage deals than founders realize.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">The deal is late-stage and still not moving</div>
+          <ul class="verdict-items">
+            <li>Your deal is late-stage, the buyer is engaged, and it's still not moving — JOLT gives you a precise diagnosis</li>
+            <li>You're selling a genuinely new technology category where the buyer's fear is "what if this doesn't work on my operation"</li>
+            <li>You can offer a structured pilot, phased commitment, or performance guarantee that removes the risk of being wrong</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">The deal is stalling early or you lack a Champion inside</div>
+          <ul class="verdict-items">
+            <li>Your deal is stalling in early stages — JOLT addresses late-stage indecision, not early disqualification</li>
+            <li>The real problem is that you don't have a Champion inside the account — no JOLT technique fixes the absence of internal advocacy</li>
+            <li>You use "limiting exploration" to pressure a buyer who hasn't reached conviction — in agricultural markets, reputation travels fast</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 10: FANATICAL PROSPECTING ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="fanatical"></a>
+    <div class="section-rule reveal">
+      <h2>Fanatical Prospecting</h2>
+      <div class="rule"></div>
+      <div class="tag">10 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 10 · Jeb Blount, 2015</div>
+          <div class="card-title">Fanatical Prospecting</div>
+          <div class="card-origin">One argument: empty pipeline is the only sales problem that matters. No philosophy. Just consistent, multi-channel activity.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">For some AgTech founders, this is exactly the right message. For others — especially those selling to producers in tight-knit agricultural communities — it is a fast way to burn goodwill permanently.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Consistent, relentless outreach across every channel</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Pipeline above all</strong> — Empty pipeline is the only sales failure that matters. Everything else is secondary.</div>
+          <div class="principle"><strong>Prospect every day</strong> — Without exception, regardless of how full the pipeline looks today.</div>
+          <div class="principle"><strong>Every channel simultaneously</strong> — Phone, email, LinkedIn, in-person, referrals. All of them.</div>
+          <div class="principle"><strong>Consistency beats intensity</strong> — The best time to prospect is when you don't feel like it.</div>
+          <div class="principle"><strong>Rejection is math</strong> — More touches, more conversations, more pipeline.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">Your buyer is a corporate buyer reachable through outbound</div>
+          <ul class="verdict-items">
+            <li>You're selling to corporate buyers — food companies, retailers, input suppliers — who are reachable through multi-channel outbound and expect sales contact</li>
+            <li>Your pipeline has dried up and you need to rebuild it quickly — high activity is the fastest fix</li>
+            <li>You're a founder who has been waiting for inbound or referrals to do the work — this is the corrective</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">Your buyer is a producer or your message isn't validated yet</div>
+          <ul class="verdict-items">
+            <li>Your buyer is a producer or farmer — high-volume outreach in agricultural communities damages reputation permanently. These buyers talk to each other.</li>
+            <li>You don't have a validated message yet — fanatical activity with the wrong pitch scales failure, not success</li>
+            <li>Your deal size justifies deep account research over broad outreach — 10 well-researched outreaches beat 100 generic touches in enterprise AgTech</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 11: NEVER SPLIT THE DIFFERENCE ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="never-split"></a>
+    <div class="section-rule reveal">
+      <h2>Never Split the Difference</h2>
+      <div class="rule"></div>
+      <div class="tag">11 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 11 · Chris Voss, 2016</div>
+          <div class="card-title">Never Split the Difference</div>
+          <div class="card-origin">Not a sales book. FBI hostage negotiation principles applied to business negotiation.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">It contains some of the most practically useful techniques for high-stakes B2B conversations — particularly those where the deal is almost done and both sides are stuck. In AgTech enterprise sales, that moment arrives more often than founders expect.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Tactical empathy and calibrated questions for late-stage deal navigation</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Tactical empathy</strong> — Understand and acknowledge the other side's perspective before making any ask.</div>
+          <div class="principle"><strong>Mirroring</strong> — Repeat the last 2–3 words the buyer says. It keeps them talking and surfaces what they actually mean.</div>
+          <div class="principle"><strong>Calibrated questions</strong> — "How am I supposed to do that?" puts the problem back on the other side without confrontation.</div>
+          <div class="principle"><strong>The "No" is useful</strong> — A buyer who says no is still engaged. False yeses kill deals slowly.</div>
+          <div class="principle"><strong>Never split on price</strong> — Find what the other side actually values and trade on that instead.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">You're in late-stage negotiation and the conversation has stalled</div>
+          <ul class="verdict-items">
+            <li>You're in late-stage negotiation with a food company or government agency and the conversation has stalled on contract terms, risk allocation, or price</li>
+            <li>You're navigating a multi-stakeholder deal where different parties have different objections — tactical empathy is the most effective tool for surfacing what each stakeholder actually needs</li>
+            <li>You're a founder who defaults to accommodating the buyer on price — this gives you specific techniques to hold position without damaging the relationship</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">You apply negotiation techniques before trust has been established</div>
+          <ul class="verdict-items">
+            <li>You apply hostage negotiation framing to an early-stage relationship conversation with a producer — the techniques work, but the energy behind them needs to be invisible</li>
+            <li>You use calibrated questions as a manipulation tactic rather than genuine discovery — agricultural buyers have excellent instincts for being managed</li>
+            <li>You're looking for a full sales methodology — this is a negotiation supplement, not a pipeline-building system</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FRAMEWORK 12: JOBS TO BE DONE ─── -->
+<section class="framework-section">
+  <div class="wrap">
+    <a class="framework-anchor" id="jtbd"></a>
+    <div class="section-rule reveal">
+      <h2>Jobs to Be Done</h2>
+      <div class="rule"></div>
+      <div class="tag">12 of 12</div>
+    </div>
+    <div class="framework-card reveal">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-num">Framework 12 · Clayton Christensen &amp; Bob Moesta</div>
+          <div class="card-title">Jobs to Be Done</div>
+          <div class="card-origin">Not a sales framework. A way of understanding why buyers actually buy — and more useful than most formal methodologies for founders still figuring out their positioning.</div>
+        </div>
+        <div class="card-header-right">
+          <div class="card-summary">In AgTech, where the gap between what technology does and what buyers actually need it to do is often significant, JTBD can reframe your entire commercial approach — if you use it as a commercial tool, not an academic exercise.</div>
+        </div>
+      </div>
+      <div class="card-what">
+        <div class="card-what-label">What it is · Understand the job your buyer is hiring your product to do</div>
+        <div class="card-principles">
+          <div class="principle"><strong>Buyers don't buy products</strong> — They hire them to do a specific job in their operation or life.</div>
+          <div class="principle"><strong>The "job"</strong> — Is the progress the buyer is trying to make in a specific circumstance, not the feature they're evaluating.</div>
+          <div class="principle"><strong>Understanding the job changes everything</strong> — Positioning, messaging, pricing, and which competitors actually matter.</div>
+          <div class="principle"><strong>Buyers "fire" before they hire</strong> — Understand what solution they're replacing and why before you pitch your own.</div>
+          <div class="principle"><strong>Best fit wins</strong> — Not best product. The product that best fits the job the buyer is trying to get done.</div>
+        </div>
+      </div>
+      <div class="verdict-grid">
+        <div class="verdict verdict-yes">
+          <div class="verdict-label">YES, IF</div>
+          <div class="verdict-headline">You're struggling to articulate why buyers choose you</div>
+          <ul class="verdict-items">
+            <li>You're struggling to articulate why buyers choose you — JTBD interviews with existing customers will tell you what job they hired you to do, which is almost always different from what you think</li>
+            <li>Your technology is ahead of the market's awareness — framing around the job the buyer needs done is more accessible than framing around the technology</li>
+            <li>You're repositioning after a pivot or after a pilot that succeeded for unexpected reasons</li>
+          </ul>
+        </div>
+        <div class="verdict verdict-no">
+          <div class="verdict-label">NO, IF</div>
+          <div class="verdict-headline">You treat it as research rather than a commercial tool</div>
+          <ul class="verdict-items">
+            <li>You treat it as a research exercise rather than a commercial tool — JTBD is only useful if what you learn changes how you sell and position</li>
+            <li>You're in a late-stage deal where the buyer has already defined their criteria — this is a positioning tool, not a closing tool</li>
+            <li>You over-philosophize it: spending six months answering "what job does a farmer hire a soil sensor to do" before you have customers is not useful</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-strip reveal">
+      <div class="cta-strip-text">
+        <strong>Want help applying the right framework for your specific buyers?</strong>
+        A 30-minute call is enough to identify where your current commercial approach is breaking down.
+      </div>
+      <a class="cta-btn" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a call &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <a class="footer-logo" href="https://reveneering.com">
+    <svg width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
+      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-wordmark" style="font-size:15px;">Re<span class="v">v</span>eneering</span>
+  </a>
+  <div class="footer-copy">Dallas, TX · Revenue Engineered</div>
+  <a class="footer-link" href="https://reveneering.com">reveneering.com</a>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const scrollTop = window.scrollY;
+  const scrollHeight = doc.scrollHeight - doc.clientHeight;
+  const pct = scrollHeight ? (scrollTop / scrollHeight) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+});
+
+// Reveal on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
