@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reveneering CRM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0B1623;--navy2:#111F2E;--navy3:#162534;
+  --border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.14);
+  --cream:#F0EAD6;--white:#FFFFFF;
+  --muted:rgba(255,255,255,0.45);--muted2:rgba(255,255,255,0.24);
+  --accent:#C8A96E;--accent2:#E8C98A;
+  --accent-dim:rgba(200,169,110,0.10);--accent-dim2:rgba(200,169,110,0.18);
+  --green:#4CAF7D;--green-dim:rgba(76,175,125,0.12);
+  --red:#E57373;--red-dim:rgba(229,115,115,0.12);
+  --blue:#64B5F6;--blue-dim:rgba(100,181,246,0.12);
+  --orange:#FFB74D;--orange-dim:rgba(255,183,77,0.12);
+  --purple:#CE93D8;--purple-dim:rgba(206,147,216,0.12);
+}
+html{scroll-behavior:smooth}
+body{background:var(--navy);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.015) 1px,transparent 1px);background-size:72px 72px;pointer-events:none;z-index:0}
+
+/* PASSWORD GATE */
+#pw-gate{position:fixed;inset:0;z-index:9999;background:var(--navy);display:flex;align-items:center;justify-content:center;padding:24px}
+.pw-card{position:relative;z-index:1;background:var(--navy2);border:1px solid var(--border);border-radius:6px;padding:40px 36px;width:100%;max-width:400px;text-align:center}
+.pw-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:28px}
+.pw-wm{font-family:'DM Serif Display',serif;font-size:20px;color:var(--cream)}.pw-wm .v{color:var(--accent);font-style:italic}
+.pw-eyebrow{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.pw-title{font-family:'DM Serif Display',serif;font-size:22px;color:var(--cream);margin-bottom:6px}
+.pw-desc{font-size:13px;color:var(--muted);margin-bottom:24px}
+.pw-iw{position:relative;margin-bottom:10px}
+.pw-inp{width:100%;background:var(--navy3);border:1px solid var(--border2);border-radius:3px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:300;padding:12px 48px 12px 14px;outline:none;text-align:center;letter-spacing:0.06em;transition:border-color 0.2s}
+.pw-inp::placeholder{color:var(--muted2);letter-spacing:0.02em}
+.pw-inp:focus{border-color:rgba(200,169,110,0.4)}
+.pw-inp.shk{animation:shk 0.35s ease;border-color:rgba(226,75,74,0.5)}
+@keyframes shk{0%,100%{transform:translateX(0)}20%{transform:translateX(-6px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.pw-tog{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--muted2);font-size:11px;font-family:'DM Sans',sans-serif;letter-spacing:0.08em;text-transform:uppercase;padding:3px;transition:color 0.2s}
+.pw-tog:hover{color:var(--accent)}
+.pw-err{font-size:12px;color:var(--red);min-height:18px;margin-bottom:10px}
+.pw-btn{width:100%;background:var(--accent);color:var(--navy);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;letter-spacing:0.04em;padding:13px;border-radius:3px;border:none;cursor:pointer;transition:background 0.2s,transform 0.15s}
+.pw-btn:hover{background:var(--accent2);transform:translateY(-1px)}
+#pw-gate.fade{animation:gfade 0.4s ease forwards}
+@keyframes gfade{to{opacity:0;pointer-events:none}}
+
+/* TOP NAV */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(11,22,35,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+.topbar-logo{display:flex;align-items:center;gap:8px;text-decoration:none}
+.topbar-wordmark{font-family:'DM Serif Display',serif;font-size:18px;color:var(--cream);letter-spacing:-0.01em}
+.topbar-wordmark .v{color:var(--accent);font-style:italic}
+.topbar-tag{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2);border-left:1px solid var(--border);padding-left:12px;margin-left:4px}
+.topbar-right{display:flex;align-items:center;gap:12px}
+.btn-add{display:inline-flex;align-items:center;gap:6px;background:var(--accent);color:var(--navy);font-size:12px;font-weight:600;letter-spacing:0.04em;padding:8px 16px;border-radius:3px;border:none;cursor:pointer;transition:background 0.2s}
+.btn-add:hover{background:var(--accent2)}
+
+/* LAYOUT */
+.layout{position:relative;z-index:1;padding:20px 24px;max-width:1400px;margin:0 auto}
+
+/* FILTERS */
+.filters{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
+.filter-input{background:var(--navy2);border:1px solid var(--border);border-radius:3px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 12px;outline:none;transition:border-color 0.2s;min-width:200px}
+.filter-input:focus{border-color:var(--accent)}.filter-input::placeholder{color:var(--muted2)}
+.filter-select{background:var(--navy2);border:1px solid var(--border);border-radius:3px;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 12px;outline:none;cursor:pointer;transition:border-color 0.2s}
+.filter-select:focus{border-color:var(--accent)}.filter-select option{background:var(--navy2);color:var(--white)}
+.filter-count{font-size:12px;color:var(--muted2);margin-left:auto}
+
+/* TABLE */
+.lead-table{border:1px solid var(--border);border-radius:4px;overflow:hidden}
+.table-header{display:grid;grid-template-columns:2fr 1.5fr 1.2fr 1fr 1fr 120px;background:var(--navy3);border-bottom:1px solid var(--border);padding:10px 16px}
+.th{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2)}
+.lead-row{border-bottom:1px solid var(--border);background:var(--navy2);transition:background 0.15s}
+.lead-row:last-child{border-bottom:none}
+.lead-row:hover{background:var(--navy3)}
+.lead-row-summary{display:grid;grid-template-columns:2fr 1.5fr 1.2fr 1fr 1fr 120px;padding:14px 16px;cursor:pointer;align-items:center}
+.lead-company{display:flex;flex-direction:column;gap:2px}
+.lead-company-name{font-size:14px;font-weight:500;color:var(--white)}
+.lead-company-desc{font-size:11px;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px}
+.lead-person{display:flex;flex-direction:column;gap:2px}
+.lead-person-name{font-size:13px;color:var(--cream)}
+.lead-person-email{font-size:11px;color:var(--accent);cursor:pointer}.lead-person-email:hover{color:var(--accent2)}
+.fit-badge{display:inline-flex;font-size:11px;font-weight:500;letter-spacing:0.04em;padding:3px 10px;border-radius:20px;width:fit-content}
+.fit-high{background:var(--green-dim);color:var(--green);border:1px solid rgba(76,175,125,0.25)}
+.fit-medium{background:var(--orange-dim);color:var(--orange);border:1px solid rgba(255,183,77,0.25)}
+.fit-low{background:var(--red-dim);color:var(--red);border:1px solid rgba(229,115,115,0.25)}
+.fit-unknown{background:rgba(255,255,255,0.04);color:var(--muted2);border:1px solid var(--border)}
+.notes-preview{font-size:11px;color:var(--muted2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
+.status-badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.status-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.s-untouched{background:rgba(255,255,255,0.04);color:var(--muted2);border:1px solid var(--border)}.s-untouched .status-dot{background:var(--muted2)}
+.s-draft{background:var(--blue-dim);color:var(--blue);border:1px solid rgba(100,181,246,0.2)}.s-draft .status-dot{background:var(--blue)}
+.s-sent{background:var(--orange-dim);color:var(--orange);border:1px solid rgba(255,183,77,0.2)}.s-sent .status-dot{background:var(--orange)}
+.s-responded{background:var(--green-dim);color:var(--green);border:1px solid rgba(76,175,125,0.2)}.s-responded .status-dot{background:var(--green)}
+.s-followup{background:var(--purple-dim);color:var(--purple);border:1px solid rgba(206,147,216,0.2)}.s-followup .status-dot{background:var(--purple)}
+.row-actions{display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.icon-btn{width:28px;height:28px;border-radius:3px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;font-size:13px}
+.icon-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-dim)}
+
+/* PANEL */
+.lead-panel{display:none;border-top:1px solid var(--border);background:var(--navy);padding:20px}
+.lead-panel.open{display:block}
+.panel-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px}
+.panel-section{background:var(--navy2);border:1px solid var(--border);border-radius:3px;padding:14px}
+.panel-section-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.panel-field{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}.panel-field:last-child{margin-bottom:0}
+.panel-field label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted2)}
+.panel-input{background:var(--navy3);border:1px solid var(--border);border-radius:3px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;outline:none;transition:border-color 0.2s;width:100%}
+.panel-input:focus{border-color:var(--accent)}.panel-input::placeholder{color:var(--muted2)}
+.panel-textarea{background:var(--navy3);border:1px solid var(--border);border-radius:3px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;outline:none;transition:border-color 0.2s;width:100%;resize:vertical;min-height:80px;line-height:1.6}
+.panel-textarea:focus{border-color:var(--accent)}.panel-textarea::placeholder{color:var(--muted2)}
+.panel-select{background:var(--navy3);border:1px solid var(--border);border-radius:3px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13px;padding:8px 10px;outline:none;cursor:pointer;width:100%}
+.panel-select option{background:var(--navy2)}
+
+/* EMAIL SECTION */
+.email-section{background:var(--navy2);border:1px solid var(--border);border-radius:3px;padding:14px;margin-bottom:14px}
+.email-section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px;flex-wrap:wrap}
+.email-section-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent)}
+.email-btns{display:flex;gap:8px;flex-wrap:wrap}
+.btn-sm{font-size:12px;font-weight:500;padding:6px 14px;border-radius:3px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all 0.2s;letter-spacing:0.02em}
+.btn-outline{background:transparent;border:1px solid var(--border2);color:var(--muted)}.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-accent{background:var(--accent);color:var(--navy);font-weight:600}.btn-accent:hover{background:var(--accent2)}
+.btn-green{background:var(--green-dim);border:1px solid rgba(76,175,125,0.3);color:var(--green)}.btn-green:hover{background:rgba(76,175,125,0.2)}
+.btn-blue{background:var(--blue-dim);border:1px solid rgba(100,181,246,0.3);color:var(--blue)}.btn-blue:hover{background:rgba(100,181,246,0.2)}
+.btn-loading{opacity:0.6;pointer-events:none}
+.email-output{background:var(--navy3);border:1px solid var(--border);border-radius:3px;padding:12px;font-size:13px;color:var(--cream);line-height:1.7;white-space:pre-wrap;min-height:80px;max-height:280px;overflow-y:auto;display:none}
+.email-output.visible{display:block}.email-output:focus{outline:none;border-color:var(--accent)}
+.email-subject{background:var(--navy3);border:1px solid var(--border);border-radius:3px;padding:7px 10px;font-size:12px;color:var(--muted);margin-bottom:6px;display:none}
+.email-subject.visible{display:block}
+.email-actions{display:none;gap:8px;flex-wrap:wrap;margin-top:8px}
+.email-actions.visible{display:flex}
+
+/* HISTORY */
+.history-section{background:var(--navy2);border:1px solid var(--border);border-radius:3px;padding:14px}
+.history-section-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+.history-empty{font-size:12px;color:var(--muted2);font-style:italic}
+.history-item{border-bottom:1px solid var(--border);padding:9px 0;display:flex;flex-direction:column;gap:3px}
+.history-item:last-child{border-bottom:none;padding-bottom:0}
+.history-item-header{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.history-item-type{font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent)}
+.history-item-date{font-size:10px;color:var(--muted2)}
+.history-item-subject{font-size:13px;color:var(--cream);font-weight:500}
+.history-item-preview{font-size:12px;color:var(--muted2);line-height:1.5;white-space:pre-wrap;max-height:56px;overflow:hidden;cursor:pointer}
+.history-item-preview.expanded{max-height:none}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;display:none;align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(4px)}
+.modal-overlay.open{display:flex}
+.modal{background:var(--navy2);border:1px solid var(--border2);border-radius:4px;width:100%;max-width:520px;overflow:hidden}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--border)}
+.modal-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--cream)}
+.modal-close{width:28px;height:28px;border-radius:3px;border:1px solid var(--border);background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.15s}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-body{padding:22px;max-height:70vh;overflow-y:auto}
+.modal-field{margin-bottom:14px}
+.modal-field label{display:block;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted2);margin-bottom:5px}
+.modal-input{background:var(--navy3);border:1px solid var(--border);border-radius:3px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;padding:10px 12px;outline:none;transition:border-color 0.2s;width:100%}
+.modal-input:focus{border-color:var(--accent)}.modal-input::placeholder{color:var(--muted2)}
+.modal-footer{padding:14px 22px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
+.lookup-status{font-size:13px;padding:5px 0;min-height:22px}
+.lookup-status.loading{color:var(--accent)}.lookup-status.error{color:var(--red)}.lookup-status.success{color:var(--green)}
+
+/* EMPTY STATE */
+.empty-state{padding:48px 24px;text-align:center;border:1px solid var(--border);border-radius:4px;background:var(--navy2)}
+.empty-state-icon{font-size:32px;margin-bottom:12px;opacity:0.4}
+.empty-state-text{font-size:14px;color:var(--muted);line-height:1.6}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;z-index:300;background:var(--navy2);border:1px solid var(--border2);border-radius:3px;padding:12px 18px;font-size:13px;color:var(--cream);display:none;align-items:center;gap:10px;box-shadow:0 8px 32px rgba(0,0,0,0.4)}
+.toast.show{display:flex}
+.toast-dot{width:8px;height:8px;border-radius:50%;background:var(--green);flex-shrink:0}
+.toast-dot.info{background:var(--blue)}.toast-dot.warn{background:var(--orange)}
+
+/* SPINNER */
+@keyframes spin{to{transform:rotate(360deg)}}
+.spinner{width:13px;height:13px;border:2px solid rgba(200,169,110,0.3);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;flex-shrink:0}
+
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--navy)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+
+@media(max-width:900px){
+  .table-header,.fit-badge,.notes-preview{display:none}
+  .lead-row-summary{grid-template-columns:1fr 1fr auto}
+  .panel-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- PASSWORD GATE -->
+<div id="pw-gate">
+  <div class="pw-card">
+    <div class="pw-logo">
+      <svg width="26" height="26" viewBox="0 0 44 44"><rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/><line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/><line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/><path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/><line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span class="pw-wm">Re<span class="v">v</span>eneering</span>
+    </div>
+    <div class="pw-eyebrow">Internal tool</div>
+    <div class="pw-title">CRM</div>
+    <div class="pw-desc">Enter your password to continue.</div>
+    <div class="pw-iw">
+      <input class="pw-inp" type="password" id="pw-inp" placeholder="Password" autocomplete="off" onkeydown="if(event.key==='Enter')pwCheck()">
+      <button class="pw-tog" id="pw-tog" onclick="pwToggle()">show</button>
+    </div>
+    <div class="pw-err" id="pw-err"></div>
+    <button class="pw-btn" onclick="pwCheck()">Unlock &rarr;</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:14px">
+    <a class="topbar-logo" href="#">
+      <svg width="22" height="22" viewBox="0 0 44 44"><rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/><line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/><line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/><path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/><line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <span class="topbar-wordmark">Re<span class="v">v</span>eneering</span>
+    </a>
+    <span class="topbar-tag">CRM</span>
+  </div>
+  <div class="topbar-right">
+    <button class="btn-add" onclick="openAddModal()">+ Add Lead</button>
+  </div>
+</div>
+
+<div class="layout">
+  <div class="filters">
+    <input class="filter-input" id="filterName" placeholder="Search by company or founder..." oninput="renderLeads()">
+    <select class="filter-select" id="filterFit" onchange="renderLeads()">
+      <option value="">All fit scores</option>
+      <option value="high">High fit</option>
+      <option value="medium">Medium fit</option>
+      <option value="low">Low fit</option>
+      <option value="unknown">Unknown</option>
+    </select>
+    <select class="filter-select" id="filterStatus" onchange="renderLeads()">
+      <option value="">All statuses</option>
+      <option value="untouched">Untouched</option>
+      <option value="draft">Draft prepared</option>
+      <option value="sent">Email sent</option>
+      <option value="responded">Response received</option>
+      <option value="followup">Follow-up sent</option>
+    </select>
+    <div class="filter-count" id="filterCount"></div>
+  </div>
+  <div class="lead-table">
+    <div class="table-header">
+      <div class="th">Company</div>
+      <div class="th">Contact</div>
+      <div class="th">Fit</div>
+      <div class="th">Notes</div>
+      <div class="th">Status</div>
+      <div class="th" style="text-align:right">Actions</div>
+    </div>
+    <div id="leadRows"></div>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add new lead</div>
+      <button class="modal-close" onclick="closeAddModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-field">
+        <label>Company name</label>
+        <input class="modal-input" id="newCompanyName" placeholder="e.g. FarmWave Technologies" oninput="document.getElementById('lookupStatus').textContent=''">
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <button class="btn-sm btn-accent" id="lookupBtn" onclick="lookupCompany()" style="flex:1">
+          <span id="lookupBtnText">🔍 Auto-fill from web</span>
+        </button>
+      </div>
+      <div class="lookup-status" id="lookupStatus"></div>
+      <div class="modal-field"><label>Founder / CEO</label><input class="modal-input" id="newFounderName" placeholder="Name"></div>
+      <div class="modal-field"><label>Email</label><input class="modal-input" id="newEmail" placeholder="founder@company.com" type="email"></div>
+      <div class="modal-field"><label>Description</label><input class="modal-input" id="newDesc" placeholder="One line on what they do"></div>
+      <div class="modal-field"><label>Fit score</label>
+        <select class="modal-input" id="newFit">
+          <option value="unknown">Unknown</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-sm btn-outline" onclick="closeAddModal()">Cancel</button>
+      <button class="btn-sm btn-accent" onclick="addLead()">Add lead</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><div class="toast-dot" id="toastDot"></div><span id="toastMsg"></span></div>
+
+<script>
+// ─── CONFIG — update WORKER_URL after deploying the worker ────────────────────
+const WORKER_URL = 'https://reveneering-crm.YOUR-SUBDOMAIN.workers.dev';
+const PASSWORD   = 'crm2025!'; // change this to whatever you want
+
+// ─── PASSWORD ─────────────────────────────────────────────────────────────────
+function pwCheck() {
+  const inp = document.getElementById('pw-inp');
+  const err = document.getElementById('pw-err');
+  if (inp.value === PASSWORD) {
+    const gate = document.getElementById('pw-gate');
+    gate.classList.add('fade');
+    setTimeout(() => gate.style.display = 'none', 420);
+    setTimeout(() => { loadLeads(); }, 440);
+  } else {
+    err.textContent = 'Incorrect password.';
+    inp.classList.remove('shk'); void inp.offsetWidth; inp.classList.add('shk');
+    inp.value = '';
+    setTimeout(() => inp.classList.remove('shk'), 400);
+  }
+}
+function pwToggle() {
+  const i = document.getElementById('pw-inp'), b = document.getElementById('pw-tog');
+  const h = i.type === 'password';
+  i.type = h ? 'text' : 'password';
+  b.textContent = h ? 'hide' : 'show';
+}
+setTimeout(() => { const e = document.getElementById('pw-inp'); if(e) e.focus(); }, 150);
+
+// ─── STORAGE (localStorage) ───────────────────────────────────────────────────
+const LS_KEY = 'rev_crm_v3';
+function loadLeads() {
+  try { leads = JSON.parse(localStorage.getItem(LS_KEY) || 'null') || seedLeads; }
+  catch(e) { leads = seedLeads; }
+  renderLeads();
+}
+function saveLeads() {
+  try { localStorage.setItem(LS_KEY, JSON.stringify(leads)); } catch(e) {}
+}
+
+// ─── SEED DATA ────────────────────────────────────────────────────────────────
+const seedLeads = [
+  {id:'seed1',company:'Conservis',founder:'Steve Berger',email:'steve@conservis.ag',description:'Farm management ERP for large-scale grain producers.',fit:'high',fitReason:'Enterprise SaaS targeting commercial growers — long sales cycles, multiple stakeholders.',status:'untouched',notes:'',emailHistory:[],createdAt:Date.now()-86400000*5},
+  {id:'seed2',company:'Semios',founder:'Michael Gilbert',email:'',description:'IoT pest and disease monitoring for orchards and vineyards.',fit:'high',fitReason:'Strong technology, complex enterprise sale. U.S. expansion underway with no commercial engine in place.',status:'draft',notes:'Met at AgFunder summit. U.S. expansion slower than expected. No CRM, pipeline is founder-led.',emailHistory:[],createdAt:Date.now()-86400000*3},
+  {id:'seed3',company:'Tillable',founder:'Corbett Kull',email:'corbett@tillable.com',description:'Online farmland rental marketplace connecting landowners with farmers.',fit:'medium',fitReason:'Commercial execution fit is strong but two-sided marketplace adds scope complexity.',status:'responded',notes:'Intro call positive. Interested in 90-day sprint but concerned about Series B timing.',emailHistory:[{type:'Intro email',subject:'Building a commercial engine for Tillable',date:'2025-03-10',body:'Hi Corbett,\n\nTillable has clearly solved a real trust problem in farmland rental.\n\nI work with U.S. AgTech founders hitting a ceiling on commercial execution. Worth 30 minutes to see if the timing makes sense.\n\nAlex\nReveneering'}],createdAt:Date.now()-86400000*10}
+];
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let leads = [];
+let openPanels = new Set();
+
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+const SC = {untouched:'s-untouched',draft:'s-draft',sent:'s-sent',responded:'s-responded',followup:'s-followup'};
+const SL = {untouched:'Untouched',draft:'Draft prepared',sent:'Sent',responded:'Responded',followup:'Follow-up sent'};
+const FC = {high:'fit-high',medium:'fit-medium',low:'fit-low',unknown:'fit-unknown'};
+const FL = {high:'High fit',medium:'Medium fit',low:'Low fit',unknown:'Unknown'};
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function getFiltered() {
+  const n = document.getElementById('filterName').value.toLowerCase();
+  const f = document.getElementById('filterFit').value;
+  const s = document.getElementById('filterStatus').value;
+  return leads.filter(l =>
+    (!n || l.company.toLowerCase().includes(n) || (l.founder||'').toLowerCase().includes(n)) &&
+    (!f || l.fit===f) && (!s || l.status===s)
+  );
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
+function renderLeads() {
+  const list = getFiltered();
+  document.getElementById('filterCount').textContent = list.length + ' lead' + (list.length!==1?'s':'');
+  const c = document.getElementById('leadRows');
+  if (!list.length) {
+    c.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🌾</div><div class="empty-state-text">No leads match your filters.</div></div>';
+    return;
+  }
+  c.innerHTML = list.map(l => `
+<div class="lead-row" id="row-${l.id}">
+  <div class="lead-row-summary" onclick="togglePanel('${l.id}')">
+    <div class="lead-company">
+      <div class="lead-company-name">${esc(l.company)}</div>
+      <div class="lead-company-desc">${esc(l.description||'—')}</div>
+    </div>
+    <div class="lead-person">
+      <div class="lead-person-name">${esc(l.founder||'—')}</div>
+      ${l.email
+        ? `<div class="lead-person-email" onclick="event.stopPropagation();cpyEmail('${esc(l.email)}')">${esc(l.email)}</div>`
+        : `<div style="font-size:11px;color:var(--muted2);cursor:pointer" onclick="event.stopPropagation();openApollo('${esc(l.company)}','${esc(l.founder||'')}')">Find email →</div>`}
+    </div>
+    <div><span class="fit-badge ${FC[l.fit]||'fit-unknown'}">${FL[l.fit]||'Unknown'}</span></div>
+    <div class="notes-preview">${esc(l.notes||'—')}</div>
+    <div><span class="status-badge ${SC[l.status]||'s-untouched'}"><span class="status-dot"></span>${SL[l.status]||'Untouched'}</span></div>
+    <div class="row-actions" onclick="event.stopPropagation()">
+      ${l.emailHistory&&l.emailHistory.length?`<span style="font-size:10px;color:var(--muted2)">${l.emailHistory.length}✉</span>`:''}
+      <button class="icon-btn" onclick="deleteLead('${l.id}')" title="Delete">🗑</button>
+    </div>
+  </div>
+  <div class="lead-panel ${openPanels.has(l.id)?'open':''}" id="panel-${l.id}">
+    ${buildPanel(l)}
+  </div>
+</div>`).join('');
+}
+
+function buildPanel(l) {
+  const hist = !l.emailHistory||!l.emailHistory.length
+    ? '<div class="history-empty">No emails logged yet.</div>'
+    : l.emailHistory.map((h,i)=>`
+      <div class="history-item">
+        <div class="history-item-header"><span class="history-item-type">${esc(h.type)}</span><span class="history-item-date">${esc(h.date)}</span></div>
+        <div class="history-item-subject">${esc(h.subject)}</div>
+        <div class="history-item-preview" onclick="this.classList.toggle('expanded')">${esc(h.body)}</div>
+      </div>`).join('');
+
+  return `<div>
+  <div class="panel-grid">
+    <div class="panel-section">
+      <div class="panel-section-label">Company</div>
+      <div class="panel-field"><label>Name</label><input class="panel-input" value="${esc(l.company)}" onchange="upd('${l.id}','company',this.value)"></div>
+      <div class="panel-field"><label>Description</label><textarea class="panel-textarea" rows="3" onchange="upd('${l.id}','description',this.value)">${esc(l.description||'')}</textarea></div>
+      <div class="panel-field"><label>Fit</label>
+        <select class="panel-select" onchange="updRender('${l.id}','fit',this.value)">
+          <option value="unknown" ${l.fit==='unknown'?'selected':''}>Unknown</option>
+          <option value="high" ${l.fit==='high'?'selected':''}>High</option>
+          <option value="medium" ${l.fit==='medium'?'selected':''}>Medium</option>
+          <option value="low" ${l.fit==='low'?'selected':''}>Low</option>
+        </select>
+      </div>
+      ${l.fitReason?`<div style="font-size:11px;color:var(--muted2);line-height:1.5;margin-top:4px">${esc(l.fitReason)}</div>`:''}
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-label">Contact</div>
+      <div class="panel-field"><label>Founder / CEO</label><input class="panel-input" value="${esc(l.founder||'')}" placeholder="Name" onchange="upd('${l.id}','founder',this.value)"></div>
+      <div class="panel-field"><label>Email</label>
+        <div style="display:flex;gap:6px">
+          <input class="panel-input" value="${esc(l.email||'')}" placeholder="founder@company.com" onchange="upd('${l.id}','email',this.value)" style="flex:1">
+          <button class="btn-sm btn-outline" onclick="openApollo('${esc(l.company)}','${esc(l.founder||'')}')" style="white-space:nowrap;font-size:11px">Apollo →</button>
+        </div>
+      </div>
+      <div class="panel-field"><label>Status</label>
+        <select class="panel-select" onchange="updRender('${l.id}','status',this.value)">
+          <option value="untouched" ${l.status==='untouched'?'selected':''}>Untouched</option>
+          <option value="draft" ${l.status==='draft'?'selected':''}>Draft prepared</option>
+          <option value="sent" ${l.status==='sent'?'selected':''}>Email sent</option>
+          <option value="responded" ${l.status==='responded'?'selected':''}>Response received</option>
+          <option value="followup" ${l.status==='followup'?'selected':''}>Follow-up sent</option>
+        </select>
+      </div>
+    </div>
+    <div class="panel-section">
+      <div class="panel-section-label">Notes</div>
+      <textarea class="panel-textarea" rows="8" placeholder="Context for calls, objections, timing, warm intros…" onchange="upd('${l.id}','notes',this.value)" style="min-height:120px">${esc(l.notes||'')}</textarea>
+      <div style="font-size:10px;color:var(--muted2);margin-top:6px">Used to personalise AI-generated emails.</div>
+    </div>
+  </div>
+  <div class="email-section">
+    <div class="email-section-header">
+      <div class="email-section-label">Email composer</div>
+      <div class="email-btns">
+        <button class="btn-sm btn-outline" id="btn-intro-${l.id}" onclick="generateEmail('${l.id}','intro')">✉ Intro email</button>
+        <button class="btn-sm btn-outline" id="btn-followup-${l.id}" onclick="generateEmail('${l.id}','followup')">↩ Follow-up</button>
+      </div>
+    </div>
+    <div id="subject-${l.id}" class="email-subject"></div>
+    <div id="email-output-${l.id}" class="email-output" contenteditable="true" spellcheck="true"></div>
+    <div id="email-actions-${l.id}" class="email-actions">
+      <button class="btn-sm btn-green" onclick="sendToGmail('${l.id}')">📬 Open in Gmail</button>
+      <button class="btn-sm btn-blue" onclick="logEmail('${l.id}')">📋 Log as sent</button>
+      <button class="btn-sm btn-outline" onclick="clearEmail('${l.id}')">✕ Clear</button>
+    </div>
+  </div>
+  <div class="history-section">
+    <div class="history-section-label">Email history (${l.emailHistory?l.emailHistory.length:0})</div>
+    ${hist}
+  </div>
+</div>`;
+}
+
+function togglePanel(id) {
+  openPanels.has(id) ? openPanels.delete(id) : openPanels.add(id);
+  renderLeads();
+}
+function upd(id,k,v){const l=leads.find(x=>x.id===id);if(l){l[k]=v;saveLeads();}}
+function updRender(id,k,v){upd(id,k,v);renderLeads();}
+function deleteLead(id){if(!confirm('Remove this lead?'))return;leads=leads.filter(x=>x.id!==id);openPanels.delete(id);saveLeads();renderLeads();toast('Lead removed');}
+function cpyEmail(em){navigator.clipboard.writeText(em).then(()=>toast('Email copied','info'));}
+function openApollo(co,fo){window.open('https://app.apollo.io/#/people?q_organization_name='+encodeURIComponent(co)+'&q_keywords='+encodeURIComponent((fo+' '+co).trim()),'_blank');toast('Opening Apollo','info');}
+
+// ─── EMAIL GENERATION ─────────────────────────────────────────────────────────
+async function generateEmail(id, type) {
+  const l = leads.find(x=>x.id===id); if(!l) return;
+  const btn = document.getElementById('btn-'+type+'-'+id);
+  const eo = document.getElementById('email-output-'+id);
+  const es = document.getElementById('subject-'+id);
+  const ea = document.getElementById('email-actions-'+id);
+  const orig = btn.innerHTML;
+  btn.classList.add('btn-loading');
+  btn.innerHTML = '<div class="spinner"></div> Generating…';
+
+  try {
+    const res = await fetch(WORKER_URL + '/email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        type, company: l.company, founder: l.founder,
+        description: l.description, fitReason: l.fitReason, fit: l.fit,
+        notes: l.notes, emailHistory: l.emailHistory
+      })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    const parsed = JSON.parse(data.text.replace(/```json|```/g,'').trim());
+    es.textContent = 'Subject: ' + parsed.subject;
+    es.classList.add('visible');
+    eo.textContent = parsed.body;
+    eo.classList.add('visible');
+    eo.dataset.subject = parsed.subject;
+    ea.classList.add('visible');
+    if (l.status==='untouched') { l.status='draft'; saveLeads(); }
+  } catch(err) {
+    eo.textContent = 'Error: ' + (err.message||'Worker unreachable');
+    eo.classList.add('visible');
+  }
+  btn.classList.remove('btn-loading');
+  btn.innerHTML = orig;
+}
+
+function sendToGmail(id) {
+  const l=leads.find(x=>x.id===id); if(!l) return;
+  const eo=document.getElementById('email-output-'+id);
+  const es=document.getElementById('subject-'+id);
+  if (!eo||!eo.textContent.trim()) return;
+  const subj = eo.dataset.subject || es.textContent.replace('Subject: ','') || 'Following up – Reveneering';
+  window.open('https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(l.email||'')+'&su='+encodeURIComponent(subj)+'&body='+encodeURIComponent(eo.innerText||eo.textContent),'_blank');
+  toast('Opening Gmail draft','info');
+}
+
+function logEmail(id) {
+  const l=leads.find(x=>x.id===id); if(!l) return;
+  const eo=document.getElementById('email-output-'+id);
+  const es=document.getElementById('subject-'+id);
+  if(!eo||!eo.textContent.trim()) return;
+  const subj = eo.dataset.subject || es.textContent.replace('Subject: ','') || 'Email';
+  const type = l.status==='sent'?'Follow-up email':'Intro email';
+  const today = new Date().toISOString().slice(0,10);
+  if (!l.emailHistory) l.emailHistory=[];
+  l.emailHistory.unshift({type,subject:subj,date:today,body:eo.innerText||eo.textContent});
+  l.status = l.status==='responded'?'followup':'sent';
+  saveLeads(); clearEmail(id); renderLeads(); openPanels.add(id); renderLeads();
+  toast('Email logged');
+}
+
+function clearEmail(id) {
+  const eo=document.getElementById('email-output-'+id);
+  const es=document.getElementById('subject-'+id);
+  const ea=document.getElementById('email-actions-'+id);
+  if(eo){eo.textContent='';eo.classList.remove('visible');eo.dataset.subject='';}
+  if(es){es.textContent='';es.classList.remove('visible');}
+  if(ea)ea.classList.remove('visible');
+}
+
+// ─── ADD MODAL ────────────────────────────────────────────────────────────────
+function openAddModal(){document.getElementById('addModal').classList.add('open');setTimeout(()=>document.getElementById('newCompanyName').focus(),80);}
+function closeAddModal(){
+  document.getElementById('addModal').classList.remove('open');
+  ['newCompanyName','newFounderName','newEmail','newDesc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('newFit').value='unknown';
+  document.getElementById('lookupStatus').textContent='';
+  delete document.getElementById('newFit').dataset.reason;
+}
+
+async function lookupCompany() {
+  const name = document.getElementById('newCompanyName').value.trim();
+  if (!name) { setLookupStatus('Enter a company name first','error'); return; }
+  const btn = document.getElementById('lookupBtn');
+  const btnText = document.getElementById('lookupBtnText');
+  btn.classList.add('btn-loading');
+  btnText.innerHTML = '<div class="spinner"></div> Searching…';
+  setLookupStatus('Searching…','loading');
+
+  try {
+    const res = await fetch(WORKER_URL + '/lookup', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ company: name })
+    });
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    const p = JSON.parse(data.text.replace(/```json|```/g,'').trim());
+    if(p.founder) document.getElementById('newFounderName').value = p.founder;
+    if(p.description) document.getElementById('newDesc').value = p.description;
+    if(p.fit) document.getElementById('newFit').value = p.fit;
+    if(p.fitReason) document.getElementById('newFit').dataset.reason = p.fitReason;
+    setLookupStatus('✓ Information found','success');
+  } catch(err) {
+    setLookupStatus('Error: '+(err.message||'Could not auto-fill'),'error');
+  }
+  btn.classList.remove('btn-loading');
+  btnText.textContent = '🔍 Auto-fill from web';
+}
+
+function setLookupStatus(msg,type){const el=document.getElementById('lookupStatus');el.textContent=msg;el.className='lookup-status '+type;}
+
+function addLead() {
+  const co = document.getElementById('newCompanyName').value.trim();
+  if (!co) { alert('Company name required'); return; }
+  const ft = document.getElementById('newFit');
+  const lead = {
+    id:'l'+Date.now(), company:co,
+    founder:document.getElementById('newFounderName').value.trim(),
+    email:document.getElementById('newEmail').value.trim(),
+    description:document.getElementById('newDesc').value.trim(),
+    fit:ft.value, fitReason:ft.dataset.reason||'',
+    status:'untouched', notes:'', emailHistory:[], createdAt:Date.now()
+  };
+  leads.unshift(lead);
+  saveLeads(); closeAddModal(); renderLeads();
+  openPanels.add(lead.id); renderLeads();
+  toast('Lead added');
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────────
+let toastTimer;
+function toast(msg,type='') {
+  const el=document.getElementById('toast');
+  document.getElementById('toastDot').className='toast-dot'+(type?' '+type:'');
+  document.getElementById('toastMsg').textContent=msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>el.classList.remove('show'),2500);
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAddModal();});
+</script>
+</body>
+</html>
