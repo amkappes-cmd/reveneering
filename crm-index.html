@@ -297,7 +297,7 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 
 <script>
 // ─── CONFIG — update WORKER_URL after deploying the worker ────────────────────
-const WORKER_URL = 'https://reveneering-crm.a-m-kappes.workers.dev/';
+const WORKER_URL = 'https://reveneering-crm.YOUR-SUBDOMAIN.workers.dev';
 const PASSWORD   = 'crm2025!'; // change this to whatever you want
 
 // ─── PASSWORD ─────────────────────────────────────────────────────────────────
@@ -324,15 +324,35 @@ function pwToggle() {
 }
 setTimeout(() => { const e = document.getElementById('pw-inp'); if(e) e.focus(); }, 150);
 
-// ─── STORAGE (localStorage) ───────────────────────────────────────────────────
-const LS_KEY = 'rev_crm_v3';
-function loadLeads() {
-  try { leads = JSON.parse(localStorage.getItem(LS_KEY) || 'null') || seedLeads; }
-  catch(e) { leads = seedLeads; }
+// ─── STORAGE (Google Drive via Worker) ───────────────────────────────────────
+let driveFileId = null; // returned by worker on first save, reused after
+
+async function loadLeads() {
+  try {
+    const res = await fetch(WORKER_URL + '/load');
+    const data = await res.json();
+    if (data.error) throw new Error(data.error);
+    leads = (data.leads && data.leads.length) ? data.leads : seedLeads;
+    driveFileId = data.fileId || null;
+  } catch(e) {
+    console.warn('Drive load failed, using seed data:', e.message);
+    leads = seedLeads;
+  }
   renderLeads();
 }
-function saveLeads() {
-  try { localStorage.setItem(LS_KEY, JSON.stringify(leads)); } catch(e) {}
+
+async function saveLeads() {
+  try {
+    const res = await fetch(WORKER_URL + '/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ leads, fileId: driveFileId }),
+    });
+    const data = await res.json();
+    if (data.fileId) driveFileId = data.fileId;
+  } catch(e) {
+    console.warn('Drive save failed:', e.message);
+  }
 }
 
 // ─── SEED DATA ────────────────────────────────────────────────────────────────
