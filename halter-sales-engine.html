@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Halter's Sales Engine: What $2B Actually Teaches AgTech Founders — Reveneering</title>
+<meta name="description" content="Most coverage of Halter's $2B raise focuses on the valuation. Nobody talks about how they actually built the commercial engine that got them there.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --navy: #0B1623;
+  --navy2: #111F2E;
+  --navy3: #162534;
+  --navy4: #0D1C2A;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --cream: #F0EAD6;
+  --cream2: #E8DFC8;
+  --white: #FFFFFF;
+  --muted: rgba(255,255,255,0.50);
+  --muted2: rgba(255,255,255,0.28);
+  --accent: #C8A96E;
+  --accent2: #E8C98A;
+  --accent-dim: rgba(200,169,110,0.10);
+  --accent-dim2: rgba(200,169,110,0.18);
+  --body-max: 720px;
+  --pad: clamp(20px,5vw,56px);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--navy);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* Subtle grid */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px);
+  background-size: 64px 64px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ─── NAV ─── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(11,22,35,0.96);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 var(--pad);
+}
+.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.nav-wordmark { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--cream); }
+.nav-wordmark .v { color: var(--accent); font-style: italic; }
+.nav-right { display: flex; align-items: center; gap: 20px; }
+.nav-tag { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted2); }
+.nav-cta {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--accent); color: var(--navy);
+  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
+  padding: 7px 16px; border-radius: 3px; text-decoration: none;
+  transition: background 0.2s;
+}
+.nav-cta:hover { background: var(--accent2); }
+
+/* ─── PROGRESS ─── */
+.progress-bar {
+  position: fixed; top: 56px; left: 0; right: 0;
+  height: 2px; z-index: 99; background: transparent;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  width: 0%; transition: width 0.08s linear;
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding-top: 112px; padding-bottom: 0;
+  position: relative; z-index: 1; overflow: hidden;
+}
+.hero-inner {
+  max-width: 1080px; margin: 0 auto; padding: 0 var(--pad);
+  padding-bottom: 64px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.hero-meta {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 28px;
+}
+.meta-tag {
+  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); background: var(--accent-dim);
+  border: 1px solid rgba(200,169,110,0.2);
+  border-radius: 2px; padding: 4px 10px;
+}
+.meta-rule { flex: 1; height: 1px; background: var(--border); max-width: 60px; }
+.meta-date { font-size: 11px; color: var(--muted2); letter-spacing: 0.08em; }
+
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(30px, 5vw, 56px);
+  font-weight: 400; line-height: 1.08;
+  color: var(--white); margin-bottom: 20px;
+  max-width: 820px;
+}
+.hero-title em { font-style: italic; color: var(--cream); }
+
+.hero-deck {
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: var(--muted); line-height: 1.7;
+  max-width: 600px; margin-bottom: 36px;
+  font-family: 'Lora', serif; font-style: italic;
+}
+
+.hero-byline {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 0; border-top: 1px solid var(--border);
+}
+.byline-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--accent-dim2); border: 1px solid rgba(200,169,110,0.3);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Serif Display', serif; font-size: 14px; color: var(--accent);
+  flex-shrink: 0;
+}
+.byline-name { font-size: 13px; color: rgba(255,255,255,0.75); font-weight: 500; }
+.byline-title { font-size: 11px; color: var(--muted2); margin-top: 1px; }
+.byline-sep { width: 1px; height: 28px; background: var(--border); flex-shrink: 0; }
+.byline-read { font-size: 11px; color: var(--muted2); letter-spacing: 0.06em; }
+
+/* ─── LAYOUT: ARTICLE + SIDEBAR ─── */
+.article-layout {
+  max-width: 1080px; margin: 0 auto; padding: 0 var(--pad);
+  display: grid; grid-template-columns: 1fr 260px;
+  gap: 80px; padding-top: 64px; padding-bottom: 96px;
+  position: relative; z-index: 1;
+  align-items: start;
+}
+
+/* ─── ARTICLE BODY ─── */
+.article-body { min-width: 0; }
+
+.article-body p {
+  font-family: 'Lora', serif;
+  font-size: 17px; line-height: 1.85;
+  color: rgba(255,255,255,0.78);
+  margin-bottom: 24px;
+}
+.article-body p strong {
+  color: var(--cream); font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.article-body h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 400; color: var(--white);
+  line-height: 1.2; margin-top: 56px; margin-bottom: 20px;
+  padding-top: 48px; border-top: 1px solid var(--border);
+}
+.article-body h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+
+/* Pull quote */
+.pull-quote {
+  margin: 40px 0; padding: 28px 32px;
+  background: var(--navy3);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 3px 3px 0;
+  position: relative;
+}
+.pull-quote::before {
+  content: '\201C';
+  position: absolute; top: 12px; left: 20px;
+  font-family: 'DM Serif Display', serif;
+  font-size: 60px; line-height: 1; color: var(--accent);
+  opacity: 0.3;
+}
+.pull-quote-text {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(17px, 2vw, 20px);
+  font-style: italic; color: var(--cream);
+  line-height: 1.5; margin-bottom: 12px;
+  padding-left: 24px;
+}
+.pull-quote-attr {
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); padding-left: 24px;
+}
+
+/* Callout box */
+.callout {
+  margin: 36px 0; padding: 22px 24px;
+  background: var(--accent-dim);
+  border: 1px solid rgba(200,169,110,0.18);
+  border-radius: 3px;
+}
+.callout-label {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px; font-family: 'DM Sans', sans-serif;
+}
+.callout p {
+  font-family: 'DM Sans', sans-serif !important;
+  font-size: 13px !important; color: var(--cream) !important;
+  line-height: 1.65 !important; margin-bottom: 0 !important;
+}
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  position: sticky; top: 80px;
+}
+
+.sidebar-card {
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden; margin-bottom: 16px;
+}
+.sidebar-card-header {
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent);
+}
+.sidebar-card-body { padding: 0; }
+
+/* TOC */
+.toc-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 18px; border-bottom: 1px solid var(--border);
+  text-decoration: none; transition: background 0.15s;
+  cursor: pointer;
+}
+.toc-item:last-child { border-bottom: none; }
+.toc-item:hover { background: var(--navy3); }
+.toc-item.active { background: var(--accent-dim); }
+.toc-num {
+  font-size: 10px; color: var(--accent); opacity: 0.6;
+  margin-top: 2px; flex-shrink: 0; font-variant-numeric: tabular-nums;
+}
+.toc-item.active .toc-num { opacity: 1; }
+.toc-text { font-size: 12px; color: var(--muted); line-height: 1.45; }
+.toc-item.active .toc-text { color: var(--cream); }
+
+/* Key principles interactive card */
+.principles-card {
+  background: var(--navy2); border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden;
+}
+.principles-card-header {
+  padding: 14px 18px; border-bottom: 1px solid var(--border);
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent);
+}
+.principle-item {
+  padding: 12px 18px; border-bottom: 1px solid var(--border);
+  cursor: pointer; transition: background 0.15s;
+}
+.principle-item:last-child { border-bottom: none; }
+.principle-item:hover { background: var(--navy3); }
+.principle-item.revealed { background: var(--accent-dim); }
+.principle-num {
+  font-size: 10px; color: var(--accent); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 3px;
+}
+.principle-title {
+  font-size: 12px; font-weight: 500; color: var(--cream);
+  line-height: 1.35; margin-bottom: 0;
+}
+.principle-detail {
+  font-size: 11px; color: var(--muted); line-height: 1.55;
+  margin-top: 6px; display: none;
+}
+.principle-item.revealed .principle-detail { display: block; }
+.principles-prompt {
+  padding: 10px 18px;
+  font-size: 10px; color: var(--muted2); letter-spacing: 0.06em;
+  border-top: 1px solid var(--border); text-align: center;
+}
+
+/* ─── CTA ─── */
+.article-cta {
+  margin-top: 64px; padding: 36px;
+  background: var(--accent-dim2);
+  border: 1px solid rgba(200,169,110,0.2);
+  border-radius: 4px;
+}
+.cta-label {
+  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+}
+.cta-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(18px, 2.5vw, 22px);
+  color: var(--cream); line-height: 1.3; margin-bottom: 10px;
+}
+.cta-body { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+.cta-body strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent); color: var(--navy);
+  font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
+  padding: 12px 24px; border-radius: 3px; text-decoration: none;
+  transition: background 0.2s;
+}
+.cta-btn:hover { background: var(--accent2); }
+
+/* ─── FOOTER ─── */
+.site-footer {
+  border-top: 1px solid var(--border);
+  padding: 28px var(--pad);
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  position: relative; z-index: 1;
+}
+.footer-left { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.footer-copy { font-size: 12px; color: var(--muted2); }
+.footer-link { font-size: 12px; color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+.footer-link:hover { color: var(--accent); }
+
+/* ─── REVEAL ─── */
+.reveal {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+.reveal.visible { opacity: 1; transform: none; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .article-layout { grid-template-columns: 1fr; gap: 48px; }
+  .sidebar { position: static; }
+  .nav-tag { display: none; }
+}
+@media (max-width: 600px) {
+  .hero-title { font-size: 28px; }
+  .article-body p { font-size: 16px; }
+  .article-cta { padding: 24px; }
+  .site-footer { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="https://reveneering.com">
+    <svg width="26" height="26" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
+      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-wordmark">Re<span class="v">v</span>eneering</span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-tag">AgTech · Commercial Intelligence</span>
+    <a class="nav-cta" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a call &rarr;</a>
+  </div>
+</nav>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="hero-meta reveal">
+      <div class="meta-tag">Case Study</div>
+      <div class="meta-rule"></div>
+      <div class="meta-date">2025</div>
+    </div>
+    <h1 class="hero-title reveal">
+      Halter's Sales Engine:<br>
+      <em>What $2B Actually Teaches<br>AgTech Founders</em>
+    </h1>
+    <p class="hero-deck reveal">
+      Most coverage focuses on the valuation. Nobody talks about how they actually built the commercial engine that got them there.
+    </p>
+    <div class="hero-byline reveal">
+      <div class="byline-avatar">A</div>
+      <div>
+        <div class="byline-name">Alexander Kappes</div>
+        <div class="byline-title">Founder & CRO, Reveneering</div>
+      </div>
+      <div class="byline-sep"></div>
+      <div class="byline-read">7 min read</div>
+    </div>
+  </div>
+</header>
+
+<!-- ARTICLE LAYOUT -->
+<div class="article-layout">
+
+  <!-- ARTICLE BODY -->
+  <article class="article-body">
+
+    <p class="reveal">Most coverage of Halter's $2B raise focuses on the valuation. Nobody talks about how they actually built the commercial engine that got them there.</p>
+
+    <p class="reveal">I spent the last week going deep — eight founder interviews with Craig Piggott, plus an independent Kellogg Rural Leadership study that ran the real financial numbers on three commercial farms. Here's what I found.</p>
+
+    <h2 id="s1" class="reveal">The first rule Craig kept repeating: reference customers before sales team</h2>
+
+    <p class="reveal">Halter's go-to-market motion was deliberately slow at the start. Get a handful of farmers using the product. Make them genuinely successful. Then wait.</p>
+
+    <div class="pull-quote reveal">
+      <div class="pull-quote-text">"Once you have reference customers, sales becomes a whole lot easier when you can point to examples. They tell their neighbors. They become reference customers and it kind of grows from that."</div>
+      <div class="pull-quote-attr">Craig Piggott, Founder & CEO, Halter</div>
+    </div>
+
+    <p class="reveal">This is not a novel idea. But almost no AgTech company actually does it. Most founders raise a seed round, hire two salespeople, and start cold outreach before they have a single customer they could confidently put a prospect on the phone with. The result is a sales process that depends entirely on the founder's ability to carry every deal, because there's no proof in the market yet.</p>
+
+    <p class="reveal">Halter's approach meant the sales team, when it eventually arrived, was selling with social proof already in the field. <strong>Farmers trust other farmers.</strong> A neighbor who has measurably improved their operation is worth more than any pitch deck.</p>
+
+    <h2 id="s2" class="reveal">The two conditions Craig required before scaling in any market</h2>
+
+    <p class="reveal">When Halter expanded — first across New Zealand, then into Australia, then the US — Craig applied the same discipline each time. Two things had to be true before he increased sales headcount:</p>
+
+    <div class="callout reveal">
+      <div class="callout-label">The Halter expansion checklist</div>
+      <p><strong>One:</strong> Awareness in the market. Farmers needed to have heard of Halter before a salesperson showed up.<br><br><strong>Two:</strong> Early customers at 100% satisfaction. Not good. Not satisfied. Actively advocating.</p>
+    </div>
+
+    <div class="pull-quote reveal">
+      <div class="pull-quote-text">"You have to be very respectful of a new market. You have to remind yourself that you know nothing about that market."</div>
+      <div class="pull-quote-attr">Craig Piggott, Founder & CEO, Halter</div>
+    </div>
+
+    <p class="reveal">He went into Tasmania differently than he went into New Zealand, and into the US differently again. The US is not a grass-based dairy market — it's a beef market. The product had to adapt. The value proposition had to shift. <strong>"Only then pile in the scale on teams and people to really accelerate growth."</strong></p>
+
+    <p class="reveal">The founders who skip this step — who export their NZ or Australian playbook to the US and expect the same motion to work — are the ones who spend 18 months learning expensive lessons.</p>
+
+    <h2 id="s3" class="reveal">The network effect that farming communities create — and how to use it</h2>
+
+    <p class="reveal">Agriculture has an unusually strong word-of-mouth dynamic. Farmers in a region know each other. They talk at field days, in town, at the pub. They are suspicious of vendors and trusting of peers.</p>
+
+    <p class="reveal">This asymmetry runs both ways. One farmer who had a bad experience with your technology and talked about it can close off a region for years. One farmer who had a breakthrough result and talks about it at a local event can open 20 doors in a single afternoon.</p>
+
+    <p class="reveal">Halter understood this and built around it. Demo farms weren't a marketing exercise — they were the distribution channel. A farm that was visibly, measurably performing better with Halter collars was a sales asset that compounded over time.</p>
+
+    <div class="callout reveal">
+      <div class="callout-label">The implication for your company</div>
+      <p>If you're building an AgTech company and you don't have a flagship reference farm in each of your key markets, you're missing the most efficient sales tool available to you.</p>
+    </div>
+
+    <h2 id="s4" class="reveal">The buyer qualification problem most AgTech companies ignore</h2>
+
+    <p class="reveal">The independent Kellogg study found something that complicates Halter's headline ROI claims — and makes them more useful at the same time.</p>
+
+    <p class="reveal">When applied to three high-performing NZ dairy farms, Halter delivered negative financial returns in every baseline scenario. The technology wasn't broken. The farms were already performing in the top quartile. They already had 91% heat detection efficiency. They already ran regular pasture monitoring. <strong>When the performance gap is small, the incremental value of technology is small.</strong></p>
+
+    <p class="reveal">The study's own finding: a 25% reduction in hardware cost, or a farm with genuine gaps in labour efficiency, animal health, or pasture utilisation, shifts the ROI from negative to meaningfully positive.</p>
+
+    <p class="reveal">This is the buyer qualification problem. Not every farmer is the right buyer today. The right buyer has a specific, measurable gap that the technology closes at a cost that justifies the investment. High-performing farms benefit less. Farms with real operational gaps benefit substantially more.</p>
+
+    <div class="pull-quote reveal">
+      <div class="pull-quote-text">AgTech founders who lead every conversation with headline ROI numbers without first understanding the prospect's baseline will lose credibility with the exact buyers they need most.</div>
+      <div class="pull-quote-attr">Reveneering analysis</div>
+    </div>
+
+    <p class="reveal">The better motion: start with the farmer's current performance metrics. Find the gap. Model the value of closing it. If the numbers work, you have a customer who bought on realistic expectations — the foundation of retention, referral, and expansion.</p>
+
+    <h2 id="s5" class="reveal">What this means for AgTech founders building a sales engine</h2>
+
+    <p class="reveal">The Halter playbook is not complicated. But it requires discipline that most early-stage founders don't have, because it means slowing down before you speed up.</p>
+
+    <p class="reveal">Nail three customers before you hire a salesperson. Make them so successful they sell for you. Understand your buyer's baseline before you quote them an ROI. Respect new markets enough to adapt before you scale. Build the reference farm before you build the pipeline.</p>
+
+    <p class="reveal">Craig Piggott didn't build a $2B company by outspending his competitors on customer acquisition. <strong>He built it by making every customer a distribution channel.</strong></p>
+
+    <p class="reveal">That's the engine.</p>
+
+    <!-- CTA -->
+    <div class="article-cta reveal">
+      <div class="cta-label">Reveneering</div>
+      <div class="cta-headline">Building this kind of commercial engine is what we do in 90 days</div>
+      <div class="cta-body">Reference customers, buyer qualification, market-specific outbound — this isn't theory. It's the methodology behind every Reveneering engagement. <strong>If you're at the stage where Halter's early discipline is the right model, let's talk.</strong></div>
+      <a class="cta-btn" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a 30-min call &rarr;</a>
+    </div>
+
+  </article>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar reveal">
+
+    <!-- Table of contents -->
+    <div class="sidebar-card">
+      <div class="sidebar-card-header">In this article</div>
+      <div class="sidebar-card-body">
+        <a class="toc-item" onclick="scrollTo('s1')">
+          <span class="toc-num">01</span>
+          <span class="toc-text">Reference customers before sales team</span>
+        </a>
+        <a class="toc-item" onclick="scrollTo('s2')">
+          <span class="toc-num">02</span>
+          <span class="toc-text">Two conditions before scaling any market</span>
+        </a>
+        <a class="toc-item" onclick="scrollTo('s3')">
+          <span class="toc-num">03</span>
+          <span class="toc-text">The farming network effect</span>
+        </a>
+        <a class="toc-item" onclick="scrollTo('s4')">
+          <span class="toc-num">04</span>
+          <span class="toc-text">The buyer qualification problem</span>
+        </a>
+        <a class="toc-item" onclick="scrollTo('s5')">
+          <span class="toc-num">05</span>
+          <span class="toc-text">What this means for you</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Interactive key principles -->
+    <div class="principles-card">
+      <div class="principles-card-header">The Halter principles — tap to reveal</div>
+      <div class="principle-item" onclick="togglePrinciple(this)">
+        <div class="principle-num">01</div>
+        <div class="principle-title">Nail three customers before you hire a salesperson</div>
+        <div class="principle-detail">Social proof in the field is worth more than any outbound sequence. Your first hires should be amplifying something that already works, not compensating for its absence.</div>
+      </div>
+      <div class="principle-item" onclick="togglePrinciple(this)">
+        <div class="principle-num">02</div>
+        <div class="principle-title">Make customers so successful they sell for you</div>
+        <div class="principle-detail">In agricultural markets, a neighbor's recommendation closes deals faster than any sales motion. Build your first customers like distribution channels, not revenue lines.</div>
+      </div>
+      <div class="principle-item" onclick="togglePrinciple(this)">
+        <div class="principle-num">03</div>
+        <div class="principle-title">Qualify on baseline before you quote ROI</div>
+        <div class="principle-detail">High-performing farms benefit less from technology. Find the operational gap first. If the ROI math doesn't work at their current baseline, say so — the right buyer is the one where it does.</div>
+      </div>
+      <div class="principle-item" onclick="togglePrinciple(this)">
+        <div class="principle-num">04</div>
+        <div class="principle-title">Respect new markets before you scale them</div>
+        <div class="principle-detail">A playbook that worked in one geography is a hypothesis in the next one. Validate before you accelerate. The cost of a wrong market entry in AgTech is measured in months, not dollars.</div>
+      </div>
+      <div class="principle-item" onclick="togglePrinciple(this)">
+        <div class="principle-num">05</div>
+        <div class="principle-title">Build the reference farm before the pipeline</div>
+        <div class="principle-detail">One flagship reference farm in a key market is a sales asset that compounds over years. A pipeline without reference customers is a pipeline that depends on the founder in every conversation.</div>
+      </div>
+      <div class="principles-prompt" id="principlesPrompt">Tap any principle to expand</div>
+    </div>
+
+  </aside>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <a class="footer-left" href="https://reveneering.com">
+    <svg width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
+      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
+    <span class="nav-wordmark" style="font-size:15px;">Re<span class="v">v</span>eneering</span>
+  </a>
+  <div class="footer-copy">Dallas, TX · Revenue Engineered</div>
+  <a class="footer-link" href="https://reveneering.com">reveneering.com</a>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll', () => {
+  const doc = document.documentElement;
+  const pct = doc.scrollHeight - doc.clientHeight
+    ? (window.scrollY / (doc.scrollHeight - doc.clientHeight)) * 100 : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  updateTOC();
+});
+
+// Reveal on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// TOC scroll
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    const offset = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({ top: offset, behavior: 'smooth' });
+  }
+}
+
+// TOC active state
+function updateTOC() {
+  const sections = ['s1','s2','s3','s4','s5'];
+  const items = document.querySelectorAll('.toc-item');
+  let active = 0;
+  sections.forEach((id, i) => {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top < 120) active = i;
+  });
+  items.forEach((item, i) => item.classList.toggle('active', i === active));
+}
+
+// Principle toggle
+function togglePrinciple(el) {
+  const wasRevealed = el.classList.contains('revealed');
+  document.querySelectorAll('.principle-item').forEach(p => p.classList.remove('revealed'));
+  if (!wasRevealed) el.classList.add('revealed');
+  const anyOpen = document.querySelector('.principle-item.revealed');
+  document.getElementById('principlesPrompt').textContent = anyOpen ? 'Tap to close or select another' : 'Tap any principle to expand';
+}
+</script>
+</body>
+</html>
