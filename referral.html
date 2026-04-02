@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reveneering — The Sales Engine Blueprint</title>
+<meta name="description" content="Refer three AgTech founders and get exclusive access to The Sales Engine Blueprint from Reveneering.">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1623; --navy2: #111F2E; --navy3: #162534;
+    --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.14);
+    --cream: #F0EAD6; --white: #FFFFFF;
+    --muted: rgba(255,255,255,0.45); --muted2: rgba(255,255,255,0.24);
+    --accent: #C8A96E; --accent2: #E8C98A;
+    --accent-dim: rgba(200,169,110,0.10); --accent-dim2: rgba(200,169,110,0.18);
+    --max: 860px; --pad: clamp(20px,5vw,56px);
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 72px 72px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* NAV */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,22,35,0.92);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 var(--pad);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-wordmark { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--cream); letter-spacing: -0.01em; }
+  .nav-wordmark .v { color: var(--accent); font-style: italic; }
+  .nav-back { font-size: 12px; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  /* LAYOUT */
+  .wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+  .page { padding: 120px 0 80px; }
+
+  /* HEADER */
+  .page-eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px; display: block;
+    opacity: 0; animation: fadeUp 0.5s ease 0.1s forwards;
+  }
+  .page-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(30px, 4.5vw, 48px);
+    font-weight: 400; line-height: 1.1;
+    color: var(--white); margin-bottom: 20px;
+    opacity: 0; animation: fadeUp 0.5s ease 0.2s forwards;
+  }
+  .page-headline em { font-style: italic; color: var(--cream); }
+  .page-sub {
+    font-size: 15px; color: var(--muted); line-height: 1.75;
+    max-width: 580px; margin-bottom: 48px;
+    opacity: 0; animation: fadeUp 0.5s ease 0.3s forwards;
+  }
+  .page-sub strong { color: rgba(255,255,255,0.8); font-weight: 500; }
+
+  /* WHAT YOU GET */
+  .blueprint-card {
+    background: var(--accent-dim2);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 4px;
+    padding: 24px 28px;
+    margin-bottom: 40px;
+    display: flex; gap: 24px; align-items: flex-start;
+    opacity: 0; animation: fadeUp 0.5s ease 0.35s forwards;
+  }
+  .blueprint-icon {
+    width: 40px; height: 40px; flex-shrink: 0;
+    border: 1px solid rgba(200,169,110,0.3);
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .blueprint-icon svg { width: 20px; height: 20px; }
+  .blueprint-label { font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+  .blueprint-title { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--cream); margin-bottom: 6px; }
+  .blueprint-desc { font-size: 13px; color: var(--muted); line-height: 1.65; }
+
+  /* FORM */
+  .form-wrap {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    opacity: 0; animation: fadeUp 0.5s ease 0.4s forwards;
+  }
+  .form-section {
+    padding: 28px 28px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .form-section:last-of-type { border-bottom: none; }
+  .form-section-label {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 18px; display: block;
+  }
+  .field { margin-bottom: 16px; }
+  .field:last-child { margin-bottom: 0; }
+  .field label {
+    display: block; font-size: 12px; color: var(--muted2);
+    letter-spacing: 0.04em; margin-bottom: 6px;
+  }
+  .field input {
+    width: 100%;
+    background: var(--navy3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 11px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--white);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .field input::placeholder { color: var(--muted2); }
+  .field input:focus { border-color: rgba(200,169,110,0.4); }
+  .field input.error { border-color: rgba(220,80,80,0.5); }
+
+  .referral-block {
+    background: var(--navy3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 18px 18px 14px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .referral-block:last-child { margin-bottom: 0; }
+  .referral-num {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 12px;
+  }
+
+  .form-footer {
+    padding: 20px 28px;
+    background: var(--navy3);
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  }
+  .form-footer-note { font-size: 12px; color: var(--muted2); line-height: 1.5; max-width: 380px; }
+  .form-footer-note strong { color: var(--muted); font-weight: 400; }
+
+  .submit-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500; letter-spacing: 0.03em;
+    padding: 13px 28px; border-radius: 3px;
+    border: none; cursor: pointer; white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .submit-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+  .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* ERROR / SUCCESS */
+  .form-error {
+    display: none;
+    background: rgba(220,80,80,0.08);
+    border: 1px solid rgba(220,80,80,0.2);
+    border-radius: 3px;
+    padding: 12px 16px;
+    margin: 16px 28px 0;
+    font-size: 13px;
+    color: rgba(255,160,160,0.9);
+    line-height: 1.55;
+  }
+  .form-error.visible { display: block; }
+
+  .success-state {
+    display: none;
+    padding: 48px 28px;
+    text-align: center;
+  }
+  .success-state.visible { display: block; }
+  .success-icon {
+    width: 48px; height: 48px;
+    border: 1px solid rgba(200,169,110,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .success-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px; color: var(--cream); margin-bottom: 10px;
+  }
+  .success-body { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 420px; margin: 0 auto; }
+  .success-body strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  /* CHECKPOINT */
+  .checkpoint {
+    margin-top: 32px;
+    display: flex; gap: 16px; align-items: flex-start;
+    opacity: 0; animation: fadeUp 0.5s ease 0.5s forwards;
+  }
+  .checkpoint-rule { width: 2px; background: var(--border); flex-shrink: 0; margin-top: 4px; align-self: stretch; min-height: 40px; }
+  .checkpoint-text { font-size: 12px; color: var(--muted2); line-height: 1.65; }
+  .checkpoint-text strong { color: var(--muted); font-weight: 400; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .form-footer { flex-direction: column; align-items: flex-start; gap: 14px; }
+    .submit-btn { width: 100%; justify-content: center; }
+    .blueprint-card { flex-direction: column; gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="/">
+    <svg width="28" height="28" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
+      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="14" cy="10" r="2" fill="#C8A96E" opacity="0.6"/>
+      <circle cx="14" cy="34" r="2" fill="#C8A96E" opacity="0.4"/>
+    </svg>
+    <span class="nav-wordmark">Re<span class="v">v</span>eneering</span>
+  </a>
+  <a class="nav-back" href="/">Back to reveneering.com &rarr;</a>
+</nav>
+
+<div class="page">
+  <div class="wrap">
+
+    <span class="page-eyebrow">Exclusive access &middot; AgTech founders only</span>
+    <h1 class="page-headline">Get <em>The Sales Engine Blueprint.</em><br>Free.</h1>
+    <p class="page-sub">
+      Refer three AgTech founders who are approaching the transition from founder-led to founder-informed sales, and we will send you immediate access to The Sales Engine Blueprint: the exact commercial framework Reveneering uses to build permanent sales engines for U.S. AgTech companies.
+      <br><br>
+      <strong>Not a summary. Not a slide deck. The actual framework.</strong>
+    </p>
+
+    <div class="blueprint-card">
+      <div class="blueprint-icon">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="3" y="2" width="14" height="16" rx="1.5" stroke="#C8A96E" stroke-width="1.2"/>
+          <line x1="6" y1="6" x2="14" y2="6" stroke="#C8A96E" stroke-width="1" stroke-linecap="round"/>
+          <line x1="6" y1="9" x2="14" y2="9" stroke="#C8A96E" stroke-width="1" stroke-linecap="round"/>
+          <line x1="6" y1="12" x2="10" y2="12" stroke="#C8A96E" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="blueprint-label">What you receive</div>
+        <div class="blueprint-title">The Sales Engine Blueprint</div>
+        <div class="blueprint-desc">Lead generation logic, outbound sequence architecture, pitch improvement framework, and ICP definition methodology. Built for AgTech buyers: food companies, government agencies, retailers, and producers. The commercial infrastructure behind every Reveneering engagement.</div>
+      </div>
+    </div>
+
+    <div class="form-wrap" id="formWrap">
+      <form id="referralForm" novalidate>
+
+        <div class="form-section">
+          <span class="form-section-label">Your details</span>
+          <div class="field">
+            <label for="yourName">Your name</label>
+            <input type="text" id="yourName" name="yourName" placeholder="Alex Johnson" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="yourEmail">Your email</label>
+            <input type="email" id="yourEmail" name="yourEmail" placeholder="alex@yourstartup.com" autocomplete="email">
+          </div>
+        </div>
+
+        <div class="form-section">
+          <span class="form-section-label">Three founders you're referring</span>
+
+          <div class="referral-block">
+            <div class="referral-num">Referral 01</div>
+            <div class="field">
+              <label for="r1name">Founder name</label>
+              <input type="text" id="r1name" name="r1name" placeholder="Sarah Chen">
+            </div>
+            <div class="field">
+              <label for="r1startup">Startup name</label>
+              <input type="text" id="r1startup" name="r1startup" placeholder="AcreLogic">
+            </div>
+            <div class="field">
+              <label for="r1email">Email</label>
+              <input type="email" id="r1email" name="r1email" placeholder="sarah@acrelogic.com">
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label for="r1linkedin">LinkedIn URL</label>
+              <input type="url" id="r1linkedin" name="r1linkedin" placeholder="linkedin.com/in/sarahchen">
+            </div>
+          </div>
+
+          <div class="referral-block">
+            <div class="referral-num">Referral 02</div>
+            <div class="field">
+              <label for="r2name">Founder name</label>
+              <input type="text" id="r2name" name="r2name" placeholder="Marcus Rivera">
+            </div>
+            <div class="field">
+              <label for="r2startup">Startup name</label>
+              <input type="text" id="r2startup" name="r2startup" placeholder="HerdView">
+            </div>
+            <div class="field">
+              <label for="r2email">Email</label>
+              <input type="email" id="r2email" name="r2email" placeholder="marcus@herdview.com">
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label for="r2linkedin">LinkedIn URL</label>
+              <input type="url" id="r2linkedin" name="r2linkedin" placeholder="linkedin.com/in/marcusrivera">
+            </div>
+          </div>
+
+          <div class="referral-block">
+            <div class="referral-num">Referral 03</div>
+            <div class="field">
+              <label for="r3name">Founder name</label>
+              <input type="text" id="r3name" name="r3name" placeholder="Priya Nair">
+            </div>
+            <div class="field">
+              <label for="r3startup">Startup name</label>
+              <input type="text" id="r3startup" name="r3startup" placeholder="SoilIQ">
+            </div>
+            <div class="field">
+              <label for="r3email">Email</label>
+              <input type="email" id="r3email" name="r3email" placeholder="priya@soiliq.com">
+            </div>
+            <div class="field" style="margin-bottom:0;">
+              <label for="r3linkedin">LinkedIn URL</label>
+              <input type="url" id="r3linkedin" name="r3linkedin" placeholder="linkedin.com/in/priyanair">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-error" id="formError"></div>
+
+        <div class="form-footer">
+          <div class="form-footer-note">
+            <strong>These should be founders you have actually met</strong> and believe are approaching a commercial inflection point. We reach out personally, not with automation.
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            Get the Blueprint &rarr;
+          </button>
+        </div>
+
+      </form>
+
+      <div class="success-state" id="successState">
+        <div class="success-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M4 10l4 4 8-8" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="success-title">You're in.</div>
+        <div class="success-body">
+          Check your inbox at <strong id="successEmail"></strong>. Your login credentials for The Sales Engine Blueprint are on their way. Check your spam folder if it doesn't arrive within a few minutes.
+        </div>
+      </div>
+    </div>
+
+    <div class="checkpoint">
+      <div class="checkpoint-rule"></div>
+      <div class="checkpoint-text">
+        Your referrals will receive a personal note from Alexander Kappes. <strong>No automated sequences. No pressure.</strong> A single, direct message relevant to where they are commercially.
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const WORKER_URL = 'https://reveneering-referral.a-m-kappes.workers.dev';
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  function isLinkedIn(url) {
+    return url.includes('linkedin.com/in/') || url.includes('linkedin.com/pub/');
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('formError');
+    el.textContent = msg;
+    el.classList.add('visible');
+  }
+
+  function clearError() {
+    document.getElementById('formError').classList.remove('visible');
+  }
+
+  document.getElementById('referralForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    clearError();
+
+    const yourName = document.getElementById('yourName').value.trim();
+    const yourEmail = document.getElementById('yourEmail').value.trim();
+    const r1name = document.getElementById('r1name').value.trim();
+    const r1startup = document.getElementById('r1startup').value.trim();
+    const r1email = document.getElementById('r1email').value.trim();
+    const r1linkedin = document.getElementById('r1linkedin').value.trim();
+    const r2name = document.getElementById('r2name').value.trim();
+    const r2startup = document.getElementById('r2startup').value.trim();
+    const r2email = document.getElementById('r2email').value.trim();
+    const r2linkedin = document.getElementById('r2linkedin').value.trim();
+    const r3name = document.getElementById('r3name').value.trim();
+    const r3startup = document.getElementById('r3startup').value.trim();
+    const r3email = document.getElementById('r3email').value.trim();
+    const r3linkedin = document.getElementById('r3linkedin').value.trim();
+
+    if (!yourName) return showError('Please enter your name.');
+    if (!isValidEmail(yourEmail)) return showError('Please enter a valid email address.');
+    if (!r1name || !r1startup || !r1email || !r1linkedin) return showError('Please complete all fields for Referral 01.');
+    if (!isValidEmail(r1email)) return showError('Referral 01: please enter a valid email address.');
+    if (!isLinkedIn(r1linkedin)) return showError('Referral 01: please enter a valid LinkedIn URL (linkedin.com/in/...).');
+    if (!r2name || !r2startup || !r2email || !r2linkedin) return showError('Please complete all fields for Referral 02.');
+    if (!isValidEmail(r2email)) return showError('Referral 02: please enter a valid email address.');
+    if (!isLinkedIn(r2linkedin)) return showError('Referral 02: please enter a valid LinkedIn URL (linkedin.com/in/...).');
+    if (!r3name || !r3startup || !r3email || !r3linkedin) return showError('Please complete all fields for Referral 03.');
+    if (!isValidEmail(r3email)) return showError('Referral 03: please enter a valid email address.');
+    if (!isLinkedIn(r3linkedin)) return showError('Referral 03: please enter a valid LinkedIn URL (linkedin.com/in/...).');
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    try {
+      const res = await fetch(`${WORKER_URL}/referral`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          yourName, yourEmail,
+          referrals: [
+            { name: r1name, startup: r1startup, email: r1email, linkedin: r1linkedin },
+            { name: r2name, startup: r2startup, email: r2email, linkedin: r2linkedin },
+            { name: r3name, startup: r3startup, email: r3email, linkedin: r3linkedin }
+          ]
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        btn.disabled = false;
+        btn.textContent = 'Get the Blueprint →';
+        return showError(data.error || 'Something went wrong. Please try again.');
+      }
+
+      document.getElementById('referralForm').style.display = 'none';
+      document.getElementById('successEmail').textContent = yourEmail;
+      document.getElementById('successState').classList.add('visible');
+
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = 'Get the Blueprint →';
+      showError('Could not reach the server. Please check your connection and try again.');
+    }
+  });
+</script>
+</body>
+</html>
