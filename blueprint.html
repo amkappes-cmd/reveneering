@@ -298,39 +298,14 @@
   <div class="nav-badge">Exclusive access</div>
 </nav>
 
-<!-- LOGIN VIEW -->
-<div id="loginView">
-  <div class="login-box">
-    <div class="login-header">
-      <span class="login-eyebrow">Founder access</span>
-      <div class="login-title">The Sales Engine Blueprint</div>
-    </div>
-    <div class="login-body">
-      <div class="field">
-        <label for="loginEmail">Username (your email)</label>
-        <input type="email" id="loginEmail" placeholder="you@yourstartup.com" autocomplete="email">
-      </div>
-      <div class="field">
-        <label for="loginPassword">Password</label>
-        <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
-      </div>
-      <div class="login-error" id="loginError">Incorrect username or password. Check the email we sent you and try again.</div>
-    </div>
-    <div class="login-footer">
-      <button class="login-btn" id="loginBtn" onclick="attemptLogin()">Access the Blueprint &rarr;</button>
-      <div class="login-note">Check the email from a@reveneering.com for your credentials.</div>
-    </div>
-  </div>
-</div>
-
 <!-- BLUEPRINT VIEW -->
-<div id="blueprintView">
+<div id="blueprintView" style="display:block;">
   <div class="wrap">
 
     <span class="bp-eyebrow">The Sales Engine Blueprint &middot; Reveneering</span>
     <h1 class="bp-headline">The commercial framework<br>behind <em>every</em> Reveneering engagement.</h1>
     <p class="bp-sub">
-      What follows is the exact methodology we use to build permanent sales engines for U.S. AgTech founders. Not a summary. The actual framework: ICP definition, lead generation logic, outbound architecture, and pitch improvement system.
+      What follows is the exact methodology we use to build permanent sales engines for U.S. AgTech founders. Not a summary. The actual framework: ICP definition, lead generation logic, outbound architecture, pipeline management, pitch improvement system, and the transition plan that makes it all run without you.
       <br><br>
       <strong>This is what your sales engine needs to do before it can run without you.</strong>
     </p>
@@ -358,7 +333,7 @@
         <div class="principle">
           <div class="principle-num">03</div>
           <div class="principle-title">The ICP has a job title and a problem, not a sector</div>
-          <div class="principle-body">"U.S. food companies" is not an ICP. <strong>"VP of Sustainability at a mid-market U.S. food manufacturer with a stated 2025 regenerative sourcing commitment"</strong> is an ICP. The precision is what makes lead generation possible.</div>
+          <div class="principle-body">"U.S. food companies" is not an ICP. <strong>"VP of Sustainability at a mid-market U.S. food manufacturer with a stated 2026 regenerative sourcing commitment"</strong> is an ICP. The precision is what makes lead generation possible.</div>
         </div>
         <div class="principle">
           <div class="principle-num">04</div>
@@ -370,6 +345,10 @@
         <div class="callout-label">Field note</div>
         <div class="callout-text">At Greener Crop, the ICP shifted three times in 18 months before we found the buyer profile that closed consistently. Each shift was data-driven: we tracked what stalled, what accelerated, and what closed at full price without negotiation. <strong>The version that worked was nothing like the version we started with.</strong></div>
       </div>
+      <div class="callout">
+        <div class="callout-label">The hard part</div>
+        <div class="callout-text">The ICP framework above is straightforward to understand. It is not straightforward to execute. The difficulty is not drawing the grid. It is knowing which data to trust when your sample size is six deals, four of which have different buyer profiles, and two of which closed for reasons that have nothing to do with your product. <strong>Getting the ICP right at Seed stage requires pattern recognition across a very small data set.</strong> That is judgment work, not framework work.</div>
+      </div>
     </div>
 
     <!-- SECTION 2 -->
@@ -379,7 +358,7 @@
         <div class="rule"></div>
       </div>
       <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
-        Lead generation in AgTech is not a data problem. Most of the data exists. It is a targeting logic problem: knowing which signals indicate a buyer is ready to engage, and building a system that surfaces those signals continuously without founder involvement.
+        Lead generation in AgTech runs on two tracks: cold sourcing (finding buyers who do not know you) and warm channels (converting relationships you already have into pipeline). Most founders default to one and neglect the other. The engine needs both, weighted to your stage and your market.
       </p>
       <div class="step-list" style="margin-bottom:24px;">
         <div class="step">
@@ -387,13 +366,13 @@
           <div class="step-content">
             <div class="step-label">Signal identification</div>
             <div class="step-title">Find the trigger events that precede a buying decision</div>
-            <div class="step-body">Every AgTech purchase is preceded by a trigger: a new sustainability mandate, a failed harvest season, a procurement policy change, a funding round that unlocks a technology budget. <strong>The lead engine is built around monitoring these triggers, not around demographic targeting.</strong> Triggers are searchable. Demographics are not buying signals.</div>
+            <div class="step-body">Every AgTech purchase is preceded by a trigger: a new sustainability mandate, a failed harvest season, a procurement policy change, a funding round that unlocks a technology budget. <strong>The lead engine is built around monitoring these triggers, not around demographic targeting.</strong> Triggers are searchable. Demographics are not buying signals. AI-driven signal monitoring can track these triggers across news, filings, and social platforms continuously, surfacing prospects the moment their buying conditions change.</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-content">
-            <div class="step-label">Source architecture</div>
+            <div class="step-label">Cold source architecture</div>
             <div class="step-title">Match your lead source to your buyer type</div>
             <div class="step-body">
               <strong>Food companies and retailers:</strong> LinkedIn Sales Navigator filtered by title, company size, and recent content on your trigger topics. Cross-referenced with press releases and sustainability reports.<br><br>
@@ -405,23 +384,39 @@
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-content">
-            <div class="step-label">Enrichment and qualification</div>
-            <div class="step-title">Qualify before contact, not during it</div>
-            <div class="step-body">Every prospect that enters your pipeline should already meet three criteria: right buyer type, active trigger signal, verified contact data. <strong>The enrichment step eliminates the discovery conversation.</strong> Your first outreach should demonstrate knowledge, not request it. This changes the entire tone of the first interaction.</div>
+            <div class="step-label">Warm channels</div>
+            <div class="step-title">Ecosystem selling converts faster than cold outbound</div>
+            <div class="step-body">Agriculture is a relationship industry. For most Seed-stage AgTech companies, warm channels should generate 40 to 60 percent of pipeline. <strong>The engine must formalize these channels, not leave them to chance.</strong><br><br>
+              <strong>Accelerator and program networks:</strong> Brinc, Gener8tor, Techstars Farm to Fork, and similar programs put you in front of buyers in structured settings. A referral from a program director carries weight that cold outreach never will.<br><br>
+              <strong>Complementary vendor partnerships:</strong> Other AgTech companies selling to the same buyer (but not the same problem) are your fastest path to warm introductions. Identify three to five non-competing vendors in your buyer's stack and build co-referral agreements.<br><br>
+              <strong>Conference and field day selling:</strong> Commodity Classic, World Agri-Tech, regional extension events. These are not networking opportunities. They are pipeline opportunities. Go with a target list, pre-book meetings, and follow up within 48 hours.
+            </div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">4</div>
           <div class="step-content">
+            <div class="step-label">Enrichment and qualification</div>
+            <div class="step-title">Qualify before contact, not during it</div>
+            <div class="step-body">Every prospect that enters your pipeline should already meet three criteria: right buyer type, active trigger signal, verified contact data. AI-powered enrichment tools can pull company context, financial signals, and technology stack data in seconds. <strong>The enrichment step eliminates the discovery conversation.</strong> Your first outreach should demonstrate knowledge, not request it. This changes the entire tone of the first interaction.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
             <div class="step-label">System design</div>
             <div class="step-title">Build a lead engine, not a list</div>
-            <div class="step-body">A list is a moment in time. An engine runs continuously. <strong>The difference is whether the sourcing logic is documented and repeatable, or whether it lives in someone's browser history.</strong> The engine is a set of saved searches, alert triggers, and enrichment workflows that adds qualified prospects to the CRM on a weekly cadence without manual intervention.</div>
+            <div class="step-body">A list is a moment in time. An engine runs continuously. <strong>The difference is whether the sourcing logic is documented, automated, and repeatable, or whether it lives in someone's browser history.</strong> The engine is a set of saved searches, AI-monitored alert triggers, and enrichment workflows that surface qualified prospects on a regular cadence without manual intervention. At Seed stage, this needs to run in under two hours a week of founder time. If it requires more, the system is not built right.</div>
           </div>
         </div>
       </div>
       <div class="callout">
         <div class="callout-label">The output</div>
-        <div class="callout-text">A functioning lead engine adds 15 to 30 qualified, enriched prospects per week to your pipeline, matched to your ICP, with contact data verified and trigger signals documented. <strong>That is the baseline. The volume adjusts to your capacity to work the pipeline, not to what the tools can generate.</strong></div>
+        <div class="callout-text">In most AgTech verticals, the total addressable contact list for a precise ICP is hundreds of people, not thousands. A functioning lead engine does not spray at volume. <strong>It identifies 10 to 20 high-fit prospects per week from cold and warm sources combined, enriched and qualified before first contact.</strong> The volume scales to your TAM and your capacity to work the pipeline, not to what the tools can generate.</div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">The hard part</div>
+        <div class="callout-text">Building the source architecture is not the challenge. Tuning it is. Which triggers actually predict buying intent in your specific market? Which enrichment signals matter and which are noise? Which warm channels convert and which are just comfortable? <strong>The calibration work requires someone who has built lead engines in agriculture before, not someone learning the industry on your dime.</strong></div>
       </div>
     </div>
 
@@ -432,8 +427,20 @@
         <div class="rule"></div>
       </div>
       <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
-        Automated outbound in AgTech fails for one reason: it reads like automated outbound. The architecture below is designed around the commercial reality that your buyers receive dozens of outreach messages per week and delete most of them in under three seconds. Getting through requires specificity, not volume.
+        Outbound in AgTech fails for two reasons: it reads like automated outbound, or it never reaches the inbox at all. The architecture below addresses both. It is designed around the commercial reality that your buyers receive dozens of outreach messages per week and delete most of them in under three seconds. Getting through requires specificity, deliverability infrastructure, and multichannel presence.
       </p>
+
+      <div class="step-list" style="margin-bottom:24px;">
+        <div class="step">
+          <div class="step-num">&nbsp;</div>
+          <div class="step-content">
+            <div class="step-label">Before you send anything</div>
+            <div class="step-title">Deliverability infrastructure is the foundation</div>
+            <div class="step-body">None of the sequence below matters if your emails land in spam. Before running any automated outbound: configure SPF, DKIM, and DMARC on your sending domain. Warm the domain over two to four weeks with graduated volume. Use a dedicated sending domain (not your primary company domain). Set daily sending limits that protect your sender reputation. <strong>Skip this step and your outbound is dead before it starts.</strong> This is the most common and most expensive mistake Seed-stage founders make with cold email.</div>
+          </div>
+        </div>
+      </div>
+
       <table class="bp-table">
         <thead>
           <tr>
@@ -447,32 +454,38 @@
           <tr>
             <td>01 &middot; Opening</td>
             <td>Email</td>
-            <td>One sentence proving specific knowledge of their situation. Three lines on the commercial problem. One soft question, not a pitch.</td>
+            <td>One sentence proving specific knowledge of their situation. Two to three lines on the commercial problem. One soft question, not a pitch. Under 80 words total.</td>
             <td>Day 1</td>
           </tr>
           <tr>
-            <td>02 &middot; Value add</td>
-            <td>Email</td>
-            <td>A relevant insight, case study, or data point that is useful regardless of whether they engage. No ask.</td>
-            <td>Day 5</td>
+            <td>02 &middot; Connect</td>
+            <td>LinkedIn</td>
+            <td>Connection request with a one-line note. Do not reference the email. Frame it as a standalone reason to connect. Different context, same person.</td>
+            <td>Day 3</td>
           </tr>
           <tr>
-            <td>03 &middot; Reframe</td>
-            <td>LinkedIn</td>
-            <td>Connection request with a one-line note referencing the email. Different channel, same person.</td>
-            <td>Day 8</td>
+            <td>03 &middot; Value add</td>
+            <td>LinkedIn DM or voice note</td>
+            <td>A relevant insight, data point, or short perspective on something happening in their market. Useful regardless of whether they engage. No ask. Voice notes outperform text DMs with senior buyers in ag.</td>
+            <td>Day 7</td>
           </tr>
           <tr>
             <td>04 &middot; Direct ask</td>
             <td>Email</td>
-            <td>A direct, short ask for 20 minutes. Reference what you sent previously. Make it easy to say yes or no.</td>
-            <td>Day 14</td>
+            <td>A direct, short ask for 20 minutes. Reference the value you shared. Make it easy to say yes or no. Under 50 words.</td>
+            <td>Day 12</td>
           </tr>
           <tr>
-            <td>05 &middot; Long hold</td>
+            <td>05 &middot; Engage publicly</td>
+            <td>LinkedIn</td>
+            <td>Comment on their content or share something relevant to their work. Build visible familiarity before the next private touch.</td>
+            <td>Day 16-20</td>
+          </tr>
+          <tr>
+            <td>06 &middot; Long hold</td>
             <td>Email</td>
-            <td>A single line. A new trigger event or development relevant to them. Re-opens without re-pitching.</td>
-            <td>Day 30</td>
+            <td>A single line. A new trigger event or development relevant to them. Re-opens without re-pitching. If no new trigger exists, do not send this touch. Silence is better than noise.</td>
+            <td>Day 30+</td>
           </tr>
         </tbody>
       </table>
@@ -480,7 +493,7 @@
         <div class="principle">
           <div class="principle-num">Rule 01</div>
           <div class="principle-title">Specificity over personalization tokens</div>
-          <div class="principle-body">Inserting a first name and company name is not personalization. <strong>Referencing their most recent earnings call, their open sustainability RFP, or their new processing facility</strong> is personalization. The former gets deleted. The latter gets read.</div>
+          <div class="principle-body">Inserting a first name and company name is not personalization. <strong>Referencing their most recent earnings call, their open sustainability RFP, or their new processing facility</strong> is personalization. AI can surface this context at scale; the founder's job is to verify it reads as genuine, not generated.</div>
         </div>
         <div class="principle">
           <div class="principle-num">Rule 02</div>
@@ -490,24 +503,77 @@
         <div class="principle">
           <div class="principle-num">Rule 03</div>
           <div class="principle-title">The subject line is the open rate</div>
-          <div class="principle-body">Subject lines that work in AgTech outbound are derived from the content of the first bullet, not from the offer. <strong>"Regenerative sourcing traction in your category"</strong> outperforms "Introduction from Reveneering" by a factor that is not close.</div>
+          <div class="principle-body">Subject lines that work in AgTech outbound are topical and specific, not branded. <strong>"Regenerative sourcing traction in your category"</strong> outperforms "Introduction" or "Quick question" by a factor that is not close. Derive the subject from the trigger event, not the offer.</div>
         </div>
         <div class="principle">
           <div class="principle-num">Rule 04</div>
-          <div class="principle-title">Timing is not universal</div>
-          <div class="principle-body">Food company buyers respond differently to timing than producers. Producers are seasonally constrained. Government buyers have fiscal year calendars. <strong>An outbound sequence that ignores timing is operating at a fraction of its potential response rate.</strong></div>
+          <div class="principle-title">Timing follows the buyer's calendar, not yours</div>
+          <div class="principle-body">Food company buyers plan around procurement cycles and quarterly reviews. Producers are seasonally constrained: do not pitch during planting or harvest. Government buyers operate on fiscal year calendars with budget commitment windows. <strong>Map your sequence timing to your buyer's operational rhythm or accept a fraction of your potential response rate.</strong></div>
         </div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">Seed-stage reality</div>
+        <div class="callout-text">You do not have a sales team. You probably have 5 to 10 hours a week for outbound, total. The sequence above is designed for that constraint: it runs on automation for scheduling and enrichment, but the founder writes or approves every first touch. <strong>At your stage, 15 to 20 highly specific touches per week will outperform 200 generic ones.</strong> Quality-at-low-volume is the only outbound strategy that works when your TAM is small and your reputation is everything.</div>
       </div>
     </div>
 
-    <!-- SECTION 4 -->
+    <!-- SECTION 4: PIPELINE MANAGEMENT (NEW) -->
     <div class="bp-section">
       <div class="section-rule">
-        <h2>Part 4: Pitch improvement system</h2>
+        <h2>Part 4: Pipeline management</h2>
         <div class="rule"></div>
       </div>
       <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
-        Most founders treat pitch improvement as a periodic rewrite. The framework below treats it as a continuous feedback loop that gets smarter with every outreach cycle. The difference in output quality after 90 days of systematic iteration is not marginal.
+        The gap between generating leads and closing deals is where most Seed-stage AgTech companies lose. Prospects enter the pipeline and then die there, not because the product is wrong, but because the follow-up discipline does not exist. Pipeline management is not a growth-stage concern. It is the thing that determines whether your outbound investment converts into revenue or into a spreadsheet of names you emailed once.
+      </p>
+      <div class="step-list" style="margin-bottom:24px;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-label">Deal stages</div>
+            <div class="step-title">Define what "progress" means before you start tracking it</div>
+            <div class="step-body">Most early-stage CRMs are graveyards of contacts with no stage definitions. At minimum, you need five stages that reflect actual buyer behavior in ag: <strong>Prospect (identified, not contacted), Engaged (responded to outreach), Discovery (had a substantive conversation), Evaluation (reviewing proposal or pilot terms), Closed.</strong> Each stage should have a clear entry criteria and a defined next action. If you cannot articulate what moves a deal from one stage to the next, the stages are decoration.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-label">Follow-up cadence</div>
+            <div class="step-title">The deal you lose is the one you forget to follow up on</div>
+            <div class="step-body">AgTech sales cycles are long. Three to six months is normal for enterprise. Nine to twelve months is normal for government. <strong>Every deal in your pipeline needs a scheduled next action with a specific date.</strong> No deal should sit without a next step for more than 10 business days. If you have 30 deals and no system for tracking next actions, you are losing deals to silence right now.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-label">Pipeline metrics</div>
+            <div class="step-title">Three numbers tell you if your engine is working</div>
+            <div class="step-body"><strong>Conversion rate by stage:</strong> where are deals stalling? If 80% of your prospects engage but only 10% reach evaluation, the gap is in discovery, not outbound. <strong>Average days in stage:</strong> a deal that has been in "Evaluation" for 90 days is not being evaluated. It is stalled. <strong>Pipeline coverage ratio:</strong> at Seed stage, you need 4 to 5x pipeline coverage against your revenue target, because close rates are still being established.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-label">CRM discipline</div>
+            <div class="step-title">Keep it simple or you will not keep it at all</div>
+            <div class="step-body">At Seed stage, CRM complexity kills adoption. You need four things tracked per deal: current stage, last contact date, next action and date, and one line of context on where the conversation stands. <strong>If updating your CRM takes more than 5 minutes a day, the system is too heavy for your stage.</strong> Sophistication comes later. Consistency comes first.</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">The hard part</div>
+        <div class="callout-text">Pipeline management sounds like administration. It is not. It is the commercial discipline that separates founders who close from founders who demo. Knowing which deals to push, which to park, and which to walk away from requires judgment that only comes from running pipelines in this industry. <strong>The framework is simple. The decisions it surfaces are not.</strong></div>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="bp-section">
+      <div class="section-rule">
+        <h2>Part 5: Pitch improvement system</h2>
+        <div class="rule"></div>
+      </div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
+        Most founders treat pitch improvement as a periodic rewrite. The framework below treats it as a continuous feedback loop that gets sharper with every outreach cycle and every sales conversation. In AgTech, where buyer skepticism of technology is high and proof requirements are specific, the difference between a pitch that opens doors and one that gets ignored is rarely about polish. It is about whether you are speaking to the buyer's actual commercial problem or to the one you think they should have.
       </p>
       <div class="step-list" style="margin-bottom:24px;">
         <div class="step">
@@ -515,23 +581,23 @@
           <div class="step-content">
             <div class="step-label">Track what the data actually tells you</div>
             <div class="step-title">Open rate, reply rate, and meeting rate are three different signals</div>
-            <div class="step-body"><strong>Low open rate:</strong> subject line problem. <strong>Low reply rate on high open rate:</strong> first two sentences or value proposition problem. <strong>Low meeting rate on high reply rate:</strong> the CTA or the ask structure is the problem. Each requires a different fix. Treating all three as a "messaging problem" means fixing the wrong thing.</div>
+            <div class="step-body"><strong>Low open rate:</strong> subject line problem. <strong>Low reply rate on high open rate:</strong> first two sentences or value proposition problem. <strong>Low meeting rate on high reply rate:</strong> the CTA or the ask structure is the problem. Each requires a different fix. Treating all three as a "messaging problem" means fixing the wrong thing. In AgTech specifically, a common pattern is high open rate with low reply: the topic is relevant, but the buyer does not believe you understand their operational reality well enough to be worth a conversation.</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">2</div>
           <div class="step-content">
-            <div class="step-label">Test one variable at a time</div>
-            <div class="step-title">Variant testing only works if the control is clean</div>
-            <div class="step-body">Change the subject line in one variant. Change the opening sentence in another. Change the CTA in a third. <strong>Changing multiple elements simultaneously makes it impossible to know what moved the needle.</strong> Run variants for a minimum of two weeks before drawing conclusions. AgTech response cycles are slower than SaaS.</div>
+            <div class="step-label">Iterate at low volume</div>
+            <div class="step-title">You do not need statistical significance to learn</div>
+            <div class="step-body">At Seed stage, you are sending 15 to 20 outreach touches a week, not 200. Traditional A/B testing does not work at that volume. Instead: <strong>change one element per cycle (two weeks), track responses qualitatively, and look for patterns in how buyers respond, not just whether they respond.</strong> A reply that says "not now, but interesting" tells you something different from silence. Both are data. Document what you changed, what happened, and what you are trying next. The rigor is in the discipline, not the sample size.</div>
           </div>
         </div>
         <div class="step">
           <div class="step-num">3</div>
           <div class="step-content">
             <div class="step-label">Objection mapping</div>
-            <div class="step-title">Every objection is a data point, not a rejection</div>
-            <div class="step-body">Log every objection by category: price, timing, internal priority, incumbent vendor, skepticism about ROI. <strong>When the same objection appears three times, it belongs in the outreach sequence as pre-emptive counter-messaging.</strong> The pitch improves because you stop being surprised by objections you have already heard.</div>
+            <div class="step-title">AgTech buyers object differently than SaaS buyers</div>
+            <div class="step-body">Log every objection by category. In AgTech, the most common are: ROI skepticism ("prove it works at our scale"), timing ("we're mid-season"), integration risk ("we already have systems"), and budget authority ("this decision isn't mine"). <strong>When the same objection appears three times, it belongs in the outreach sequence as pre-emptive counter-messaging.</strong> The pitch improves because you stop being surprised by objections you have already heard. Pay special attention to the objections that are specific to agriculture: harvest-cycle timing, co-op decision structures, and the gap between pilot interest and procurement authority.</div>
           </div>
         </div>
         <div class="step">
@@ -539,41 +605,41 @@
           <div class="step-content">
             <div class="step-label">Monthly iteration cycle</div>
             <div class="step-title">Schedule the improvement work or it will not happen</div>
-            <div class="step-body">Set a fixed monthly review: open rate by variant, reply rate by segment, objection log, subject line performance. <strong>The review is not a creative session. It is a data session.</strong> The output is a specific list of changes to the next month's sequences, with the rationale documented against the data that drove it.</div>
+            <div class="step-body">Set a fixed monthly review: response patterns by buyer type, objection log, what language resonated in conversations, which channels generated the most engagement. <strong>The review is not a creative session. It is a data session.</strong> The output is a specific list of changes to the next cycle's sequences, with the rationale documented. At Seed stage, this review takes 60 to 90 minutes. If you cannot find 90 minutes a month for this, you are running outbound blind.</div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- SECTION 5 -->
+    <!-- SECTION 6 -->
     <div class="bp-section">
       <div class="section-rule">
-        <h2>Part 5: The transition from founder-led to founder-informed</h2>
+        <h2>Part 6: The transition from founder-led to founder-informed</h2>
         <div class="rule"></div>
       </div>
       <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
-        The engine is built. The leads are flowing. The outbound is running. This section covers the part most frameworks skip: how to actually hand the engine to a team without losing the momentum you have built.
+        The engine is built. The leads are flowing. The outbound is running. This section covers the part most AgTech founders get wrong: how to hand the engine to a team without losing the momentum you built, and when that handover should actually happen. At Seed stage, this is not a current problem. It is the problem you are building toward. Getting the architecture right now determines whether your first sales hire succeeds or becomes your most expensive mistake.
       </p>
       <div class="principle-grid">
         <div class="principle">
           <div class="principle-num">The mistake</div>
           <div class="principle-title">Hiring a sales lead before the engine exists</div>
-          <div class="principle-body">A sales hire without a running engine becomes a founder replacement, not a commercial function. <strong>They spend their first 90 days building what should have been built before they arrived.</strong> You lose time, money, and momentum. The engine comes first. The hire runs the engine.</div>
+          <div class="principle-body">A sales hire without a running engine becomes a founder replacement, not a commercial function. <strong>They spend their first 90 days building what should have been built before they arrived.</strong> In AgTech, this is doubly expensive: your sales hire likely does not understand ag buyer psychology, seasonal timing, or the difference between a pilot and a procurement commitment. You lose time, money, and credibility with buyers who gave your hire one meeting and did not get a second.</div>
         </div>
         <div class="principle">
           <div class="principle-num">The sequence</div>
           <div class="principle-title">Build, document, then hire</div>
-          <div class="principle-body">The hiring brief for your first sales lead is one of the outputs of the engine-build phase. <strong>It specifies exactly what the role runs, not what it builds.</strong> The candidate knows what they are walking into. Onboarding is measured in days, not months.</div>
+          <div class="principle-body">The hiring brief for your first sales lead is one of the outputs of the engine-build phase. <strong>It specifies exactly what the role runs, not what it builds.</strong> In AgTech, look for someone with ag industry relationships and operational understanding, not just SaaS sales experience. A candidate who can talk to a VP of Procurement at a food manufacturer and a county extension agent in the same week is worth more than someone who hit quota at a software company.</div>
         </div>
         <div class="principle">
           <div class="principle-num">The handover</div>
           <div class="principle-title">Documented process is the only thing that survives a hire</div>
-          <div class="principle-body">If the engine lives in someone's head, it leaves when they do. <strong>Every sequence, every qualification criteria, every objection counter, every lead source</strong> must be documented well enough that a new hire can run it without asking the founder how it works.</div>
+          <div class="principle-body">If the engine lives in someone's head, it leaves when they do. <strong>Every sequence, every qualification criteria, every objection counter, every lead source, every seasonal timing adjustment</strong> must be documented well enough that a new hire can run it without asking the founder how it works. In ag, this documentation must include buyer-specific context that a non-ag hire would never guess: which months to avoid, which events matter, which co-ops make decisions by committee.</div>
         </div>
         <div class="principle">
           <div class="principle-num">The founder role</div>
           <div class="principle-title">Informed, not removed</div>
-          <div class="principle-body">Founder-informed sales means you are in the room for the deals that need you, and absent from the ones that do not. <strong>The engine surfaces which is which.</strong> Late-stage enterprise deals with buying committees still need the founder. The first 12 touches almost never do.</div>
+          <div class="principle-body">Founder-informed sales means you are in the room for the deals that need you, and absent from the ones that do not. <strong>The engine surfaces which is which.</strong> In AgTech at Seed stage, the founder will likely stay in the room for enterprise and institutional deals longer than in SaaS, because ag buyers are buying the founder's credibility as much as the product. The first 12 touches and the pipeline management almost never need you.</div>
         </div>
       </div>
     </div>
@@ -581,8 +647,8 @@
     <!-- CTA -->
     <div class="bp-cta">
       <div class="bp-cta-text">
-        <strong>Ready to have this built for your company?</strong>
-        The Commercial Quarter builds every component of this framework inside your business in 90 days. Lead generation engine, outbound architecture, pitch improvement system. Owned by you permanently.
+        <strong>The framework is the easy part. The calibration is not.</strong>
+        You now know what the engine needs to do. The Commercial Quarter builds it inside your business in 90 days: ICP definition tuned to your market, lead generation across cold and warm channels, multichannel outbound, pipeline architecture, and pitch improvement system. Built in agriculture, not adapted from SaaS. Owned by you permanently.
       </div>
       <a class="bp-cta-btn" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a 30-min call &rarr;</a>
     </div>
@@ -590,59 +656,5 @@
   </div>
 </div>
 
-<script>
-  const WORKER_URL = 'https://reveneering-referral.a-m-kappes.workers.dev';
-
-  document.getElementById('loginPassword').addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') attemptLogin();
-  });
-
-  async function attemptLogin() {
-    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
-    const password = document.getElementById('loginPassword').value;
-    const btn = document.getElementById('loginBtn');
-    const errorEl = document.getElementById('loginError');
-
-    errorEl.classList.remove('visible');
-
-    if (!email || !password) {
-      errorEl.textContent = 'Please enter your username and password.';
-      errorEl.classList.add('visible');
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Checking...';
-
-    try {
-      const res = await fetch(`${WORKER_URL}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data = await res.json();
-
-      if (!res.ok || !data.success) {
-        errorEl.textContent = 'Incorrect username or password. Check the email from a@reveneering.com and try again.';
-        errorEl.classList.add('visible');
-        btn.disabled = false;
-        btn.textContent = 'Access the Blueprint →';
-        return;
-      }
-
-      // Authenticated
-      document.getElementById('loginView').style.display = 'none';
-      document.getElementById('blueprintView').style.display = 'block';
-      window.scrollTo(0, 0);
-
-    } catch (err) {
-      errorEl.textContent = 'Could not connect. Please check your connection and try again.';
-      errorEl.classList.add('visible');
-      btn.disabled = false;
-      btn.textContent = 'Access the Blueprint →';
-    }
-  }
-</script>
 </body>
 </html>
