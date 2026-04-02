@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sales Engine Blueprint — Reveneering</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #0B1623; --navy2: #111F2E; --navy3: #162534;
+    --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.14);
+    --cream: #F0EAD6; --white: #FFFFFF;
+    --muted: rgba(255,255,255,0.45); --muted2: rgba(255,255,255,0.24);
+    --accent: #C8A96E; --accent2: #E8C98A;
+    --accent-dim: rgba(200,169,110,0.10); --accent-dim2: rgba(200,169,110,0.18);
+    --max: 860px; --pad: clamp(20px,5vw,56px);
+  }
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 72px 72px;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* NAV */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(11,22,35,0.92);
+    backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 var(--pad);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .nav-wordmark { font-family: 'DM Serif Display', serif; font-size: 20px; color: var(--cream); letter-spacing: -0.01em; }
+  .nav-wordmark .v { color: var(--accent); font-style: italic; }
+  .nav-badge {
+    font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted2); border: 1px solid var(--border); border-radius: 20px;
+    padding: 4px 12px;
+  }
+
+  .wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
+
+  /* ── LOGIN STATE ── */
+  #loginView {
+    display: flex; align-items: center; justify-content: center;
+    min-height: 100vh; padding: 80px var(--pad);
+  }
+  .login-box {
+    width: 100%; max-width: 420px;
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease forwards;
+  }
+  .login-header {
+    padding: 28px 28px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .login-eyebrow {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 10px; display: block;
+  }
+  .login-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px; color: var(--cream); line-height: 1.25;
+  }
+  .login-body { padding: 24px 28px; }
+  .field { margin-bottom: 14px; }
+  .field:last-of-type { margin-bottom: 0; }
+  .field label {
+    display: block; font-size: 12px; color: var(--muted2);
+    letter-spacing: 0.04em; margin-bottom: 6px;
+  }
+  .field input {
+    width: 100%;
+    background: var(--navy3);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 11px 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 300;
+    color: var(--white); outline: none;
+    transition: border-color 0.2s;
+  }
+  .field input::placeholder { color: var(--muted2); }
+  .field input:focus { border-color: rgba(200,169,110,0.4); }
+  .login-error {
+    display: none;
+    font-size: 12px; color: rgba(255,140,140,0.85);
+    margin-top: 12px; line-height: 1.5;
+  }
+  .login-error.visible { display: block; }
+  .login-footer {
+    padding: 16px 28px;
+    background: var(--navy3);
+    border-top: 1px solid var(--border);
+  }
+  .login-btn {
+    width: 100%;
+    background: var(--accent); color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px; font-weight: 500;
+    padding: 13px; border-radius: 3px;
+    border: none; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .login-btn:hover { background: var(--accent2); }
+  .login-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+  .login-note {
+    margin-top: 12px; font-size: 11px; color: var(--muted2);
+    text-align: center; line-height: 1.5;
+  }
+
+  /* ── BLUEPRINT STATE ── */
+  #blueprintView {
+    display: none;
+    padding: 100px 0 80px;
+  }
+  .bp-eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px; display: block;
+  }
+  .bp-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 44px);
+    font-weight: 400; line-height: 1.1;
+    color: var(--white); margin-bottom: 14px;
+  }
+  .bp-headline em { font-style: italic; color: var(--cream); }
+  .bp-sub {
+    font-size: 15px; color: var(--muted); line-height: 1.75;
+    max-width: 580px; margin-bottom: 48px;
+  }
+  .bp-sub strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+
+  /* Section rule */
+  .section-rule { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .section-rule h2 { font-family: 'DM Serif Display', serif; font-size: clamp(18px,2.5vw,24px); font-weight: 400; color: var(--white); white-space: nowrap; }
+  .section-rule .rule { flex: 1; height: 1px; background: var(--border); }
+
+  /* Blueprint content blocks */
+  .bp-section { margin-bottom: 56px; }
+
+  .principle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .principle {
+    background: var(--navy2);
+    padding: 24px 22px;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .principle::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px; background: transparent;
+    transition: background 0.25s;
+  }
+  .principle:hover { background: var(--navy3); }
+  .principle:hover::before { background: var(--accent); }
+  .principle-num { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .principle-title { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 8px; line-height: 1.35; }
+  .principle-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .principle-body strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+  /* Step list */
+  .step-list { display: flex; flex-direction: column; gap: 2px; }
+  .step {
+    background: var(--navy2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    display: flex; gap: 0; overflow: hidden;
+  }
+  .step-num {
+    width: 52px; flex-shrink: 0;
+    background: var(--navy3);
+    border-right: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 20px; color: rgba(200,169,110,0.35);
+  }
+  .step-content { padding: 18px 20px; }
+  .step-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 5px; }
+  .step-title { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 6px; line-height: 1.3; }
+  .step-body { font-size: 13px; color: var(--muted); line-height: 1.65; }
+  .step-body strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+
+  /* Callout */
+  .callout {
+    background: var(--accent-dim2);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 4px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    display: flex; gap: 16px; align-items: flex-start;
+  }
+  .callout-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); white-space: nowrap; flex-shrink: 0; padding-top: 2px; }
+  .callout-text { font-size: 13px; color: var(--cream); line-height: 1.65; }
+  .callout-text strong { font-weight: 500; }
+
+  /* Table */
+  .bp-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+  .bp-table th {
+    text-align: left; padding: 10px 14px;
+    font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted2); font-weight: 400;
+    border-bottom: 1px solid var(--border);
+    background: var(--navy3);
+  }
+  .bp-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--muted);
+    vertical-align: top;
+    line-height: 1.55;
+  }
+  .bp-table td:first-child { color: var(--white); font-weight: 400; }
+  .bp-table tr:last-child td { border-bottom: none; }
+  .bp-table tr { background: var(--navy2); }
+  .bp-table tr:nth-child(even) { background: var(--navy3); }
+
+  /* CTA */
+  .bp-cta {
+    background: var(--navy2);
+    border: 1px solid var(--border2);
+    border-radius: 4px;
+    padding: 28px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    margin-top: 48px;
+  }
+  .bp-cta-text { font-size: 14px; color: var(--muted); line-height: 1.65; }
+  .bp-cta-text strong { color: var(--white); font-weight: 500; display: block; margin-bottom: 4px; font-size: 16px; }
+  .bp-cta-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--accent); color: var(--navy);
+    font-size: 14px; font-weight: 500; letter-spacing: 0.03em;
+    padding: 13px 24px; border-radius: 3px;
+    text-decoration: none; white-space: nowrap;
+    transition: background 0.2s, transform 0.15s; flex-shrink: 0;
+  }
+  .bp-cta-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .principle-grid { grid-template-columns: 1fr; }
+    .bp-cta { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .bp-cta-btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a class="nav-logo" href="/">
+    <svg width="28" height="28" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
+      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="14" cy="10" r="2" fill="#C8A96E" opacity="0.6"/>
+      <circle cx="14" cy="34" r="2" fill="#C8A96E" opacity="0.4"/>
+    </svg>
+    <span class="nav-wordmark">Re<span class="v">v</span>eneering</span>
+  </a>
+  <div class="nav-badge">Exclusive access</div>
+</nav>
+
+<!-- LOGIN VIEW -->
+<div id="loginView">
+  <div class="login-box">
+    <div class="login-header">
+      <span class="login-eyebrow">Founder access</span>
+      <div class="login-title">The Sales Engine Blueprint</div>
+    </div>
+    <div class="login-body">
+      <div class="field">
+        <label for="loginEmail">Username (your email)</label>
+        <input type="email" id="loginEmail" placeholder="you@yourstartup.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" placeholder="Password" autocomplete="current-password">
+      </div>
+      <div class="login-error" id="loginError">Incorrect username or password. Check the email we sent you and try again.</div>
+    </div>
+    <div class="login-footer">
+      <button class="login-btn" id="loginBtn" onclick="attemptLogin()">Access the Blueprint &rarr;</button>
+      <div class="login-note">Check the email from a@reveneering.com for your credentials.</div>
+    </div>
+  </div>
+</div>
+
+<!-- BLUEPRINT VIEW -->
+<div id="blueprintView">
+  <div class="wrap">
+
+    <span class="bp-eyebrow">The Sales Engine Blueprint &middot; Reveneering</span>
+    <h1 class="bp-headline">The commercial framework<br>behind <em>every</em> Reveneering engagement.</h1>
+    <p class="bp-sub">
+      What follows is the exact methodology we use to build permanent sales engines for U.S. AgTech founders. Not a summary. The actual framework: ICP definition, lead generation logic, outbound architecture, and pitch improvement system.
+      <br><br>
+      <strong>This is what your sales engine needs to do before it can run without you.</strong>
+    </p>
+
+    <!-- SECTION 1 -->
+    <div class="bp-section">
+      <div class="section-rule">
+        <h2>Part 1: Define before you build</h2>
+        <div class="rule"></div>
+      </div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
+        Most AgTech sales engines fail before they are built because the ICP is wrong. Not wrong in an obvious way, but wrong in the way that feels right until you have spent six months sending outbound to people who will never buy. The definition work is not administrative. It is the most commercially consequential thing you will do in the first phase.
+      </p>
+      <div class="principle-grid">
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <div class="principle-title">The ICP is not your best current customer</div>
+          <div class="principle-body">Your best current customer tells you who you have been able to close, not who you should be targeting at scale. <strong>The ICP is the intersection of highest lifetime value, shortest sales cycle, and lowest cost to serve.</strong> In AgTech, those three things rarely point to the same buyer type.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <div class="principle-title">Buyer type determines everything downstream</div>
+          <div class="principle-body">A food company, a government agency, a cooperative, and a producer have nothing in common commercially. <strong>Each requires a different lead source, a different outreach cadence, a different ROI narrative, and a different deal structure.</strong> One ICP cannot span more than one buyer type without breaking the engine.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <div class="principle-title">The ICP has a job title and a problem, not a sector</div>
+          <div class="principle-body">"U.S. food companies" is not an ICP. <strong>"VP of Sustainability at a mid-market U.S. food manufacturer with a stated 2025 regenerative sourcing commitment"</strong> is an ICP. The precision is what makes lead generation possible.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">04</div>
+          <div class="principle-title">Government buyers need a separate track entirely</div>
+          <div class="principle-body">USDA, state ag departments, and development institutions do not buy on commercial timelines. <strong>The ROI narrative, the phased commitment structure, and the proof-of-concept architecture are fundamentally different.</strong> Build a parallel track or do not pursue them at all.</div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">Field note</div>
+        <div class="callout-text">At Greener Crop, the ICP shifted three times in 18 months before we found the buyer profile that closed consistently. Each shift was data-driven: we tracked what stalled, what accelerated, and what closed at full price without negotiation. <strong>The version that worked was nothing like the version we started with.</strong></div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="bp-section">
+      <div class="section-rule">
+        <h2>Part 2: Lead generation logic</h2>
+        <div class="rule"></div>
+      </div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
+        Lead generation in AgTech is not a data problem. Most of the data exists. It is a targeting logic problem: knowing which signals indicate a buyer is ready to engage, and building a system that surfaces those signals continuously without founder involvement.
+      </p>
+      <div class="step-list" style="margin-bottom:24px;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-label">Signal identification</div>
+            <div class="step-title">Find the trigger events that precede a buying decision</div>
+            <div class="step-body">Every AgTech purchase is preceded by a trigger: a new sustainability mandate, a failed harvest season, a procurement policy change, a funding round that unlocks a technology budget. <strong>The lead engine is built around monitoring these triggers, not around demographic targeting.</strong> Triggers are searchable. Demographics are not buying signals.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-label">Source architecture</div>
+            <div class="step-title">Match your lead source to your buyer type</div>
+            <div class="step-body">
+              <strong>Food companies and retailers:</strong> LinkedIn Sales Navigator filtered by title, company size, and recent content on your trigger topics. Cross-referenced with press releases and sustainability reports.<br><br>
+              <strong>Government and institutional:</strong> USASpending.gov, USDA grant databases, SAM.gov for procurement signals. Award history tells you who has already committed budget to your category.<br><br>
+              <strong>Producers and operators:</strong> Community platforms, extension service networks, breed associations, commodity groups. No digital footprint does not mean no addressable audience.
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-label">Enrichment and qualification</div>
+            <div class="step-title">Qualify before contact, not during it</div>
+            <div class="step-body">Every prospect that enters your pipeline should already meet three criteria: right buyer type, active trigger signal, verified contact data. <strong>The enrichment step eliminates the discovery conversation.</strong> Your first outreach should demonstrate knowledge, not request it. This changes the entire tone of the first interaction.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-label">System design</div>
+            <div class="step-title">Build a lead engine, not a list</div>
+            <div class="step-body">A list is a moment in time. An engine runs continuously. <strong>The difference is whether the sourcing logic is documented and repeatable, or whether it lives in someone's browser history.</strong> The engine is a set of saved searches, alert triggers, and enrichment workflows that adds qualified prospects to the CRM on a weekly cadence without manual intervention.</div>
+          </div>
+        </div>
+      </div>
+      <div class="callout">
+        <div class="callout-label">The output</div>
+        <div class="callout-text">A functioning lead engine adds 15 to 30 qualified, enriched prospects per week to your pipeline, matched to your ICP, with contact data verified and trigger signals documented. <strong>That is the baseline. The volume adjusts to your capacity to work the pipeline, not to what the tools can generate.</strong></div>
+      </div>
+    </div>
+
+    <!-- SECTION 3 -->
+    <div class="bp-section">
+      <div class="section-rule">
+        <h2>Part 3: Outbound architecture</h2>
+        <div class="rule"></div>
+      </div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
+        Automated outbound in AgTech fails for one reason: it reads like automated outbound. The architecture below is designed around the commercial reality that your buyers receive dozens of outreach messages per week and delete most of them in under three seconds. Getting through requires specificity, not volume.
+      </p>
+      <table class="bp-table">
+        <thead>
+          <tr>
+            <th>Touch</th>
+            <th>Channel</th>
+            <th>Content logic</th>
+            <th>Timing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01 &middot; Opening</td>
+            <td>Email</td>
+            <td>One sentence proving specific knowledge of their situation. Three lines on the commercial problem. One soft question, not a pitch.</td>
+            <td>Day 1</td>
+          </tr>
+          <tr>
+            <td>02 &middot; Value add</td>
+            <td>Email</td>
+            <td>A relevant insight, case study, or data point that is useful regardless of whether they engage. No ask.</td>
+            <td>Day 5</td>
+          </tr>
+          <tr>
+            <td>03 &middot; Reframe</td>
+            <td>LinkedIn</td>
+            <td>Connection request with a one-line note referencing the email. Different channel, same person.</td>
+            <td>Day 8</td>
+          </tr>
+          <tr>
+            <td>04 &middot; Direct ask</td>
+            <td>Email</td>
+            <td>A direct, short ask for 20 minutes. Reference what you sent previously. Make it easy to say yes or no.</td>
+            <td>Day 14</td>
+          </tr>
+          <tr>
+            <td>05 &middot; Long hold</td>
+            <td>Email</td>
+            <td>A single line. A new trigger event or development relevant to them. Re-opens without re-pitching.</td>
+            <td>Day 30</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="principle-grid" style="margin-top:16px;">
+        <div class="principle">
+          <div class="principle-num">Rule 01</div>
+          <div class="principle-title">Specificity over personalization tokens</div>
+          <div class="principle-body">Inserting a first name and company name is not personalization. <strong>Referencing their most recent earnings call, their open sustainability RFP, or their new processing facility</strong> is personalization. The former gets deleted. The latter gets read.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">Rule 02</div>
+          <div class="principle-title">Length is inversely correlated with seniority</div>
+          <div class="principle-body">The more senior the buyer, the shorter the outreach needs to be. A VP at a food manufacturer reads the first two sentences and stops. <strong>Everything you need to communicate must fit in those two sentences or it will not be read.</strong></div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">Rule 03</div>
+          <div class="principle-title">The subject line is the open rate</div>
+          <div class="principle-body">Subject lines that work in AgTech outbound are derived from the content of the first bullet, not from the offer. <strong>"Regenerative sourcing traction in your category"</strong> outperforms "Introduction from Reveneering" by a factor that is not close.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">Rule 04</div>
+          <div class="principle-title">Timing is not universal</div>
+          <div class="principle-body">Food company buyers respond differently to timing than producers. Producers are seasonally constrained. Government buyers have fiscal year calendars. <strong>An outbound sequence that ignores timing is operating at a fraction of its potential response rate.</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 4 -->
+    <div class="bp-section">
+      <div class="section-rule">
+        <h2>Part 4: Pitch improvement system</h2>
+        <div class="rule"></div>
+      </div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
+        Most founders treat pitch improvement as a periodic rewrite. The framework below treats it as a continuous feedback loop that gets smarter with every outreach cycle. The difference in output quality after 90 days of systematic iteration is not marginal.
+      </p>
+      <div class="step-list" style="margin-bottom:24px;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-label">Track what the data actually tells you</div>
+            <div class="step-title">Open rate, reply rate, and meeting rate are three different signals</div>
+            <div class="step-body"><strong>Low open rate:</strong> subject line problem. <strong>Low reply rate on high open rate:</strong> first two sentences or value proposition problem. <strong>Low meeting rate on high reply rate:</strong> the CTA or the ask structure is the problem. Each requires a different fix. Treating all three as a "messaging problem" means fixing the wrong thing.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-label">Test one variable at a time</div>
+            <div class="step-title">Variant testing only works if the control is clean</div>
+            <div class="step-body">Change the subject line in one variant. Change the opening sentence in another. Change the CTA in a third. <strong>Changing multiple elements simultaneously makes it impossible to know what moved the needle.</strong> Run variants for a minimum of two weeks before drawing conclusions. AgTech response cycles are slower than SaaS.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-label">Objection mapping</div>
+            <div class="step-title">Every objection is a data point, not a rejection</div>
+            <div class="step-body">Log every objection by category: price, timing, internal priority, incumbent vendor, skepticism about ROI. <strong>When the same objection appears three times, it belongs in the outreach sequence as pre-emptive counter-messaging.</strong> The pitch improves because you stop being surprised by objections you have already heard.</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-label">Monthly iteration cycle</div>
+            <div class="step-title">Schedule the improvement work or it will not happen</div>
+            <div class="step-body">Set a fixed monthly review: open rate by variant, reply rate by segment, objection log, subject line performance. <strong>The review is not a creative session. It is a data session.</strong> The output is a specific list of changes to the next month's sequences, with the rationale documented against the data that drove it.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTION 5 -->
+    <div class="bp-section">
+      <div class="section-rule">
+        <h2>Part 5: The transition from founder-led to founder-informed</h2>
+        <div class="rule"></div>
+      </div>
+      <p style="font-size:14px;color:var(--muted);line-height:1.75;margin-bottom:24px;">
+        The engine is built. The leads are flowing. The outbound is running. This section covers the part most frameworks skip: how to actually hand the engine to a team without losing the momentum you have built.
+      </p>
+      <div class="principle-grid">
+        <div class="principle">
+          <div class="principle-num">The mistake</div>
+          <div class="principle-title">Hiring a sales lead before the engine exists</div>
+          <div class="principle-body">A sales hire without a running engine becomes a founder replacement, not a commercial function. <strong>They spend their first 90 days building what should have been built before they arrived.</strong> You lose time, money, and momentum. The engine comes first. The hire runs the engine.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">The sequence</div>
+          <div class="principle-title">Build, document, then hire</div>
+          <div class="principle-body">The hiring brief for your first sales lead is one of the outputs of the engine-build phase. <strong>It specifies exactly what the role runs, not what it builds.</strong> The candidate knows what they are walking into. Onboarding is measured in days, not months.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">The handover</div>
+          <div class="principle-title">Documented process is the only thing that survives a hire</div>
+          <div class="principle-body">If the engine lives in someone's head, it leaves when they do. <strong>Every sequence, every qualification criteria, every objection counter, every lead source</strong> must be documented well enough that a new hire can run it without asking the founder how it works.</div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">The founder role</div>
+          <div class="principle-title">Informed, not removed</div>
+          <div class="principle-body">Founder-informed sales means you are in the room for the deals that need you, and absent from the ones that do not. <strong>The engine surfaces which is which.</strong> Late-stage enterprise deals with buying committees still need the founder. The first 12 touches almost never do.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="bp-cta">
+      <div class="bp-cta-text">
+        <strong>Ready to have this built for your company?</strong>
+        The Commercial Quarter builds every component of this framework inside your business in 90 days. Lead generation engine, outbound architecture, pitch improvement system. Owned by you permanently.
+      </div>
+      <a class="bp-cta-btn" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a 30-min call &rarr;</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const WORKER_URL = 'https://reveneering-referral.a-m-kappes.workers.dev';
+
+  document.getElementById('loginPassword').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') attemptLogin();
+  });
+
+  async function attemptLogin() {
+    const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+    const password = document.getElementById('loginPassword').value;
+    const btn = document.getElementById('loginBtn');
+    const errorEl = document.getElementById('loginError');
+
+    errorEl.classList.remove('visible');
+
+    if (!email || !password) {
+      errorEl.textContent = 'Please enter your username and password.';
+      errorEl.classList.add('visible');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Checking...';
+
+    try {
+      const res = await fetch(`${WORKER_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        errorEl.textContent = 'Incorrect username or password. Check the email from a@reveneering.com and try again.';
+        errorEl.classList.add('visible');
+        btn.disabled = false;
+        btn.textContent = 'Access the Blueprint →';
+        return;
+      }
+
+      // Authenticated
+      document.getElementById('loginView').style.display = 'none';
+      document.getElementById('blueprintView').style.display = 'block';
+      window.scrollTo(0, 0);
+
+    } catch (err) {
+      errorEl.textContent = 'Could not connect. Please check your connection and try again.';
+      errorEl.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = 'Access the Blueprint →';
+    }
+  }
+</script>
+</body>
+</html>
