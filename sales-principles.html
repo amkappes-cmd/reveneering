@@ -5,64 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sales Frameworks for AgTech Founders — Reveneering</title>
 <meta name="description" content="An honest breakdown of the most widely used B2B sales frameworks and how they apply to AgTech founders at Seed to Series B.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --navy: #0B1623; --navy2: #111F2E; --navy3: #162534;
-  --border: rgba(255,255,255,0.08); --border2: rgba(255,255,255,0.14);
-  --cream: #F0EAD6; --white: #FFFFFF;
-  --muted: rgba(255,255,255,0.45); --muted2: rgba(255,255,255,0.24);
-  --accent: #C8A96E; --accent2: #E8C98A;
-  --accent-dim: rgba(200,169,110,0.10); --accent-dim2: rgba(200,169,110,0.18);
+  --black: #0a0a0a;
+  --gray-700: #374151;
+  --gray-500: #6B7280;
+  --gray-400: #9CA3AF;
+  --gray-300: #D1D5DB;
+  --gray-200: #E5E7EB;
+  --gray-100: #F3F4F6;
+  --gray-50: #F9FAFB;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --border: 1px solid #E5E7EB;
+  --radius: 8px;
+  --radius-lg: 12px;
   --max: 1100px; --pad: clamp(20px,5vw,56px);
 }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--navy);
-  color: var(--white);
-  font-family: 'DM Sans', sans-serif;
-  font-weight: 300;
+  background: white;
+  color: var(--black);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  font-weight: 400;
   line-height: 1.65;
   overflow-x: hidden;
-}
-
-/* Grid texture */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-  background-size: 72px 72px;
-  pointer-events: none; z-index: 0;
 }
 
 /* NAV */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(11,22,35,0.95);
-  backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border);
+  background: white;
+  border-bottom: var(--border);
   height: 58px;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 var(--pad);
 }
-.nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-.nav-wordmark { font-family: 'DM Serif Display', serif; font-size: 18px; color: var(--cream); }
-.nav-wordmark .v { color: var(--accent); font-style: italic; }
+.nav-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+.nav-wordmark { font-size: 17px; font-weight: 600; letter-spacing: -0.03em; color: var(--black); }
 .nav-right { display: flex; align-items: center; gap: 20px; }
-.nav-label { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted2); }
+.nav-label { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-400); }
 .nav-cta {
   display: inline-flex; align-items: center; gap: 6px;
-  background: var(--accent); color: var(--navy);
-  font-size: 12px; font-weight: 500; letter-spacing: 0.04em;
-  padding: 8px 18px; border-radius: 3px; text-decoration: none;
+  background: var(--black); color: white;
+  font-size: 12px; font-weight: 500;
+  padding: 8px 18px; border-radius: 6px; text-decoration: none;
   transition: background 0.2s;
 }
-.nav-cta:hover { background: var(--accent2); }
+.nav-cta:hover { background: #222; }
 
 /* WRAP */
 .wrap { position: relative; z-index: 1; max-width: var(--max); margin: 0 auto; padding: 0 var(--pad); }
@@ -70,34 +62,35 @@ body::before {
 /* HERO */
 .hero {
   padding-top: 120px; padding-bottom: 72px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border);
   position: relative; z-index: 1;
   overflow: hidden;
+  background: white;
 }
 .hero-eyebrow {
-  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 16px;
+  font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 16px;
 }
 .hero-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(32px, 5vw, 58px);
-  font-weight: 400; line-height: 1.1;
-  color: var(--white); margin-bottom: 20px;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 700; line-height: 1.08; letter-spacing: -0.03em;
+  color: var(--black); margin-bottom: 20px;
 }
-.hero-title em { font-style: italic; color: var(--cream); }
+.hero-title em { font-style: normal; color: var(--green); }
 .hero-body {
   font-size: clamp(14px, 1.6vw, 16px);
-  color: var(--muted); max-width: 620px; line-height: 1.8; margin-bottom: 32px;
+  color: var(--gray-500); max-width: 620px; line-height: 1.8; margin-bottom: 32px;
 }
-.hero-body strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+.hero-body strong { color: var(--black); font-weight: 600; }
 
-/* Hero illustration — technical blueprint */
+/* Hero illustration */
 .hero-illustration {
   position: absolute;
   top: 0; right: -20px;
   width: 560px; height: 100%;
   overflow: hidden;
   pointer-events: none;
+  opacity: 0.06;
   -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 20%, rgba(0,0,0,0.9) 100%);
   mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.5) 20%, rgba(0,0,0,0.9) 100%);
 }
@@ -106,24 +99,25 @@ body::before {
   top: 50%; right: 0;
   transform: translateY(-50%);
   width: 560px; height: auto;
+  stroke: var(--black);
 }
 
 /* FRAMEWORK COUNTER */
 .counter-bar {
   display: flex; align-items: center; gap: 16px;
   padding: 14px 0; margin-bottom: 48px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border);
 }
-.counter-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+.counter-label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray-400); }
 .counter-pills { display: flex; flex-wrap: wrap; gap: 6px; }
 .counter-pill {
-  font-size: 12px; color: rgba(255,255,255,0.75);
-  background: var(--navy3); border: 1px solid rgba(255,255,255,0.18);
+  font-size: 12px; color: var(--gray-500);
+  background: var(--gray-50); border: var(--border);
   border-radius: 20px; padding: 4px 12px;
   cursor: pointer; transition: color 0.2s, border-color 0.2s, background 0.2s;
   white-space: nowrap; text-decoration: none;
 }
-.counter-pill:hover { color: var(--accent2); border-color: rgba(200,169,110,0.5); background: rgba(200,169,110,0.08); }
+.counter-pill:hover { color: var(--green); border-color: #86EFAC; background: var(--green-light); }
 
 /* SECTION RULE */
 .section-rule {
@@ -131,159 +125,156 @@ body::before {
   position: relative; z-index: 1;
 }
 .section-rule h2 {
-  font-family: 'DM Serif Display', serif;
   font-size: clamp(20px, 2.5vw, 28px);
-  font-weight: 400; color: var(--white); white-space: nowrap;
+  font-weight: 700; letter-spacing: -0.02em; color: var(--black); white-space: nowrap;
 }
-.section-rule .rule { flex: 1; height: 1px; background: var(--border); }
+.section-rule .rule { flex: 1; height: 1px; background: var(--gray-200); }
 .section-rule .tag {
-  font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;
-  color: var(--muted2); white-space: nowrap;
+  font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gray-400); white-space: nowrap;
 }
 
 /* FRAMEWORK CARD */
 .framework-section {
   padding: 72px 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border);
   position: relative; z-index: 1;
 }
 .framework-section:last-of-type { border-bottom: none; }
 
 .framework-card {
-  background: var(--navy2); border: 1px solid var(--border);
-  border-radius: 4px; overflow: hidden;
+  background: white; border: var(--border);
+  border-radius: var(--radius-lg); overflow: hidden;
 }
 
 /* Card header */
 .card-header {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: var(--border);
-  border-bottom: 1px solid var(--border);
+  gap: 1px; background: var(--gray-200);
+  border-bottom: var(--border);
 }
 .card-header-left {
-  background: var(--navy3); padding: 28px 28px 24px;
+  background: var(--gray-50); padding: 28px 28px 24px;
 }
 .card-header-right {
-  background: var(--navy2); padding: 28px 28px 24px;
+  background: white; padding: 28px 28px 24px;
   display: flex; flex-direction: column; justify-content: space-between;
 }
 .card-num {
-  font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
-  color: var(--accent); margin-bottom: 8px;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--green); margin-bottom: 8px;
 }
 .card-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(20px, 2.5vw, 26px);
-  color: var(--cream); line-height: 1.2; margin-bottom: 6px;
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700; letter-spacing: -0.02em;
+  color: var(--black); line-height: 1.2; margin-bottom: 6px;
 }
 .card-origin {
-  font-size: 12px; color: var(--muted2); font-style: italic; line-height: 1.5;
+  font-size: 12px; color: var(--gray-400); line-height: 1.5;
 }
 .card-summary {
-  font-size: 14px; color: var(--muted); line-height: 1.75;
+  font-size: 14px; color: var(--gray-500); line-height: 1.75;
 }
-.card-summary strong { color: rgba(255,255,255,0.75); font-weight: 500; }
+.card-summary strong { color: var(--black); font-weight: 600; }
 
-/* Card body - what is it */
+/* Card body */
 .card-what {
   padding: 24px 28px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border);
+  background: white;
 }
 .card-what-label {
-  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--muted2); margin-bottom: 14px;
+  font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--gray-400); margin-bottom: 14px;
 }
 .card-principles {
   display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 10px;
 }
 .principle {
-  background: var(--navy3); border-radius: 3px;
+  background: var(--gray-50); border-radius: var(--radius);
   padding: 12px 14px; font-size: 13px;
-  color: var(--muted); line-height: 1.55;
-  border-left: 2px solid var(--border2);
+  color: var(--gray-600); line-height: 1.55;
+  border-left: 2px solid var(--gray-200);
   transition: border-color 0.2s;
 }
-.principle:hover { border-color: var(--accent); }
-.principle strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+.principle:hover { border-color: var(--green); }
+.principle strong { color: var(--black); font-weight: 600; }
 
 /* Yes/No grid */
 .verdict-grid {
   display: grid; grid-template-columns: 1fr 1fr;
-  gap: 1px; background: var(--border);
+  gap: 1px; background: var(--gray-200);
 }
 .verdict {
-  padding: 24px 28px;
+  padding: 24px 28px; background: white;
 }
-.verdict-yes { background: var(--navy2); }
-.verdict-no { background: var(--navy2); }
 .verdict-label {
-  font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
-  margin-bottom: 12px; padding: 5px 10px; border-radius: 2px;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: 12px; padding: 5px 10px; border-radius: 4px;
   display: inline-block;
 }
 .verdict-yes .verdict-label {
-  color: #6FCF97; background: rgba(74,124,94,0.15);
+  color: var(--green); background: var(--green-light);
 }
 .verdict-no .verdict-label {
-  color: #E07070; background: rgba(180,70,70,0.12);
+  color: #b91c1c; background: #fee2e2;
 }
 .verdict-headline {
-  font-family: 'DM Serif Display', serif;
-  font-size: 15px; color: var(--cream); margin-bottom: 14px; line-height: 1.3;
+  font-size: 15px; font-weight: 600; color: var(--black); margin-bottom: 14px; line-height: 1.3;
 }
 .verdict-items { list-style: none; padding: 0; }
 .verdict-items li {
-  font-size: 13px; color: var(--muted); line-height: 1.65;
-  padding: 8px 0; border-bottom: 1px solid var(--border);
+  font-size: 13px; color: var(--gray-500); line-height: 1.65;
+  padding: 8px 0; border-bottom: var(--border);
   display: flex; gap: 10px; align-items: flex-start;
 }
 .verdict-items li:last-child { border-bottom: none; padding-bottom: 0; }
 .verdict-yes .verdict-items li::before {
   content: '';
   width: 5px; height: 5px; border-radius: 50%;
-  background: #6FCF97; flex-shrink: 0; margin-top: 7px;
+  background: var(--green); flex-shrink: 0; margin-top: 7px;
 }
 .verdict-no .verdict-items li::before {
   content: '';
   width: 5px; height: 5px; border-radius: 50%;
-  background: #E07070; flex-shrink: 0; margin-top: 7px;
+  background: #ef4444; flex-shrink: 0; margin-top: 7px;
 }
-.verdict-items li strong { color: rgba(255,255,255,0.7); font-weight: 500; }
+.verdict-items li strong { color: var(--black); font-weight: 600; }
 
-/* Anchor tags for jump nav */
+/* Anchor tags */
 .framework-anchor { display: block; position: relative; top: -80px; visibility: hidden; }
 
 /* CTA strip */
 .cta-strip {
-  background: var(--accent-dim2);
-  border: 1px solid rgba(200,169,110,0.2);
-  border-radius: 4px; padding: 24px 28px;
+  background: var(--gray-50);
+  border: var(--border);
+  border-radius: var(--radius-lg); padding: 24px 28px;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
   margin-top: 24px; position: relative; z-index: 1;
 }
-.cta-strip-text { font-size: 14px; color: var(--muted); line-height: 1.6; }
-.cta-strip-text strong { color: var(--cream); font-weight: 500; }
+.cta-strip-text { font-size: 14px; color: var(--gray-500); line-height: 1.6; }
+.cta-strip-text strong { color: var(--black); font-weight: 600; }
 .cta-btn {
   display: inline-flex; align-items: center; gap: 8px;
-  background: var(--accent); color: var(--navy);
-  font-size: 13px; font-weight: 500; letter-spacing: 0.04em;
-  padding: 12px 24px; border-radius: 3px; text-decoration: none;
+  background: var(--black); color: white;
+  font-size: 13px; font-weight: 500;
+  padding: 12px 24px; border-radius: 6px; text-decoration: none;
   white-space: nowrap; flex-shrink: 0; transition: background 0.2s;
 }
-.cta-btn:hover { background: var(--accent2); }
+.cta-btn:hover { background: #222; }
 
 /* FOOTER */
 .site-footer {
-  border-top: 1px solid var(--border);
+  border-top: var(--border);
   padding: 28px var(--pad);
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
-  position: relative; z-index: 1;
+  position: relative; z-index: 1; background: white;
 }
 .footer-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; }
-.footer-copy { font-size: 12px; color: var(--muted2); }
-.footer-link { font-size: 12px; color: var(--muted2); text-decoration: none; transition: color 0.2s; }
-.footer-link:hover { color: var(--accent); }
+.footer-copy { font-size: 12px; color: var(--gray-400); }
+.footer-link { font-size: 12px; color: var(--gray-400); text-decoration: none; transition: color 0.2s; }
+.footer-link:hover { color: var(--black); }
 
 /* Reveal animation */
 .reveal {
@@ -298,7 +289,7 @@ body::before {
   height: 2px; background: transparent; z-index: 99;
 }
 .progress-fill {
-  height: 100%; background: var(--accent);
+  height: 100%; background: var(--green);
   width: 0%; transition: width 0.1s linear;
 }
 
@@ -329,18 +320,12 @@ body::before {
 <!-- NAV -->
 <nav class="nav">
   <a class="nav-logo" href="https://reveneering.com">
-    <svg width="26" height="26" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
-      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>
-    <span class="nav-wordmark">Re<span class="v">v</span>eneering</span>
+    <div class="logo-dot"></div>
+    <span class="nav-wordmark">Reveneering</span>
   </a>
   <div class="nav-right">
-    <span class="nav-label">Sales Frameworks · AgTech</span>
-    <a class="nav-cta" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a call &rarr;</a>
+    <span class="nav-label">Sales Frameworks &middot; AgTech</span>
+    <a class="nav-cta" href="https://calendar.app.google/Bg3unregtTSK1Po2A" target="_blank">Book a call &rarr;</a>
   </div>
 </nav>
 
@@ -466,7 +451,7 @@ body::before {
 </div>
 
 <!-- JUMP NAV -->
-<div style="background: var(--navy2); border-bottom: 1px solid var(--border); position: relative; z-index: 1;">
+<div style="background: var(--gray-50); border-bottom: var(--border); position: relative; z-index: 1;">
   <div class="wrap">
     <div class="counter-bar">
       <div class="counter-label">Jump to</div>
@@ -1142,7 +1127,7 @@ body::before {
         <strong>Want help applying the right framework for your specific buyers?</strong>
         A 30-minute call is enough to identify where your current commercial approach is breaking down.
       </div>
-      <a class="cta-btn" href="https://calendly.com/a-m-kappes/30min" target="_blank">Book a call &rarr;</a>
+      <a class="cta-btn" href="https://calendar.app.google/Bg3unregtTSK1Po2A" target="_blank">Book a call &rarr;</a>
     </div>
   </div>
 </section>
@@ -1150,16 +1135,10 @@ body::before {
 <!-- FOOTER -->
 <footer class="site-footer">
   <a class="footer-logo" href="https://reveneering.com">
-    <svg width="22" height="22" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
-      <rect x="0" y="0" width="44" height="44" rx="3" fill="none" stroke="rgba(200,169,110,0.2)" stroke-width="0.75"/>
-      <line x1="14" y1="10" x2="14" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="14" y1="10" x2="28" y2="10" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
-      <path d="M28 10 Q36 10 36 18 Q36 26 28 26 L14 26" fill="none" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="22" y1="26" x2="36" y2="34" stroke="#C8A96E" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>
-    <span class="nav-wordmark" style="font-size:15px;">Re<span class="v">v</span>eneering</span>
+    <div class="logo-dot"></div>
+    <span class="nav-wordmark" style="font-size:15px;">Reveneering</span>
   </a>
-  <div class="footer-copy">Dallas, TX · Revenue Engineered</div>
+  <div class="footer-copy">Dallas, TX &middot; Revenue Engineered</div>
   <a class="footer-link" href="https://reveneering.com">reveneering.com</a>
 </footer>
 
