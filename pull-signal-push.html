@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pull, Signals and Selective Outbound for AgTech | Reveneering</title>
+<meta name="description" content="A practical commercial model for AgTech founders: create recognition before the buying trigger, detect meaningful signals, and use selective outbound to start better conversations.">
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://reveneering.com/pull-signal-push">
+
+<!-- Open Graph / Social -->
+<meta property="og:type" content="article">
+<meta property="og:title" content="Pull &rarr; Signal &rarr; Push &mdash; A Commercial Model for AgTech">
+<meta property="og:description" content="Outbound works better after relevance exists. Become known before the buying trigger, recognize when there is a real reason to engage, and start a useful conversation at the right time.">
+<meta property="og:url" content="https://reveneering.com/pull-signal-push">
+<meta property="og:image" content="https://reveneering.com/og-pull-signal-push.png">
+<meta property="og:site_name" content="Reveneering">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pull &rarr; Signal &rarr; Push &mdash; A Commercial Model for AgTech">
+<meta name="twitter:description" content="Outbound works better after relevance exists.">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Outbound works better after relevance exists.",
+      "description": "A practical commercial model for AgTech founders: create recognition before the buying trigger, detect meaningful signals, and use selective outbound to start better conversations.",
+      "author": { "@type": "Person", "name": "Alexander Kappes", "url": "https://www.linkedin.com/in/alexander-m-kappes" },
+      "publisher": { "@type": "Organization", "name": "Reveneering", "url": "https://reveneering.com" },
+      "mainEntityOfPage": "https://reveneering.com/pull-signal-push"
+    }
+  ]
+}
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VL77Z8QHZ6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VL77Z8QHZ6');
+</script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0a0a0a;
+    --gray-700: #374151;
+    --gray-500: #6B7280;
+    --gray-400: #9CA3AF;
+    --gray-300: #D1D5DB;
+    --gray-200: #E5E7EB;
+    --gray-100: #F3F4F6;
+    --gray-50: #F9FAFB;
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --border: 1px solid #E5E7EB;
+    --radius: 8px;
+    --radius-lg: 12px;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: white; color: var(--black); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; line-height: 1.5; overflow-x: hidden; }
+  .site { max-width: 1080px; margin: 0 auto; }
+  [id] { scroll-margin-top: 76px; }
+
+  /* NAV */
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 18px 32px; border-bottom: var(--border); background: white; position: sticky; top: 0; z-index: 20; }
+  .nav-logo { font-size: 17px; font-weight: 600; letter-spacing: -0.03em; color: var(--black); display: flex; align-items: center; gap: 8px; text-decoration: none; }
+  .nav-links { display: flex; gap: 26px; list-style: none; }
+  .nav-links a { font-size: 13px; color: var(--gray-500); text-decoration: none; }
+  .nav-links a:hover { color: var(--black); }
+  .nav-cta { background: var(--black); color: white; font-size: 13px; font-weight: 500; padding: 9px 18px; border-radius: 6px; text-decoration: none; white-space: nowrap; }
+  .nav-cta:hover { background: #222; }
+
+  /* HERO */
+  .hero { padding: 80px 32px 64px; border-bottom: var(--border); }
+  .hero-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--green-light); color: var(--green); font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px; margin-bottom: 28px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .hero-tag-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--green); }
+  .hero h1 { font-size: 56px; font-weight: 700; line-height: 1.05; letter-spacing: -0.04em; color: var(--black); max-width: 680px; margin-bottom: 20px; }
+  .hero h1 em { font-style: normal; color: var(--green); }
+  .hero-sub { font-size: 17px; color: var(--gray-500); line-height: 1.65; max-width: 600px; margin-bottom: 32px; }
+  .hero-actions { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; flex-wrap: wrap; }
+  .btn-primary { background: var(--black); color: white; font-size: 14px; font-weight: 500; padding: 12px 24px; border-radius: 7px; text-decoration: none; }
+  .btn-primary:hover { background: #222; }
+  .btn-secondary { font-size: 14px; color: var(--gray-700); text-decoration: none; }
+  .btn-secondary:hover { color: var(--black); }
+  .hero-support { font-size: 13px; color: var(--gray-400); max-width: 560px; line-height: 1.6; }
+
+  /* EVIDENCE STRIP */
+  .evidence { padding: 40px 32px; border-bottom: var(--border); }
+  .evidence-label { font-size: 11px; color: var(--gray-400); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 16px; }
+  .evidence-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+  .ev-cell { background: white; padding: 22px 20px; }
+  .ev-cell.featured { background: var(--gray-50); }
+  .ev-num { font-size: 28px; font-weight: 700; letter-spacing: -0.04em; color: var(--black); line-height: 1; margin-bottom: 6px; }
+  .ev-label { font-size: 12px; color: var(--gray-500); line-height: 1.5; }
+  .ev-src { font-size: 11px; color: var(--green); font-weight: 500; margin-top: 6px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .evidence-note { font-size: 12px; color: var(--gray-400); line-height: 1.65; margin-top: 14px; max-width: 720px; }
+  .evidence-note a { color: var(--gray-500); }
+
+  /* SECTIONS */
+  .section { padding: 72px 32px; border-bottom: var(--border); }
+  .section-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; }
+  .section-title { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; color: var(--black); line-height: 1.15; margin-bottom: 12px; max-width: 760px; }
+  .section-sub { font-size: 16px; color: var(--gray-500); line-height: 1.65; max-width: 640px; margin-bottom: 48px; }
+  .prose { max-width: 640px; }
+  .prose p { font-size: 15px; color: #4B5563; line-height: 1.75; margin-bottom: 18px; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--black); font-weight: 600; }
+  .sub-h { font-size: 15px; font-weight: 600; color: var(--black); letter-spacing: -0.01em; margin-bottom: 18px; }
+  .stack-48 { margin-top: 48px; }
+  .stack-36 { margin-top: 36px; }
+  .stack-24 { margin-top: 24px; }
+
+  /* PULL QUOTE */
+  .pullquote { border-left: 3px solid var(--green); padding: 4px 0 4px 22px; margin: 36px 0; max-width: 640px; }
+  .pullquote p { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--black); line-height: 1.4; }
+
+  /* MODEL */
+  .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+  .model-cell { background: white; padding: 28px 24px; display: flex; flex-direction: column; }
+  .model-num { font-size: 11px; font-weight: 600; color: var(--gray-400); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
+  .model-icon { width: 36px; height: 36px; background: var(--green-light); border-radius: 8px; margin-bottom: 14px; display: flex; align-items: center; justify-content: center; }
+  .model-icon svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .model-name { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--black); margin-bottom: 6px; }
+  .model-lead { font-size: 14px; font-weight: 600; color: var(--black); line-height: 1.45; margin-bottom: 8px; }
+  .model-body { font-size: 13px; color: var(--gray-500); line-height: 1.65; }
+  .model-landing { background: var(--gray-50); border: var(--border); border-radius: var(--radius-lg); padding: 20px 24px; margin-top: 16px; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; color: var(--black); line-height: 1.5; }
+  .model-landing span { color: var(--green); }
+  .mid-cta { margin-top: 28px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
+  /* FEATURE LIST (4 things, signal categories, push elements) */
+  .feat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+  .feat-grid.cols-4 { grid-template-columns: repeat(4, 1fr); }
+  .feat-cell { background: white; padding: 24px 22px; }
+  .feat-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  .feat-title { font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 7px; line-height: 1.35; }
+  .feat-body { font-size: 13px; color: var(--gray-500); line-height: 1.65; }
+
+  /* SIMPLE LIST */
+  .list-block { border: var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .list-item { padding: 14px 20px; border-bottom: var(--border); font-size: 13px; color: #4B5563; line-height: 1.6; display: flex; gap: 12px; align-items: flex-start; }
+  .list-item:last-child { border-bottom: none; }
+  .list-item strong { color: var(--black); font-weight: 600; }
+  .dot-g { width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 8px; }
+  .dot-n { width: 5px; height: 5px; border-radius: 50%; background: var(--gray-300); flex-shrink: 0; margin-top: 8px; }
+  .list-block.muted .list-item { color: var(--gray-500); }
+
+  /* NUMBERED STEPS */
+  .steps { border: var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .step { display: flex; align-items: flex-start; gap: 18px; padding: 18px 22px; border-bottom: var(--border); }
+  .step:last-child { border-bottom: none; }
+  .step-badge { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--gray-300); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--gray-500); font-weight: 600; flex-shrink: 0; }
+  .step-name { font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 3px; }
+  .step-body { font-size: 13px; color: var(--gray-500); line-height: 1.6; }
+
+  /* NOTE */
+  .note { background: var(--gray-50); border: var(--border); border-left: 3px solid var(--green); border-radius: 0 var(--radius) var(--radius) 0; padding: 16px 20px; font-size: 13px; color: #4B5563; line-height: 1.7; max-width: 720px; }
+  .note strong { color: var(--black); font-weight: 600; }
+  .warm-note { background: #FFFBF5; border: 1px solid #E8C98A; border-radius: var(--radius-lg); padding: 20px; font-size: 13px; color: #5C4A1E; line-height: 1.7; max-width: 720px; }
+  .warm-note strong { display: block; color: #3A2D0E; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+
+  /* MESSAGE COMPARISON */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .msg { border: var(--border); border-radius: var(--radius-lg); overflow: hidden; display: flex; flex-direction: column; }
+  .msg-head { padding: 12px 20px; border-bottom: var(--border); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+  .msg.before .msg-head { background: var(--gray-50); color: var(--gray-400); }
+  .msg.after .msg-head { background: var(--green-light); color: #166534; }
+  .msg-body { padding: 20px; font-size: 14px; color: #4B5563; line-height: 1.75; flex: 1; }
+  .msg.before .msg-body { color: var(--gray-500); }
+  .msg-foot { padding: 12px 20px; border-top: var(--border); font-size: 12px; color: var(--gray-400); line-height: 1.55; }
+
+  /* INFRA COLUMNS */
+  .infra { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+  .infra-cell { background: white; padding: 18px 20px; font-size: 13px; color: #4B5563; line-height: 1.55; }
+
+  /* FAILURE MODES */
+  .fail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+  .fail-cell { background: white; padding: 24px 22px; }
+  .fail-title { font-size: 14px; font-weight: 600; color: var(--black); margin-bottom: 8px; }
+  .fail-body { font-size: 13px; color: var(--gray-500); line-height: 1.65; }
+
+  /* DIAGNOSIS */
+  .diag { border: var(--border); border-radius: var(--radius-lg); overflow: hidden; max-width: 860px; }
+  .diag-q { display: flex; align-items: center; gap: 20px; padding: 16px 22px; border-bottom: var(--border); }
+  .diag-q:last-of-type { border-bottom: none; }
+  .diag-text { flex: 1; font-size: 14px; color: #4B5563; line-height: 1.55; }
+  .diag-toggle { display: flex; gap: 6px; flex-shrink: 0; }
+  .diag-toggle button { font-family: inherit; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 6px 14px; border-radius: 5px; border: 1px solid var(--gray-200); background: white; color: var(--gray-400); cursor: pointer; }
+  .diag-toggle button:hover { border-color: var(--gray-300); color: var(--gray-500); }
+  .diag-toggle button[aria-pressed="true"][data-v="yes"] { background: var(--green-light); border-color: #86EFAC; color: #166534; }
+  .diag-toggle button[aria-pressed="true"][data-v="no"] { background: var(--black); border-color: var(--black); color: white; }
+  .diag-result { background: var(--gray-50); border-top: var(--border); padding: 20px 22px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .diag-score { font-size: 28px; font-weight: 700; letter-spacing: -0.04em; color: var(--black); line-height: 1; white-space: nowrap; }
+  .diag-score small { display: block; font-size: 11px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-400); margin-top: 5px; }
+  .diag-verdict { font-size: 13px; color: #4B5563; line-height: 1.65; flex: 1; min-width: 240px; }
+  .diag-verdict strong { color: var(--black); font-weight: 600; }
+
+  /* BRIDGE */
+  .bridge-split { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; }
+  .bridge-cell { background: white; padding: 28px 26px; }
+  .bridge-name { font-size: 24px; font-weight: 700; letter-spacing: -0.03em; color: var(--black); margin-bottom: 4px; }
+  .bridge-cadence { font-size: 12px; color: var(--gray-400); margin-bottom: 20px; }
+  .bridge-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .bridge-list li { font-size: 13px; color: #4B5563; display: flex; align-items: flex-start; gap: 9px; line-height: 1.5; }
+  .check { width: 14px; height: 14px; border-radius: 50%; background: var(--green-light); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .check::after { content: ''; width: 5px; height: 3px; border-left: 1.5px solid var(--green); border-bottom: 1.5px solid var(--green); transform: rotate(-45deg) translateY(-1px); display: block; }
+  .bridge-early { font-size: 12px; color: var(--gray-400); line-height: 1.65; margin-top: 18px; padding-top: 16px; border-top: var(--border); }
+
+  /* CTA */
+  .cta-block { background: var(--black); border-radius: var(--radius-lg); padding: 48px 40px; display: flex; align-items: center; justify-content: space-between; gap: 48px; flex-wrap: wrap; }
+  .cta-block h2 { font-size: 30px; font-weight: 700; letter-spacing: -0.03em; color: white; margin-bottom: 12px; max-width: 460px; }
+  .cta-block p { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 460px; margin-bottom: 10px; }
+  .cta-block p:last-child { margin-bottom: 0; }
+  .cta-block p strong { color: rgba(255,255,255,0.85); font-weight: 500; }
+  .cta-right { flex-shrink: 0; text-align: center; }
+  .btn-cta { display: block; background: white; color: var(--black); font-size: 14px; font-weight: 600; padding: 14px 28px; border-radius: 7px; text-decoration: none; white-space: nowrap; }
+  .btn-cta:hover { background: #f0f0f0; }
+  .cta-note { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 10px; max-width: 240px; line-height: 1.55; }
+  .cta-secondary { display: inline-block; margin-top: 14px; font-size: 13px; color: rgba(255,255,255,0.55); text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 2px; }
+  .cta-secondary:hover { color: white; }
+  .cta-prep { margin-top: 28px; background: var(--gray-50); border: var(--border); border-radius: var(--radius-lg); padding: 20px 24px; }
+  .cta-prep-title { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+  .cta-prep p { font-size: 13px; color: #4B5563; line-height: 1.7; }
+  .cta-prep p strong { color: var(--black); font-weight: 600; }
+
+  /* CLOSING */
+  .closing-split { padding: 40px 32px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; border-bottom: var(--border); }
+  .closing-quote { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; color: var(--black); line-height: 1.45; }
+  .closing-contact { font-size: 13px; color: var(--gray-500); line-height: 2; }
+  .closing-contact strong { display: block; font-size: 15px; color: var(--black); font-weight: 600; margin-bottom: 4px; }
+  .closing-contact a { color: var(--green); text-decoration: none; }
+  .closing-contact a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  .footer { padding: 28px 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .footer-logo { font-size: 15px; font-weight: 600; color: var(--black); letter-spacing: -0.02em; display: flex; align-items: center; gap: 7px; text-decoration: none; }
+  .footer-tagline { font-size: 12px; color: var(--gray-400); }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-links a { font-size: 12px; color: var(--gray-400); text-decoration: none; }
+  .footer-links a:hover { color: var(--black); }
+  .footer-legal { padding: 0 32px 28px; font-size: 11px; color: var(--gray-400); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .evidence-grid { grid-template-columns: 1fr 1fr; }
+    .model-grid { grid-template-columns: 1fr; }
+    .feat-grid.cols-4 { grid-template-columns: 1fr 1fr; }
+    .infra { grid-template-columns: 1fr 1fr; }
+    .fail-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding: 48px 20px; }
+    .hero h1 { font-size: 36px; }
+    .hero-sub { font-size: 16px; }
+    .section { padding: 48px 20px; }
+    .section-title { font-size: 28px; }
+    .evidence { padding: 32px 20px; }
+    .nav { padding: 16px 20px; }
+    .feat-grid { grid-template-columns: 1fr; }
+    .feat-grid.cols-4 { grid-template-columns: 1fr; }
+    .compare { grid-template-columns: 1fr; }
+    .bridge-split { grid-template-columns: 1fr; }
+    .fail-grid { grid-template-columns: 1fr; }
+    .infra { grid-template-columns: 1fr; }
+    .cta-block { flex-direction: column; align-items: flex-start; gap: 24px; padding: 32px 24px; }
+    .cta-right { width: 100%; text-align: left; }
+    .cta-note { max-width: none; }
+    .closing-split { grid-template-columns: 1fr; gap: 28px; padding: 32px 20px; }
+    .footer { flex-direction: column; align-items: flex-start; padding: 24px 20px; }
+    .footer-legal { padding: 0 20px 24px; }
+    .diag-q { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .pullquote p { font-size: 19px; }
+  }
+  @media (max-width: 480px) {
+    .evidence-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site">
+
+  <!-- NAV -->
+  <nav class="nav">
+    <a class="nav-logo" href="https://reveneering.com"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><polyline points="2,18 2,11 9,11 9,6 16,6 16,2" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reveneering</a>
+    <ul class="nav-links">
+      <li><a href="#model">The model</a></li>
+      <li><a href="#pull">Pull</a></li>
+      <li><a href="#signal">Signals</a></li>
+      <li><a href="#push">Push</a></li>
+      <li><a href="#diagnose">Diagnose your system</a></li>
+    </ul>
+    <a class="nav-cta" href="https://calendar.app.google/Bg3unregtTSK1Po2A" target="_blank" rel="noopener">Commercial Systems Diagnostic &rarr;</a>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-tag"><div class="hero-tag-dot"></div>AgTech Commercial System</div>
+    <h1>Outbound works better <em>after relevance exists.</em></h1>
+    <p class="hero-sub">Generic outbound asks buyers to care on the seller's schedule. Pull &rarr; Signal &rarr; Push builds recognition before the buying trigger, detects a real reason to engage, and starts the conversation at the right time.</p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#model">See the model &rarr;</a>
+      <a class="btn-secondary" href="#diagnose">Diagnose your system &rarr;</a>
+    </div>
+    <p class="hero-support">For Seed-to-Series B AgTech founders building the transition from founder-led to repeatable sales.</p>
+  </div>
+
+  <!-- EVIDENCE STRIP -->
+  <div class="evidence">
+    <div class="evidence-label">What the data shows</div>
+    <div class="evidence-grid">
+      <div class="ev-cell featured">
+        <div class="ev-num">7.5M</div>
+        <div class="ev-label">Cold emails analyzed across 2025 client campaigns.</div>
+        <div class="ev-src">Belkins</div>
+      </div>
+      <div class="ev-cell featured">
+        <div class="ev-num">30%</div>
+        <div class="ev-label">Decline across 2025, from a 0.50% first-half average to 0.35% in December.</div>
+        <div class="ev-src">Belkins</div>
+      </div>
+      <div class="ev-cell">
+        <div class="ev-num">67%</div>
+        <div class="ev-label">Of surveyed B2B buyers prefer a rep-free buying experience.</div>
+        <div class="ev-src">Gartner</div>
+      </div>
+      <div class="ev-cell">
+        <div class="ev-num">95%</div>
+        <div class="ev-label">Of winning vendors were already on the buyer's Day One shortlist.</div>
+        <div class="ev-src">6sense</div>
+      </div>
+    </div>
+    <p class="evidence-note">Different populations and methodologies &mdash; not one benchmark. Belkins counts unique replies against total sends, so its rates are not comparable with studies that measure replies against opens. Together they point to one problem: buyers now control when seller engagement begins. Sources: <a href="https://belkins.io/blog/cold-email-response-rates" target="_blank" rel="noopener nofollow">Belkins</a>, <a href="https://www.gartner.com/en/newsroom/press-releases/2026-03-09-gartner-sales-survey-finds-67-percent-of-b2b-buyers-prefer-a-rep-free-experience" target="_blank" rel="noopener nofollow">Gartner</a>, <a href="https://6sense.com/science-of-b2b/buyer-experience-report-2025/" target="_blank" rel="noopener nofollow">6sense</a>.</p>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="section" id="problem">
+    <div class="section-eyebrow">The attention problem</div>
+    <h2 class="section-title">Sellers gained infinite production. Buyers still have one inbox.</h2>
+    <div class="prose">
+      <p>AI made it trivial to build a list, enrich every account, generate a personalized opening, and run a sequence. Every other sales team has the same machinery.</p>
+      <p>That solved a production problem for sellers. It did not create more attention among buyers.</p>
+      <p>Growing AgTech ventures from zero taught me that sitting neatly inside your ICP does not mean someone has been waiting for your email. They may have the problem, the budget, and the right title &mdash; and still not care today.</p>
+    </div>
+    <div class="pullquote"><p>The buyer still has one inbox.</p></div>
+    <div class="prose">
+      <p>Gartner found that <strong>73% of B2B buyers actively avoid suppliers that send irrelevant outreach.</strong> A polished message is still irrelevant when it arrives without timing, context, or a problem the buyer wants to solve today.</p>
+      <p>The answer is not to stop outbound and hope buyers find the website. It is to change the sequence.</p>
+    </div>
+  </div>
+
+  <!-- THE MODEL -->
+  <div class="section" id="model">
+    <div class="section-eyebrow">The commercial model</div>
+    <h2 class="section-title">Pull &rarr; Signal &rarr; Push</h2>
+    <p class="section-sub">Three motions, three different jobs. Treating any one of them as the whole strategy creates a predictable weakness.</p>
+    <div class="model-grid">
+      <div class="model-cell">
+        <div class="model-num">01</div>
+        <div class="model-icon"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg></div>
+        <div class="model-name">Pull</div>
+        <div class="model-lead">Become known before the trigger.</div>
+        <div class="model-body">Teach the problem, show judgment, and earn recognition before a buyer enters an active purchase.</div>
+      </div>
+      <div class="model-cell">
+        <div class="model-num">02</div>
+        <div class="model-icon"><svg viewBox="0 0 24 24"><path d="M4 14h3l2.5-7 3 14 2.5-9 2 4h3"/></svg></div>
+        <div class="model-name">Signal</div>
+        <div class="model-lead">Find a legitimate "why now."</div>
+        <div class="model-body">Watch for changes in the account, the buyer, and the relationship that suggest the problem just became relevant.</div>
+      </div>
+      <div class="model-cell">
+        <div class="model-num">03</div>
+        <div class="model-icon"><svg viewBox="0 0 24 24"><path d="M4 12h14"/><path d="M13 6l6 6-6 6"/></svg></div>
+        <div class="model-name">Push</div>
+        <div class="model-lead">Enter with context and something useful.</div>
+        <div class="model-body">Selective human outreach turns recognition and timing into a conversation. Automation cannot manufacture interest that is not there.</div>
+      </div>
+    </div>
+    <div class="model-landing">Pull earns permission. <span>Signals create timing.</span> Push starts the conversation.</div>
+    <div class="mid-cta">
+      <a class="btn-primary" href="#diagnose">Test your current system &rarr;</a>
+      <a class="btn-secondary" href="#pull">Start with Pull &rarr;</a>
+    </div>
+  </div>
+
+  <!-- PULL -->
+  <div class="section" id="pull">
+    <div class="section-eyebrow">01 &middot; Pull</div>
+    <h2 class="section-title">Teach the problem before you sell the answer.</h2>
+    <div class="prose">
+      <p>AgTech buyers rarely name the problem in your language. A grower thinks about labor, yield variability, or the risk of changing a proven process. A food company thinks about continuity of supply. A distributor thinks about margin. None of them wakes up asking for your product category.</p>
+      <p>Pull closes that gap. It makes the market recognize the problem and associate your company with a credible way of thinking about it. <strong>That is not the same as more content.</strong> Two sharp, evidence-backed ideas repeated consistently beat a daily stream of generic advice.</p>
+    </div>
+
+    <div class="stack-48">
+      <div class="sub-h">Strong pull contains four things</div>
+      <div class="feat-grid cols-4">
+        <div class="feat-cell">
+          <div class="feat-tag">01</div>
+          <div class="feat-title">A recognizable problem</div>
+          <div class="feat-body">Something the buyer already lives with: pilots that never become rollouts, a sales hire with nothing repeatable to inherit, a product users love but economic buyers cannot justify.</div>
+        </div>
+        <div class="feat-cell">
+          <div class="feat-tag">02</div>
+          <div class="feat-title">A distinct point of view</div>
+          <div class="feat-body">Why the conventional diagnosis is incomplete. More leads will not repair weak qualification. A CRM will not turn founder intuition into a sales system.</div>
+        </div>
+        <div class="feat-cell">
+          <div class="feat-tag">03</div>
+          <div class="feat-title">Evidence that reduces risk</div>
+          <div class="feat-body">Operating experience, customer outcomes, buyer maps, benchmarks, original research. In agriculture, field-level proof carries more weight than confident language.</div>
+        </div>
+        <div class="feat-cell">
+          <div class="feat-tag">04</div>
+          <div class="feat-title">A useful next step</div>
+          <div class="feat-body">A checklist, assessment, buyer map, or direct question. It should create value even if no sales conversation follows.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack-48">
+      <div class="sub-h">Pull channels that fit a founder-led AgTech company</div>
+      <div class="list-block">
+        <div class="list-item"><div class="dot-g"></div><div>A founder's point of view on one commercially important problem.</div></div>
+        <div class="list-item"><div class="dot-g"></div><div>Original research or a small benchmark the market cannot find elsewhere.</div></div>
+        <div class="list-item"><div class="dot-g"></div><div>Customer evidence tied to a buyer decision, not only a technical result.</div></div>
+        <div class="list-item"><div class="dot-g"></div><div>Buyer maps showing who uses, pays, approves, blocks, and carries risk.</div></div>
+        <div class="list-item"><div class="dot-g"></div><div>Small roundtables with investors, accelerators, operators, and buyers.</div></div>
+        <div class="list-item"><div class="dot-g"></div><div>Partnerships with the communities and institutions buyers already trust.</div></div>
+      </div>
+    </div>
+
+    <div class="stack-36">
+      <div class="warm-note">
+        <strong>What pull is not</strong>
+        Pull is not passive inbound. You still define the accounts you want, choose the problems you intend to own, distribute deliberately, and watch for evidence that timing has changed. Pull creates the conditions for a better interaction. It does not remove the need to initiate one.
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNAL -->
+  <div class="section" id="signal">
+    <div class="section-eyebrow">02 &middot; Signal</div>
+    <h2 class="section-title">Fit tells you who could buy. Signals suggest who may care now.</h2>
+    <div class="prose">
+      <p>An ICP describes potential fit. It is not evidence of demand, urgency, budget, or permission.</p>
+      <p>A signal is an observable change that may alter one of those conditions. <strong>The word "may" matters.</strong> A funding announcement is not permission to send the same congratulatory pitch as everyone else. It is a reason to investigate what the funding changes.</p>
+    </div>
+    <div class="pullquote"><p>An ICP is not permission.</p></div>
+
+    <div class="stack-36">
+      <div class="sub-h">Four useful signal categories</div>
+      <div class="feat-grid">
+        <div class="feat-cell">
+          <div class="feat-tag">Company</div>
+          <div class="feat-body">Funding, new geography, product launch, acquisition, a new facility, rapid hiring, a partnership, or a change in route to market.</div>
+        </div>
+        <div class="feat-cell">
+          <div class="feat-tag">Leadership</div>
+          <div class="feat-body">A new CEO, commercial leader, operations executive, or former champion joining. Role changes create new priorities and openness to change.</div>
+        </div>
+        <div class="feat-cell">
+          <div class="feat-tag">Problem</div>
+          <div class="feat-body">A stalled pilot portfolio, an announced production target, new regulation, supply volatility, labor pressure, a missed season, or channel conflict.</div>
+        </div>
+        <div class="feat-cell">
+          <div class="feat-tag">Relationship &amp; engagement</div>
+          <div class="feat-body">A referral, roundtable participation, a substantive comment, repeated engagement with one problem, a customer introduction. Often more permission than anonymous intent data.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stack-48">
+      <div class="sub-h">Before acting on a signal, answer four questions</div>
+      <div class="steps">
+        <div class="step"><div class="step-badge">1</div><div><div class="step-name">What actually changed?</div></div></div>
+        <div class="step"><div class="step-badge">2</div><div><div class="step-name">Why could that make this problem more important now?</div></div></div>
+        <div class="step"><div class="step-badge">3</div><div><div class="step-name">Who inside the buying system is affected?</div></div></div>
+        <div class="step"><div class="step-badge">4</div><div><div class="step-name">What perspective, evidence, or access can we contribute?</div></div></div>
+      </div>
+      <div class="stack-24">
+        <div class="note">If the fourth answer is <strong>"a request for 15 minutes,"</strong> the signal is not ready.</div>
+      </div>
+    </div>
+
+    <div class="stack-48">
+      <div class="sub-h">Signals that are often overvalued</div>
+      <div class="list-block muted">
+        <div class="list-item"><div class="dot-n"></div><div>A generic like on your content, unconnected to the problem.</div></div>
+        <div class="list-item"><div class="dot-n"></div><div>Account-level intent with no identifiable buyer or context.</div></div>
+        <div class="list-item"><div class="dot-n"></div><div>A funding announcement that changes nothing operationally.</div></div>
+        <div class="list-item"><div class="dot-n"></div><div>A job posting copied into an automated message.</div></div>
+        <div class="list-item"><div class="dot-n"></div><div>A website visit treated as proof of buying intent.</div></div>
+      </div>
+      <div class="stack-24">
+        <div class="note"><strong>A signal should change the sales decision,</strong> not merely provide a new first sentence.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PUSH -->
+  <div class="section" id="push">
+    <div class="section-eyebrow">03 &middot; Push</div>
+    <h2 class="section-title">Start fewer conversations with better reasons.</h2>
+    <div class="prose">
+      <p>Outbound still matters. Waiting for a form submission means arriving after the shortlist is built. Push converts earned relevance and observed timing into an interaction before that window closes.</p>
+      <p>Modern push is selective. It starts with judgment, not a sequence: is there a legitimate reason to engage, who should be involved, which channel carries the most permission, and what does the recipient gain from replying.</p>
+    </div>
+
+    <div class="stack-48">
+      <div class="sub-h">A useful push motion contains five elements</div>
+      <div class="steps">
+        <div class="step"><div class="step-badge">1</div><div><div class="step-name">A real reason for this account</div><div class="step-body">The account fits the market and something meaningful has changed.</div></div></div>
+        <div class="step"><div class="step-badge">2</div><div><div class="step-name">A real reason for this person</div><div class="step-body">They own, experience, or carry risk for the problem. Seniority alone is not relevance.</div></div></div>
+        <div class="step"><div class="step-badge">3</div><div><div class="step-name">A real reason for now</div><div class="step-body">The signal credibly connects this moment to the commercial problem.</div></div></div>
+        <div class="step"><div class="step-badge">4</div><div><div class="step-name">Something useful before the ask</div><div class="step-body">A benchmark, operating pattern, introduction, or field insight that helps them think. "I noticed you raised money" is not insight.</div></div></div>
+        <div class="step"><div class="step-badge">5</div><div><div class="step-name">The least intrusive credible channel</div><div class="step-body">A relationship beats a referral. A referral beats a shared community. That beats a cold message. Use the warmest honest path.</div></div></div>
+      </div>
+    </div>
+
+    <div class="stack-48">
+      <div class="sub-h">Example: an autonomous laser weeder selling into a vegetable operation</div>
+      <div class="compare">
+        <div class="msg before">
+          <div class="msg-head">Personalized outbound</div>
+          <div class="msg-body">"Congratulations on expanding your organic acreage. Our autonomous laser weeder removes weeds with no chemicals and no hand crews. Would you be open to a 15-minute call?"</div>
+          <div class="msg-foot">Correct facts, right title. No reason for this person, and no reason for now.</div>
+        </div>
+        <div class="msg after">
+          <div class="msg-head">Signal-led push</div>
+          <div class="msg-body">"You filed for 60 H-2A weeding positions this season, up from 35, and moved another 800 acres into organic romaine. In operations that size, it is usually the second and third weeding passes that break the labor budget, not the first. I mapped pass-by-pass cost against machine coverage for three growers in your valley. Happy to send it &mdash; useful whether or not you ever look at a machine."</div>
+          <div class="msg-foot">Ties a public labor filing to the cost line the ops lead already feels, and leads with evidence instead of a demo.</div>
+        </div>
+      </div>
+      <div class="stack-24">
+        <div class="note">The second message does not win because it is longer. It wins because it connects a <strong>real change</strong> (labor filings, acreage shift) to a <strong>credible problem</strong> (weeding passes, not weeds) and reaches the person who owns that budget. Teaching evidence, not a template.</div>
+      </div>
+    </div>
+
+    <div class="stack-48">
+      <div class="sub-h">What push is not</div>
+      <div class="list-block muted">
+        <div class="list-item"><div class="dot-n"></div><div>The same sequence to every account matching the ICP.</div></div>
+        <div class="list-item"><div class="dot-n"></div><div>Treating AI-generated research as a relationship.</div></div>
+        <div class="list-item"><div class="dot-n"></div><div>Converting every engagement signal into an immediate pitch.</div></div>
+        <div class="list-item"><div class="dot-n"></div><div>Asking for a meeting because the automation needs an outcome.</div></div>
+        <div class="list-item"><div class="dot-n"></div><div>A generic value proposition hidden behind a topical opening line.</div></div>
+      </div>
+      <div class="stack-24">
+        <div class="note">The goal is not maximum outreach. It is <strong>maximum relevance</strong> among the few accounts where action is justified.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OPERATING SYSTEM -->
+  <div class="section" id="system">
+    <div class="section-eyebrow">How the parts connect</div>
+    <h2 class="section-title">One commercial system, not three campaigns.</h2>
+    <p class="section-sub">Pull, Signal, and Push compound when they share the same market definition, buyer logic, evidence, and learning loop.</p>
+
+    <div class="steps">
+      <div class="step"><div class="step-badge">1</div><div><div class="step-name">Define the narrow commercial problem</div><div class="step-body">A buyer, use case, economic consequence, and transition moment you can credibly own.</div></div></div>
+      <div class="step"><div class="step-badge">2</div><div><div class="step-name">Teach and prove it in the market</div><div class="step-body">Build a small body of evidence around that problem. Distribute it through people the buyer already trusts.</div></div></div>
+      <div class="step"><div class="step-badge">3</div><div><div class="step-name">Build the account universe</div><div class="step-body">Companies that could experience the problem &mdash; without assuming they are buying.</div></div></div>
+      <div class="step"><div class="step-badge">4</div><div><div class="step-name">Monitor meaningful changes</div><div class="step-body">Company, leadership, problem, and relationship signals that could alter timing.</div></div></div>
+      <div class="step"><div class="step-badge">5</div><div><div class="step-name">Interpret before activating</div><div class="step-body">Connect the signal to the buying context. Sometimes the correct action is to do nothing yet.</div></div></div>
+      <div class="step"><div class="step-badge">6</div><div><div class="step-name">Engage with a useful contribution</div><div class="step-body">Best available relationship, least intrusive credible channel.</div></div></div>
+      <div class="step"><div class="step-badge">7</div><div><div class="step-name">Capture what the market teaches you</div><div class="step-body">Feed objections, buyer language, and lost-deal evidence back into the content, signal rules, and sales process.</div></div></div>
+    </div>
+
+    <div class="stack-48">
+      <div class="sub-h">Infrastructure beneath the sequence</div>
+      <div class="infra">
+        <div class="infra-cell">A narrow account and buyer definition.</div>
+        <div class="infra-cell">A map of users, economic buyers, approvers, blockers, and risk holders.</div>
+        <div class="infra-cell">A clear point of view on the commercial problem.</div>
+        <div class="infra-cell">Evidence matched to each stakeholder's decision.</div>
+        <div class="infra-cell">A signal taxonomy and prioritization rules.</div>
+        <div class="infra-cell">A relationship map and channel hierarchy.</div>
+        <div class="infra-cell">Outreach built on insight, not cosmetic personalization.</div>
+        <div class="infra-cell">Sales stages based on buyer commitment.</div>
+        <div class="infra-cell">A CRM and operating cadence that preserve learning.</div>
+      </div>
+      <div class="stack-24">
+        <div class="note">This is the part most diagrams leave out. <strong>The three arrows are simple. Building the infrastructure beneath them is the work.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAILURE MODES -->
+  <div class="section" id="failure">
+    <div class="section-eyebrow">Where the model breaks</div>
+    <h2 class="section-title">Most teams overinvest in one motion.</h2>
+    <div class="fail-grid">
+      <div class="fail-cell">
+        <div class="fail-title">Push without Pull</div>
+        <div class="fail-body">Every email has to create awareness, education, credibility, urgency, and a meeting in one heroic paragraph.</div>
+      </div>
+      <div class="fail-cell">
+        <div class="fail-title">Pull without Push</div>
+        <div class="fail-body">Relevant accounts read quietly, form a shortlist, and never create a visible inbound event.</div>
+      </div>
+      <div class="fail-cell">
+        <div class="fail-title">Signals without judgment</div>
+        <div class="fail-body">Every funding round and website visit triggers automation. Fresh context, same old pitch.</div>
+      </div>
+      <div class="fail-cell">
+        <div class="fail-title">Push without a buyer map</div>
+        <div class="fail-body">The team contacts the most senior title, not the person who feels the problem or carries the implementation risk.</div>
+      </div>
+      <div class="fail-cell">
+        <div class="fail-title">Content without a commercial belief</div>
+        <div class="fail-body">The company explains the industry but never teaches why the current way of solving the problem is incomplete.</div>
+      </div>
+      <div class="fail-cell">
+        <div class="fail-title">Activity without learning</div>
+        <div class="fail-body">The CRM counts sends and meetings but never captures which trigger or commitment actually advanced the deal.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOUNDER STARTING POINT -->
+  <div class="section" id="start">
+    <div class="section-eyebrow">Start here</div>
+    <h2 class="section-title">You do not need fifty signals and a media company.</h2>
+    <p class="section-sub">A founder-led team can start much smaller. The next 30 days:</p>
+
+    <div class="feat-grid">
+      <div class="feat-cell">
+        <div class="feat-tag">Week 1</div>
+        <div class="feat-title">Choose one commercial problem</div>
+        <div class="feat-body">The one that appears repeatedly in qualified conversations and directly affects a buying decision. Not everything the product can do.</div>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-tag">Weekly</div>
+        <div class="feat-title">Publish one useful argument</div>
+        <div class="feat-body">Why the problem occurs, what buyers misunderstand, what evidence changes the decision. Specific experience, not generic advice.</div>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-tag">Week 2</div>
+        <div class="feat-title">Define five meaningful signals</div>
+        <div class="feat-body">Signals that plausibly change urgency for that problem. Write down what each means, who it affects, and what would justify outreach.</div>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-tag">Weeks 2&ndash;3</div>
+        <div class="feat-title">Map twenty-five priority accounts</div>
+        <div class="feat-body">Buyer system, known relationships, current evidence, likely trigger. Twenty-five understood accounts beat 5,000 enriched contacts.</div>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-tag">Week 3</div>
+        <div class="feat-title">Create one useful contribution</div>
+        <div class="feat-body">A checklist, benchmark, or buyer map that makes the first interaction valuable even if they never buy.</div>
+      </div>
+      <div class="feat-cell">
+        <div class="feat-tag">Ongoing</div>
+        <div class="feat-title">Review interactions weekly</div>
+        <div class="feat-body">Which ideas created recognition, which signals produced real timing, which conversations advanced. Improve before increasing volume.</div>
+      </div>
+    </div>
+
+    <div class="stack-24">
+      <div class="note">Enough to learn whether the model has traction. <strong>Not enough to make it repeatable across a team.</strong> That requires the underlying commercial infrastructure.</div>
+    </div>
+  </div>
+
+  <!-- SELF-DIAGNOSIS -->
+  <div class="section" id="diagnose">
+    <div class="section-eyebrow">Test your current system</div>
+    <h2 class="section-title">Where is your commercial motion weakest?</h2>
+    <p class="section-sub">Seven questions. Nothing is submitted, stored, or gated.</p>
+
+    <div class="diag" id="diagBoard">
+      <div class="diag-q">
+        <div class="diag-text">1. Can your team name the commercial problem you want the market to associate with you?</div>
+        <div class="diag-toggle"><button type="button" data-v="yes" aria-pressed="false">Yes</button><button type="button" data-v="no" aria-pressed="false">No</button></div>
+      </div>
+      <div class="diag-q">
+        <div class="diag-text">2. Do target buyers encounter useful evidence from you before anyone asks for a meeting?</div>
+        <div class="diag-toggle"><button type="button" data-v="yes" aria-pressed="false">Yes</button><button type="button" data-v="no" aria-pressed="false">No</button></div>
+      </div>
+      <div class="diag-q">
+        <div class="diag-text">3. Can you distinguish a strong-fit account from an account with a credible reason to act now?</div>
+        <div class="diag-toggle"><button type="button" data-v="yes" aria-pressed="false">Yes</button><button type="button" data-v="no" aria-pressed="false">No</button></div>
+      </div>
+      <div class="diag-q">
+        <div class="diag-text">4. Have you defined which signals justify research, outreach, nurture, or no action?</div>
+        <div class="diag-toggle"><button type="button" data-v="yes" aria-pressed="false">Yes</button><button type="button" data-v="no" aria-pressed="false">No</button></div>
+      </div>
+      <div class="diag-q">
+        <div class="diag-text">5. Does each outbound interaction offer something useful beyond a product pitch?</div>
+        <div class="diag-toggle"><button type="button" data-v="yes" aria-pressed="false">Yes</button><button type="button" data-v="no" aria-pressed="false">No</button></div>
+      </div>
+      <div class="diag-q">
+        <div class="diag-text">6. Can a salesperson explain the buying system without relying on the founder's memory?</div>
+        <div class="diag-toggle"><button type="button" data-v="yes" aria-pressed="false">Yes</button><button type="button" data-v="no" aria-pressed="false">No</button></div>
+      </div>
+      <div class="diag-q">
+        <div class="diag-text">7. Does your CRM record buyer commitments and trigger context, or only seller activity?</div>
+        <div class="diag-toggle"><button type="button" data-v="yes" aria-pressed="false">Yes</button><button type="button" data-v="no" aria-pressed="false">No</button></div>
+      </div>
+      <div class="diag-result">
+        <div class="diag-score"><span id="diagCount">0</span> / 7<small>Answered &ldquo;no&rdquo;</small></div>
+        <div class="diag-verdict" id="diagVerdict">If several answers are &ldquo;no,&rdquo; the problem is probably not your subject line. The commercial system underneath it is incomplete.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- REVENEERING BRIDGE -->
+  <div class="section" id="reveneering">
+    <div class="section-eyebrow">Build the infrastructure</div>
+    <h2 class="section-title">Turn founder intuition into a system your team can run.</h2>
+    <p class="section-sub">Reveneering works with technically strong, commercially under-resourced U.S. AgTech founders at Seed through Series B.</p>
+
+    <div class="bridge-split">
+      <div class="bridge-cell">
+        <div class="bridge-name">The Commercial Quarter</div>
+        <div class="bridge-cadence">A 90-day engagement</div>
+        <div class="prose">
+          <p>Builds the permanent infrastructure beneath repeatable growth. Scope follows your binding constraint: market focus, buyer-system design, qualification, sales stages, proof architecture, signal strategy, outreach testing, CRM logic, operating cadence.</p>
+          <p><strong>The objective is not to become your outsourced sales department.</strong> It is to leave you with a commercial system that no longer exists only inside the founder's head.</p>
+        </div>
+      </div>
+      <div class="bridge-cell">
+        <div class="feat-tag">Likely relevant when</div>
+        <ul class="bridge-list">
+          <li><span class="check"></span>Pilots or early customers are not converting predictably.</li>
+          <li><span class="check"></span>The founder still carries most important opportunities.</li>
+          <li><span class="check"></span>A first or next sales hire needs something repeatable to inherit.</li>
+          <li><span class="check"></span>Pipeline activity is rising but forecast confidence is not.</li>
+          <li><span class="check"></span>You have raised capital and need to turn commercial promises into infrastructure.</li>
+          <li><span class="check"></span>A new market or channel needs more than a copy of the existing motion.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- FINAL CTA -->
+  <div class="section" id="diagnostic">
+    <div class="cta-block">
+      <div>
+        <h2>Find the constraint before you add more activity.</h2>
+        <p>A <strong>30-minute working conversation.</strong> We examine your trigger, buying system, commercial evidence, and founder dependence to find the constraint most likely to block repeatability.</p>
+        <p>If The Commercial Quarter is a credible fit, we will explain why. <strong>If it is not, we will say that too.</strong></p>
+      </div>
+      <div class="cta-right">
+        <a class="btn-cta" href="https://calendar.app.google/Bg3unregtTSK1Po2A" target="_blank" rel="noopener">Request a Commercial Systems Diagnostic</a>
+        <div class="cta-note">For U.S.-focused AgTech companies from Seed to Series B with real commercial evidence and a problem worth fixing in the next 90 days.</div>
+        <a class="cta-secondary" href="https://reveneering.com/#pricing">Learn about The Commercial Quarter &rarr;</a>
+      </div>
+    </div>
+    <div class="cta-prep">
+      <div class="cta-prep-title">Before the call</div>
+      <p>Come with two answers ready: <strong>what changed to make this problem important now,</strong> and <strong>what commercial outcome needs to improve in the next 90 days.</strong> Brief is fine. No automated sequence follows &mdash; Alexander reviews every request personally.</p>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing-split">
+    <div class="closing-quote">Pull earns permission. Signals create timing. Push starts the conversation.</div>
+    <div class="closing-contact">
+      <strong>Reveneering</strong>
+      Dallas, TX &middot; Revenue Engineered<br>
+      Alexander Kappes, Chief Revenue Officer<br>
+      <a href="https://calendar.app.google/Bg3unregtTSK1Po2A" target="_blank" rel="noopener">Book a call &rarr;</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <a class="footer-logo" href="https://reveneering.com"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><polyline points="2,18 2,11 9,11 9,6 16,6 16,2" stroke="#16a34a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reveneering</a>
+    <div class="footer-tagline">Commercial systems for the founder-to-team transition in AgTech.</div>
+    <div class="footer-links">
+      <a href="https://reveneering.com/#pricing">The Commercial Quarter</a>
+      <a href="https://reveneering.com/#proof">About Alexander</a>
+      <a href="https://calendar.app.google/Bg3unregtTSK1Po2A" target="_blank" rel="noopener">Contact</a>
+    </div>
+  </footer>
+  <div class="footer-legal">&copy; 2026 Reveneering. All rights reserved.</div>
+
+</div>
+
+<script>
+(function () {
+  var board = document.getElementById('diagBoard');
+  var countEl = document.getElementById('diagCount');
+  var verdictEl = document.getElementById('diagVerdict');
+  if (!board) return;
+
+  var DEFAULT_TEXT = 'If several answers are &ldquo;no,&rdquo; the problem is probably not your subject line. The commercial system underneath it is incomplete.';
+
+  board.addEventListener('click', function (e) {
+    var btn = e.target.closest('button[data-v]');
+    if (!btn) return;
+    var group = btn.parentNode;
+    var already = btn.getAttribute('aria-pressed') === 'true';
+    group.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    if (!already) btn.setAttribute('aria-pressed', 'true');
+    render();
+  });
+
+  function render() {
+    var groups = board.querySelectorAll('.diag-toggle');
+    var no = 0, answered = 0;
+    groups.forEach(function (g) {
+      var yes = g.querySelector('[data-v="yes"]').getAttribute('aria-pressed') === 'true';
+      var nope = g.querySelector('[data-v="no"]').getAttribute('aria-pressed') === 'true';
+      if (yes || nope) answered++;
+      if (nope) no++;
+    });
+    countEl.textContent = no;
+
+    if (answered === 0) { verdictEl.innerHTML = DEFAULT_TEXT; return; }
+    if (answered < groups.length) {
+      verdictEl.innerHTML = answered + ' of ' + groups.length + ' answered. Keep going &mdash; the pattern matters more than any single question.';
+      return;
+    }
+    if (no === 0) {
+      verdictEl.innerHTML = '<strong>Your commercial system is documented.</strong> If results are still inconsistent, the constraint is more likely execution discipline or market focus than infrastructure.';
+    } else if (no <= 2) {
+      verdictEl.innerHTML = '<strong>Mostly built, with specific gaps.</strong> Fix the weak areas before adding volume. Activity on top of a known gap multiplies the gap.';
+    } else if (no <= 4) {
+      verdictEl.innerHTML = '<strong>Partially built and heavily founder-dependent.</strong> A first sales hire would inherit judgment that has never been written down.';
+    } else {
+      verdictEl.innerHTML = '<strong>The system underneath your outreach is incomplete.</strong> More messaging iterations or more volume will not resolve this. The constraint is infrastructure, not copy.';
+    }
+  }
+})();
+</script>
+</body>
+</html>
