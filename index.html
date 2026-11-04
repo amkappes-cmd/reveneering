@@ -262,7 +262,8 @@
   .founder-block { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gray-200); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 36px; }
   .founder-left { background: white; padding: 32px 28px; }
   .founder-right { background: white; padding: 32px 28px; }
-  .founder-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--gray-100); border: var(--border); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 600; color: var(--gray-500); margin-bottom: 16px; }
+  .founder-avatar { width: 48px; height: 48px; border-radius: 50%; background: var(--gray-100); border: var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 16px; }
+  .founder-avatar img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.6); transform-origin: 50% 28%; }
   .founder-name { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; color: var(--black); margin-bottom: 3px; }
   .founder-role { font-size: 13px; color: var(--gray-500); margin-bottom: 18px; }
   .founder-bio { font-size: 13px; color: #4B5563; line-height: 1.7; }
@@ -651,7 +652,7 @@
     <p class="section-sub">The commercial methodology behind Reveneering was developed across real deployments, with agricultural buyers, in the field, over several years.</p>
     <div class="founder-block">
       <div class="founder-left">
-        <div class="founder-avatar">AK</div>
+        <div class="founder-avatar"><img src="alexander-kappes.png" alt="Alexander Kappes" width="48" height="48" loading="lazy"></div>
         <div class="founder-name">Alexander Kappes</div>
         <div class="founder-role">Founder &amp; Chief Revenue Officer &middot; Reveneering &middot; Dallas, TX</div>
         <div class="founder-bio">
